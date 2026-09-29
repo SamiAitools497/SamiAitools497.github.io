@@ -1,3082 +1,2171 @@
-<!doctype html>
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <meta name="description" content="Sami AI Tools — AI and productivity subscriptions with WhatsApp ordering and bilingual support.">
-  <meta name="theme-color" content="#070711">
-  <meta name="robots" content="index,follow">
-
-  <meta property="og:title" content="Sami AI Tools — Premium AI Subscriptions">
-  <meta property="og:description" content="Browse AI and productivity subscriptions and place an order through WhatsApp.">
-  <meta property="og:type" content="website">
-
-  <title>Sami AI Tools — Premium AI Subscriptions</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #070711;
-      --surface: #10101d;
-      --surface-2: #151528;
-      --text: #f4f4fb;
-      --muted: #9696ae;
-      --line: rgba(255,255,255,.09);
-
-      --primary: #7567f8;
-      --primary-2: #a855f7;
-
-      --success: #25d366;
-      --success-dark: #128c7e;
-
-      --danger: #ff5d6c;
-      --warning: #ffb020;
-
-      --radius: 18px;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, sans-serif;
-      overflow-x: hidden;
-    }
-
-    body.urdu {
-      font-family: "Noto Naskh Arabic", serif;
-    }
-
-    body.urdu * {
-      font-family: inherit;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -30%;
-      z-index: -2;
-
-      background:
-        radial-gradient(
-          circle at 20% 20%,
-          rgba(117,103,248,.20),
-          transparent 32%
-        ),
-        radial-gradient(
-          circle at 80% 70%,
-          rgba(168,85,247,.16),
-          transparent 32%
-        ),
-        radial-gradient(
-          circle at 50% 100%,
-          rgba(37,211,102,.07),
-          transparent 30%
-        );
-
-      animation: backgroundMove 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes backgroundMove {
-      to {
-        transform: translate(-3%,-2%) scale(1.05);
-      }
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 28px));
-      margin: auto;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-
-      background: rgba(7,7,17,.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav {
-      min-height: 68px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 12px;
-    }
-
-    .brand {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: -.5px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #fff,
-          #8d82ff,
-          #d48cff
-        );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* =========================
-       LANGUAGE SWITCH
-    ========================= */
-
-    .lang {
-      display: flex;
-
-      padding: 3px;
-
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-
-      border-radius: 999px;
-    }
-
-    .lang button {
-      border: 0;
-      background: transparent;
-
-      color: var(--muted);
-
-      padding: 7px 11px;
-
-      border-radius: 999px;
-
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .lang button.active {
-      background:
-        linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-2)
-        );
-
-      color: white;
-    }
-
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    .cart-btn,
-    .primary-btn {
-      border: 0;
-      color: white;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-2)
-        );
-
-      box-shadow:
-        0 10px 28px rgba(117,103,248,.25);
-    }
-
-    .cart-btn {
-      border-radius: 999px;
-      padding: 10px 15px;
-      font-weight: 800;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      text-align: center;
-      padding: 76px 0 44px;
-    }
-
-    .badge {
-      display: inline-flex;
-
-      border:
-        1px solid rgba(117,103,248,.35);
-
-      background:
-        rgba(117,103,248,.10);
-
-      color: #bdb7ff;
-
-      border-radius: 999px;
-
-      padding: 7px 13px;
-
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .7px;
-    }
-
-    h1 {
-      font-size: clamp(36px,7vw,64px);
-
-      line-height: 1.05;
-      letter-spacing: -2.5px;
-
-      margin: 18px auto;
-
-      max-width: 850px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #fff 15%,
-          #aaa3ff 60%,
-          #d78bff
-        );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      color: transparent;
-    }
-
-    .hero p {
-      max-width: 650px;
-
-      margin: auto;
-
-      color: var(--muted);
-
-      line-height: 1.7;
-
-      font-size: 15px;
-    }
-
-    /* =========================
-       STATS
-    ========================= */
-
-    .stats {
-      display: flex;
-      justify-content: center;
-
-      gap: 42px;
-
-      margin-top: 34px;
-
-      flex-wrap: wrap;
-    }
-
-    .stat strong {
-      display: block;
-
-      font-size: 24px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #8d82ff,
-          #e09aff
-        );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      color: transparent;
-    }
-
-    .stat span {
-      font-size: 10px;
-
-      color: #686883;
-
-      letter-spacing: 1px;
-
-      text-transform: uppercase;
-    }
-
-    /* =========================
-       SECTION
-    ========================= */
-
-    .section-head {
-      display: flex;
-
-      justify-content: space-between;
-      align-items: end;
-
-      margin: 22px 0 16px;
-    }
-
-    .section-head h2 {
-      font-size: 22px;
-      margin: 0;
-    }
-
-    .section-head p {
-      margin: 0;
-
-      color: var(--muted);
-
-      font-size: 12px;
-    }
-
-    /* =========================
-       PRODUCTS
-    ========================= */
-
-    .products {
-      display: grid;
-
-      grid-template-columns:
-        repeat(5,minmax(0,1fr));
-
-      gap: 14px;
-    }
-
-    .card {
-      display: flex;
-      flex-direction: column;
-
-      min-width: 0;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(255,255,255,.045),
-          rgba(255,255,255,.018)
-        );
-
-      border: 1px solid var(--line);
-
-      border-radius: var(--radius);
-
-      overflow: hidden;
-
-      transition: .3s;
-
-      box-shadow:
-        0 8px 30px rgba(0,0,0,.12);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-
-      border-color:
-        rgba(117,103,248,.5);
-
-      box-shadow:
-        0 20px 45px
-        rgba(117,103,248,.14);
-    }
-
-    .visual {
-      height: 140px;
-
-      display: grid;
-      place-items: center;
-
-      position: relative;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(117,103,248,.18),
-          transparent 68%
-        );
-    }
-
-    .visual > span:last-child {
-      font-size: 54px;
-
-      filter:
-        drop-shadow(
-          0 8px 18px
-          rgba(117,103,248,.35)
-        );
-    }
-
-    .deal {
-      position: absolute;
-
-      top: 10px;
-      left: 10px;
-
-      background:
-        rgba(37,211,102,.13);
-
-      border:
-        1px solid rgba(37,211,102,.3);
-
-      color: #62e890;
-
-      border-radius: 999px;
-
-      padding: 4px 7px;
-
-      font-size: 8px;
-
-      font-weight: 900;
-    }
-
-    .body {
-      padding: 14px;
-
-      display: flex;
-      flex: 1;
-
-      flex-direction: column;
-    }
-
-    .body h3 {
-      font-size: 14px;
-
-      line-height: 1.35;
-
-      margin: 0 0 6px;
-    }
-
-    .desc {
-      font-size: 11px;
-
-      color: var(--muted);
-
-      line-height: 1.55;
-
-      min-height: 52px;
-    }
-
-    .price {
-      display: flex;
-
-      align-items: center;
-
-      gap: 7px;
-
-      flex-wrap: wrap;
-
-      margin: 12px 0;
-    }
-
-    .price strong {
-      font-size: 19px;
-    }
-
-    .old {
-      text-decoration: line-through;
-
-      color: #66667e;
-
-      font-size: 11px;
-    }
-
-    .add {
-      width: 100%;
-
-      border: 0;
-
-      padding: 11px;
-
-      border-radius: 11px;
-
-      color: white;
-
-      font-size: 11px;
-
-      font-weight: 900;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-2)
-        );
-
-      transition: .2s;
-    }
-
-    .add:hover {
-      transform: scale(1.02);
-    }
-
-    /* =========================
-       FEATURES
-    ========================= */
-
-    .features {
-      display: grid;
-
-      grid-template-columns:
-        repeat(4,1fr);
-
-      gap: 12px;
-
-      margin: 0 0 60px;
-    }
-
-    .feature {
-      padding: 20px 15px;
-
-      text-align: center;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 16px;
-
-      background:
-        rgba(255,255,255,.025);
-    }
-
-    .feature .icon {
-      font-size: 25px;
-    }
-
-    .feature h3 {
-      font-size: 13px;
-      margin: 8px 0 4px;
-    }
-
-    .feature p {
-      font-size: 11px;
-
-      color: var(--muted);
-
-      line-height: 1.55;
-
-      margin: 0;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      border-top: 1px solid var(--line);
-
-      padding: 28px 0 45px;
-
-      color: #66667e;
-
-      text-align: center;
-
-      font-size: 11px;
-    }
-
-    footer strong {
-      display: block;
-
-      font-size: 15px;
-
-      margin-bottom: 5px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #8d82ff,
-          #d78bff
-        );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      color: transparent;
-    }
-
-    /* =========================
-       WHATSAPP FLOAT
-    ========================= */
-
-    .float-wa {
-      position: fixed;
-
-      right: 20px;
-      bottom: 20px;
-
-      width: 56px;
-      height: 56px;
-
-      border-radius: 50%;
-
-      display: grid;
-      place-items: center;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--success),
-          var(--success-dark)
-        );
-
-      box-shadow:
-        0 12px 35px
-        rgba(37,211,102,.4);
-
-      z-index: 900;
-
-      font-size: 25px;
-    }
-
-    body.urdu .float-wa {
-      right: auto;
-      left: 20px;
-    }
-
-    /* =========================
-       MODAL
-    ========================= */
-
-    .overlay {
-      display: none;
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 2000;
-
-      background:
-        rgba(0,0,0,.72);
-
-      backdrop-filter: blur(8px);
-
-      padding: 16px;
-
-      overflow: auto;
-    }
-
-    .overlay.open {
-      display: block;
-    }
-
-    .modal {
-      width: min(540px,100%);
-
-      margin: 20px auto 60px;
-
-      background: #0d0d1b;
-
-      border:
-        1px solid rgba(117,103,248,.28);
-
-      border-radius: 22px;
-
-      padding: 22px;
-
-      position: relative;
-
-      box-shadow: var(--shadow);
-    }
-
-    .close {
-      position: absolute;
-
-      right: 14px;
-      top: 14px;
-
-      width: 34px;
-      height: 34px;
-
-      border:
-        1px solid var(--line);
-
-      background:
-        rgba(255,255,255,.06);
-
-      color: white;
-
-      border-radius: 50%;
-    }
-
-    body.urdu .close {
-      right: auto;
-      left: 14px;
-    }
-
-    .modal h2 {
-      margin: 0 0 16px;
-
-      font-size: 19px;
-    }
-
-    /* =========================
-       CART
-    ========================= */
-
-    .empty {
-      text-align: center;
-
-      padding: 35px 10px;
-
-      color: var(--muted);
-    }
-
-    .item {
-      display: grid;
-
-      grid-template-columns:
-        1fr auto auto;
-
-      align-items: center;
-
-      gap: 8px;
-
-      padding: 11px;
-
-      border:
-        1px solid rgba(117,103,248,.18);
-
-      background:
-        rgba(117,103,248,.06);
-
-      border-radius: 12px;
-
-      margin-bottom: 8px;
-    }
-
-    .item h4 {
-      margin: 0;
-
-      font-size: 12px;
-    }
-
-    .item p {
-      margin: 3px 0 0;
-
-      color: #a79fff;
-
-      font-size: 11px;
-
-      font-weight: 800;
-    }
-
-    .qty {
-      display: flex;
-
-      align-items: center;
-
-      gap: 5px;
-    }
-
-    .qty button {
-      width: 25px;
-      height: 25px;
-
-      border-radius: 50%;
-
-      border:
-        1px solid rgba(117,103,248,.35);
-
-      background:
-        rgba(117,103,248,.12);
-
-      color: white;
-    }
-
-    .remove {
-      border: 0;
-
-      background: transparent;
-
-      color: var(--danger);
-
-      font-size: 12px;
-    }
-
-    .total {
-      display: flex;
-
-      justify-content: space-between;
-
-      border-top:
-        1px solid var(--line);
-
-      margin-top: 12px;
-
-      padding-top: 13px;
-
-      font-weight: 800;
-    }
-
-    .total strong {
-      color: #a79fff;
-    }
-
-    /* =========================
-       CHECKOUT
-    ========================= */
-
-    .checkout {
-      margin-top: 20px;
-    }
-
-    .field {
-      margin-bottom: 12px;
-    }
-
-    .field label {
-      display: block;
-
-      color: var(--muted);
-
-      font-size: 10px;
-
-      font-weight: 800;
-
-      margin-bottom: 5px;
-
-      text-transform: uppercase;
-
-      letter-spacing: .5px;
-    }
-
-    .field input,
-    .field textarea {
-      width: 100%;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 10px;
-
-      background:
-        rgba(255,255,255,.04);
-
-      color: white;
-
-      padding: 11px 12px;
-
-      outline: none;
-    }
-
-    .field input:focus,
-    .field textarea:focus {
-      border-color: var(--primary);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(117,103,248,.13);
-    }
-
-    textarea {
-      min-height: 80px;
-
-      resize: vertical;
-    }
-
-    .payment {
-      border:
-        1px solid rgba(255,176,32,.25);
-
-      background:
-        rgba(255,176,32,.06);
-
-      padding: 14px;
-
-      border-radius: 12px;
-
-      margin: 15px 0;
-
-      color: #ddd;
-
-      font-size: 11px;
-
-      line-height: 1.7;
-    }
-
-    .payment strong {
-      color: #ffbd42;
-    }
-
-    .note {
-      color: var(--muted);
-
-      font-size: 10px;
-
-      margin-top: 8px;
-    }
-
-    .primary-btn {
-      width: 100%;
-
-      padding: 13px;
-
-      border-radius: 11px;
-
-      font-weight: 900;
-    }
-
-    /* =========================
-       TOAST
-    ========================= */
-
-    .toast {
-      position: fixed;
-
-      left: 50%;
-      bottom: 95px;
-
-      transform:
-        translate(-50%,20px);
-
-      opacity: 0;
-
-      pointer-events: none;
-
-      z-index: 3000;
-
-      padding: 11px 17px;
-
-      border-radius: 999px;
-
-      background: #17172a;
-
-      border:
-        1px solid var(--line);
-
-      box-shadow: var(--shadow);
-
-      font-size: 12px;
-
-      font-weight: 800;
-
-      transition: .25s;
-    }
-
-    .toast.show {
-      opacity: 1;
-
-      transform:
-        translate(-50%,0);
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media(max-width:1000px) {
-      .products {
-        grid-template-columns:
-          repeat(3,1fr);
-      }
-    }
-
-    @media(max-width:700px) {
-      .products {
-        grid-template-columns:
-          repeat(2,1fr);
-      }
-
-      .features {
-        grid-template-columns:
-          repeat(2,1fr);
-      }
-
-      .hero {
-        padding-top: 55px;
-      }
-
-      h1 {
-        letter-spacing: -1.7px;
-      }
-    }
-
-    @media(max-width:430px) {
-      .container {
-        width:
-          min(
-            100% - 20px,
-            1180px
-          );
-      }
-
-      .brand {
-        font-size: 15px;
-      }
-
-      .products {
-        gap: 10px;
-      }
-
-      .visual {
-        height: 105px;
-      }
-
-      .visual > span:last-child {
-        font-size: 42px;
-      }
-
-      .body {
-        padding: 11px;
-      }
-
-      .body h3 {
-        font-size: 12px;
-      }
-
-      .desc {
-        font-size: 10px;
-        min-height: 48px;
-      }
-
-      .price strong {
-        font-size: 16px;
-      }
-
-      .add {
-        padding: 10px 7px;
-        font-size: 10px;
-      }
-
-      .stats {
-        gap: 22px;
-      }
-
-      .features {
-        gap: 9px;
-      }
-
-      .feature {
-        padding: 16px 9px;
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce) {
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sami AI Tools — Premium AI Subscriptions</title>
+<meta name="description" content="Premium AI tools and software subscriptions at affordable prices.">
+<meta name="theme-color" content="#080812">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap');
+
+:root{
+    --bg:#050510;
+    --bg2:#0b0b18;
+    --card:rgba(255,255,255,.045);
+    --border:rgba(255,255,255,.09);
+    --text:#f5f5ff;
+    --muted:#9292aa;
+    --primary:#667eea;
+    --secondary:#764ba2;
+    --pink:#f093fb;
+    --green:#25d366;
+    --danger:#ff4757;
+    --gold:#ffb300;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 15% 15%,rgba(102,126,234,.12),transparent 35%),
+        radial-gradient(circle at 85% 75%,rgba(118,75,162,.12),transparent 35%),
+        var(--bg);
+    color:var(--text);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+body.urdu,
+body.urdu *{
+    font-family:'Noto Nastaliq Urdu',serif!important;
+}
+
+body.urdu{
+    direction:rtl;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:13px 5%;
+    background:rgba(5,5,16,.82);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(102,126,234,.18);
+}
+
+.logo{
+    font-size:18px;
+    font-weight:900;
+    white-space:nowrap;
+    background:linear-gradient(135deg,#667eea,#f093fb);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.language{
+    display:flex;
+    padding:3px;
+    border-radius:30px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+}
+
+.language button{
+    border:0;
+    color:#8d8da5;
+    background:transparent;
+    border-radius:25px;
+    padding:6px 11px;
+    font-size:11px;
+    font-weight:800;
+}
+
+.language button.active{
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+}
+
+.cart-button{
+    border:0;
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    padding:9px 15px;
+    border-radius:25px;
+    font-size:12px;
+    font-weight:800;
+    box-shadow:0 5px 20px rgba(102,126,234,.35);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    text-align:center;
+    padding:70px 20px 45px;
+    max-width:900px;
+    margin:auto;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 17px;
+    border:1px solid rgba(102,126,234,.35);
+    background:rgba(102,126,234,.12);
+    color:#b4beff;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(34px,7vw,65px);
+    line-height:1.12;
+    font-weight:900;
+    background:linear-gradient(135deg,#fff,#b6c0ff,#c77dff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.8;
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:45px;
+    margin-top:35px;
+    flex-wrap:wrap;
+}
+
+.stat-number{
+    font-size:25px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--primary),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.stat-label{
+    color:#68687f;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:20px 18px 45px;
+}
+
+.section-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.section-title{
+    font-size:24px;
+    font-weight:900;
+}
+
+.section-title span{
+    color:var(--primary);
+}
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    width:100%;
+    max-width:330px;
+}
+
+.search-box input{
+    width:100%;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:30px;
+    color:white;
+    padding:11px 17px;
+    outline:none;
+}
+
+.search-box input:focus{
+    border-color:var(--primary);
+}
+
+/* ================= PRODUCTS ================= */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:17px;
+}
+
+.product{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    transition:.3s ease;
+}
+
+.product:hover{
+    transform:translateY(-7px);
+    border-color:rgba(102,126,234,.45);
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+}
+
+.product-top{
+    height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle,rgba(102,126,234,.2),transparent 65%);
+    position:relative;
+}
+
+.product-icon{
+    font-size:55px;
+    filter:drop-shadow(0 8px 20px rgba(102,126,234,.45));
+}
+
+.hot-badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:linear-gradient(135deg,#ffb300,#ff7a00);
+    color:#111;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:8px;
+    font-weight:900;
+}
+
+.stock-badge{
+    position:absolute;
+    top:12px;
+    right:12px;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:8px;
+    font-weight:800;
+}
+
+.stock-ok{
+    color:#45e58a;
+    background:rgba(37,211,102,.1);
+    border:1px solid rgba(37,211,102,.25);
+}
+
+.stock-low{
+    color:#ffbd45;
+    background:rgba(255,179,0,.1);
+    border:1px solid rgba(255,179,0,.25);
+}
+
+.stock-out{
+    color:#ff6874;
+    background:rgba(255,71,87,.1);
+    border:1px solid rgba(255,71,87,.25);
+}
+
+.product-body{
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.product-title{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.product-desc{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.65;
+    flex:1;
+    margin-bottom:13px;
+}
+
+.price{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.old-price{
+    color:#66667d;
+    text-decoration:line-through;
+    font-size:11px;
+}
+
+.new-price{
+    font-size:20px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--primary),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.stock-info{
+    margin-bottom:12px;
+}
+
+.stock-text{
+    display:flex;
+    justify-content:space-between;
+    font-size:9px;
+    color:#77778f;
+    margin-bottom:5px;
+}
+
+.progress{
+    height:5px;
+    background:rgba(255,255,255,.06);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,var(--primary),var(--pink));
+    border-radius:10px;
+}
+
+.add-button{
+    width:100%;
+    border:0;
+    color:white;
+    padding:11px;
+    border-radius:11px;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    font-size:11px;
+    font-weight:800;
+    transition:.25s;
+}
+
+.add-button:hover{
+    transform:scale(1.02);
+}
+
+.add-button:disabled{
+    background:#252532;
+    color:#66667a;
+    cursor:not-allowed;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:14px;
+}
+
+.feature{
+    padding:22px 15px;
+    text-align:center;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.025);
+    border-radius:17px;
+}
+
+.feature-icon{
+    font-size:28px;
+    margin-bottom:9px;
+}
+
+.feature h3{
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.feature p{
+    color:#77778f;
+    font-size:10px;
+    line-height:1.6;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(12px);
+    padding:18px;
+    overflow-y:auto;
+}
+
+.modal.active{
+    display:block;
+}
+
+.modal-box{
+    max-width:520px;
+    margin:30px auto;
+    background:linear-gradient(180deg,#111126,#080812);
+    border:1px solid rgba(102,126,234,.3);
+    border-radius:22px;
+    padding:22px;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+}
+
+.close{
+    position:absolute;
+    right:13px;
+    top:13px;
+    width:33px;
+    height:33px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.06);
+    color:white;
+}
+
+body.urdu .close{
+    right:auto;
+    left:13px;
+}
+
+.modal-title{
+    font-size:20px;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+/* ================= CART ================= */
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    margin-bottom:9px;
+    border:1px solid rgba(102,126,234,.16);
+    background:rgba(102,126,234,.06);
+    border-radius:13px;
+}
+
+.cart-info{
+    flex:1;
+    min-width:0;
+}
+
+.cart-info h4{
+    font-size:11px;
+    font-weight:700;
+}
+
+.cart-info p{
+    font-size:11px;
+    color:#aeb8ff;
+    margin-top:3px;
+}
+
+.qty{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:3px;
+    border-radius:20px;
+    background:rgba(255,255,255,.05);
+}
+
+.qty button{
+    width:23px;
+    height:23px;
+    border-radius:50%;
+    border:0;
+    background:rgba(102,126,234,.2);
+    color:white;
+}
+
+.qty span{
+    min-width:15px;
+    text-align:center;
+    font-size:11px;
+    font-weight:800;
+}
+
+.remove{
+    border:0;
+    background:rgba(255,71,87,.12);
+    color:#ff6874;
+    padding:6px 8px;
+    border-radius:8px;
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
+    padding:16px 2px 10px;
+    margin-top:10px;
+    border-top:1px solid var(--border);
+    font-size:17px;
+    font-weight:900;
+}
+
+.total-value{
+    color:#b7c0ff;
+}
+
+/* ================= FORM ================= */
+
+.form-title{
+    font-size:17px;
+    font-weight:800;
+    margin:22px 0 15px;
+}
+
+.form-group{
+    margin-bottom:12px;
+}
+
+.form-group label{
+    display:block;
+    color:#85859c;
+    font-size:10px;
+    font-weight:700;
+    margin-bottom:6px;
+    text-transform:uppercase;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    color:white;
+    border-radius:10px;
+    padding:11px 13px;
+    outline:none;
+    font-size:12px;
+}
+
+.form-group textarea{
+    min-height:75px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(102,126,234,.12);
+}
+
+/* ================= PAYMENT ================= */
+
+.payment{
+    margin:18px 0;
+    padding:15px;
+    border-radius:14px;
+    background:rgba(255,179,0,.06);
+    border:1px solid rgba(255,179,0,.25);
+}
+
+.payment h3{
+    color:var(--gold);
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.payment-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:5px 0;
+    font-size:11px;
+    color:#c9c9d7;
+}
+
+.payment-row strong{
+    color:var(--gold);
+}
+
+.payment-note{
+    border-top:1px dashed rgba(255,179,0,.2);
+    margin-top:8px;
+    padding-top:9px;
+    color:#85859c;
+    font-size:10px;
+    line-height:1.6;
+}
+
+.checkout{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:14px;
+    color:white;
+    background:linear-gradient(135deg,#25d366,#128c7e);
+    font-size:12px;
+    font-weight:900;
+    box-shadow:0 8px 25px rgba(37,211,102,.25);
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    text-align:center;
+    color:#606077;
+    padding:30px 10px;
+    font-size:13px;
+}
+
+/* ================= WHATSAPP ================= */
+
+.whatsapp{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:1500;
+    width:57px;
+    height:57px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:27px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#25d366,#128c7e);
+    box-shadow:0 8px 30px rgba(37,211,102,.45);
+}
+
+body.urdu .whatsapp{
+    right:auto;
+    left:20px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:90px;
+    transform:translate(-50%,20px);
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    padding:11px 20px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    z-index:3000;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.06);
+    padding:35px 20px 80px;
+    color:#55556b;
+    font-size:10px;
+}
+
+.footer-brand{
+    font-size:16px;
+    font-weight:900;
+    margin-bottom:7px;
+    background:linear-gradient(135deg,var(--primary),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:650px){
+
+    header{
+        padding:11px 13px;
+    }
+
+    .logo{
+        font-size:14px;
+    }
+
+    .language button{
+        padding:5px 8px;
+    }
+
+    .cart-button{
+        padding:8px 11px;
+    }
+
+    .hero{
+        padding:50px 18px 35px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .stats{
+        gap:25px;
+    }
+
+    .section{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .section-heading{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .search-box{
+        max-width:none;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
+    }
+
+    .product-top{
+        height:105px;
+    }
+
+    .product-icon{
+        font-size:40px;
+    }
+
+    .product-body{
+        padding:11px;
+    }
+
+    .product-title{
+        font-size:12px;
+    }
+
+    .product-desc{
+        font-size:9px;
+    }
+
+    .new-price{
+        font-size:16px;
+    }
+
+    .stock-text{
+        font-size:8px;
+    }
+
+    .add-button{
+        padding:9px 5px;
+        font-size:9px;
+    }
+}
+
+@media(max-width:370px){
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .product-top{
+        height:125px;
+    }
+
+    .hero h1{
+        font-size:29px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+<!-- ================= HEADER ================= -->
 
-  <header class="header">
+<header>
 
-    <nav class="container nav"
-         aria-label="Main navigation">
+    <div class="logo">◆ Sami AI Tools</div>
 
-      <a class="brand"
-         href="#"
-         aria-label="Sami AI Tools home">
+    <div class="header-right">
 
-        ◆ Sami AI Tools
+        <div class="language">
+            <button id="enBtn" class="active" onclick="setLanguage('en')">
+                EN
+            </button>
 
-      </a>
-
-      <div class="nav-actions">
-
-        <div class="lang"
-             role="group"
-             aria-label="Language">
-
-          <button
-            id="enBtn"
-            class="active"
-            type="button">
-
-            EN
-
-          </button>
-
-          <button
-            id="urBtn"
-            type="button">
-
-            اردو
-
-          </button>
-
+            <button id="urBtn" onclick="setLanguage('ur')">
+                اردو
+            </button>
         </div>
 
-        <button
-          id="cartBtn"
-          class="cart-btn"
-          type="button"
-          aria-haspopup="dialog">
-
-          🛒 <span id="cartCount">0</span>
-
+        <button class="cart-button" onclick="openCart()">
+            🛒 <span id="cartCount">0</span>
         </button>
 
-      </div>
+    </div>
 
-    </nav>
-
-  </header>
+</header>
 
 
-  <main>
+<!-- ================= HERO ================= -->
 
-    <!-- =========================
-         HERO
-    ========================== -->
+<section class="hero">
 
-    <section class="hero container">
-
-      <span
-        class="badge"
-        data-i18n="badge">
-
+    <div class="badge"
+         data-en="⚡ PREMIUM AI SUBSCRIPTIONS"
+         data-ur="⚡ پریمیم اے آئی سبسکرپشنز">
         ⚡ PREMIUM AI SUBSCRIPTIONS
+    </div>
 
-      </span>
+    <h1
+        data-en="Unlock The Power<br>Of Artificial Intelligence"
+        data-ur="مصنوعی ذہانت کی<br>طاقت حاصل کریں">
+        Unlock The Power<br>
+        Of Artificial Intelligence
+    </h1>
 
-      <h1
-        data-i18n="heroTitle">
+    <p
+        data-en="Premium AI tools, creative software and productivity subscriptions at affordable prices."
+        data-ur="پریمیم اے آئی ٹولز، کریئیٹو سافٹ ویئر اور پروڈکٹیوٹی سبسکرپشنز مناسب قیمتوں پر۔">
+        Premium AI tools, creative software and productivity subscriptions at affordable prices.
+    </p>
 
-        Unlock the power of
-        <br>
-        artificial intelligence
-
-      </h1>
-
-      <p
-        data-i18n="heroText">
-
-        AI and productivity subscriptions with simple
-        ordering and WhatsApp support.
-
-      </p>
-
-
-      <div
-        class="stats"
-        aria-label="Store highlights">
+    <div class="stats">
 
         <div class="stat">
-
-          <strong>5+</strong>
-
-          <span data-i18n="tools">
-            AI Tools
-          </span>
-
+            <div class="stat-number">6+</div>
+            <div class="stat-label"
+                 data-en="Products"
+                 data-ur="پروڈکٹس">
+                Products
+            </div>
         </div>
-
 
         <div class="stat">
-
-          <strong>24/7</strong>
-
-          <span data-i18n="support">
-            Support
-          </span>
-
+            <div class="stat-number">24/7</div>
+            <div class="stat-label"
+                 data-en="Support"
+                 data-ur="سپورٹ">
+                Support
+            </div>
         </div>
-
 
         <div class="stat">
-
-          <strong>Fast</strong>
-
-          <span data-i18n="processing">
-            Processing
-          </span>
-
+            <div class="stat-number">⚡</div>
+            <div class="stat-label"
+                 data-en="Fast Service"
+                 data-ur="تیز سروس">
+                Fast Service
+            </div>
         </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         PRODUCTS
-    ========================== -->
-
-    <section
-      class="container"
-      aria-labelledby="productsTitle">
-
-      <div class="section-head">
-
-        <div>
-
-          <h2
-            id="productsTitle"
-            data-i18n="productsTitle">
-
-            Featured tools
-
-          </h2>
-
-          <p data-i18n="productsSub">
-
-            Choose a subscription and add it to your cart.
-
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="productsGrid"
-        class="products">
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         FEATURES
-    ========================== -->
-
-    <section
-      class="container"
-      aria-labelledby="whyTitle">
-
-      <div class="section-head">
-
-        <h2
-          id="whyTitle"
-          data-i18n="why">
-
-          Why choose us
-
-        </h2>
-
-      </div>
-
-
-      <div class="features">
-
-        <article class="feature">
-
-          <div class="icon">
-            ⚡
-          </div>
-
-          <h3 data-i18n="f1t">
-            Fast processing
-          </h3>
-
-          <p data-i18n="f1p">
-            Orders are handled after payment verification.
-          </p>
-
-        </article>
-
-
-        <article class="feature">
-
-          <div class="icon">
-            🔒
-          </div>
-
-          <h3 data-i18n="f2t">
-            Clear checkout
-          </h3>
-
-          <p data-i18n="f2p">
-            Your order summary is shown before you confirm.
-          </p>
-
-        </article>
-
-
-        <article class="feature">
-
-          <div class="icon">
-            💳
-          </div>
-
-          <h3 data-i18n="f3t">
-            Manual verification
-          </h3>
-
-          <p data-i18n="f3p">
-            Payment references are reviewed before fulfillment.
-          </p>
-
-        </article>
-
-
-        <article class="feature">
-
-          <div class="icon">
-            💬
-          </div>
-
-          <h3 data-i18n="f4t">
-            WhatsApp support
-          </h3>
-
-          <p data-i18n="f4p">
-            Contact the store directly for order assistance.
-          </p>
-
-        </article>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
-  <footer>
-
-    <div class="container">
-
-      <strong>
-        ◆ Sami AI Tools
-      </strong>
-
-      <span>
-        © 2026 Sami AI Tools ·
-        WhatsApp: +966 59 507 3180
-      </span>
 
     </div>
 
-  </footer>
+</section>
 
 
-  <!-- =========================
-       FLOATING WHATSAPP
-  ========================== -->
+<!-- ================= PRODUCTS ================= -->
 
-  <a
-    id="waFloat"
-    class="float-wa"
-    href="#"
+<section class="section">
+
+    <div class="section-heading">
+
+        <h2 class="section-title">
+            <span data-en="Trending" data-ur="مقبول">
+                Trending
+            </span>
+            <span data-en=" AI Tools" data-ur=" اے آئی ٹولز">
+                AI Tools
+            </span>
+        </h2>
+
+        <div class="search-box">
+            <input
+                id="search"
+                type="search"
+                placeholder="Search products..."
+                data-placeholder-en="Search products..."
+                data-placeholder-ur="پروڈکٹس تلاش کریں..."
+                oninput="renderProducts()">
+        </div>
+
+    </div>
+
+    <div class="products" id="products"></div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="section">
+
+    <h2 class="section-title" style="text-align:center;margin-bottom:22px;">
+        <span data-en="Why Choose" data-ur="ہمیں کیوں">
+            Why Choose
+        </span>
+        <span data-en=" Us?" data-ur=" منتخب کریں؟">
+             Us?
+        </span>
+    </h2>
+
+    <div class="features">
+
+        <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <h3 data-en="Fast Delivery" data-ur="فوری ڈیلیوری">
+                Fast Delivery
+            </h3>
+            <p
+                data-en="Orders are processed after payment verification."
+                data-ur="پیمنٹ کی تصدیق کے بعد آرڈر پروسیس کیا جاتا ہے۔">
+                Orders are processed after payment verification.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3 data-en="Secure Ordering" data-ur="محفوظ آرڈر">
+                Secure Ordering
+            </h3>
+            <p
+                data-en="Your order information is sent directly to WhatsApp."
+                data-ur="آپ کے آرڈر کی معلومات براہ راست واٹس ایپ پر بھیجی جاتی ہیں۔">
+                Your order information is sent directly to WhatsApp.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📦</div>
+            <h3 data-en="Stock Tracking" data-ur="اسٹاک ٹریکنگ">
+                Stock Tracking
+            </h3>
+            <p
+                data-en="Available and sold quantities are displayed for products."
+                data-ur="پروڈکٹس کی دستیاب اور فروخت شدہ مقدار دکھائی جاتی ہے۔">
+                Available and sold quantities are displayed for products.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">💬</div>
+            <h3 data-en="WhatsApp Support" data-ur="واٹس ایپ سپورٹ">
+                WhatsApp Support
+            </h3>
+            <p
+                data-en="Contact us directly for help and order questions."
+                data-ur="مدد اور آرڈر سے متعلق سوالات کے لیے براہ راست رابطہ کریں۔">
+                Contact us directly for help and order questions.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CART MODAL ================= -->
+
+<div class="modal" id="cartModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeCart()">✕</button>
+
+        <h2 class="modal-title"
+            data-en="🛒 Your Cart"
+            data-ur="🛒 آپ کا کارٹ">
+            🛒 Your Cart
+        </h2>
+
+        <div id="cartItems"></div>
+
+        <div class="total" id="cartTotal"></div>
+
+        <div id="checkoutArea" style="display:none;">
+
+            <h3 class="form-title"
+                data-en="📋 Order Details"
+                data-ur="📋 آرڈر کی تفصیلات">
+                📋 Order Details
+            </h3>
+
+            <div class="form-group">
+                <label
+                    data-en="Full Name *"
+                    data-ur="پورا نام *">
+                    Full Name *
+                </label>
+
+                <input
+                    id="customerName"
+                    type="text"
+                    placeholder="Your name">
+            </div>
+
+
+            <div class="form-group">
+                <label
+                    data-en="WhatsApp Number *"
+                    data-ur="واٹس ایپ نمبر *">
+                    WhatsApp Number *
+                </label>
+
+                <input
+                    id="customerPhone"
+                    type="tel"
+                    placeholder="03XX-XXXXXXX">
+            </div>
+
+
+            <div class="form-group">
+                <label
+                    data-en="Email (Optional)"
+                    data-ur="ای میل (اختیاری)">
+                    Email (Optional)
+                </label>
+
+                <input
+                    id="customerEmail"
+                    type="email"
+                    placeholder="you@example.com">
+            </div>
+
+
+            <div class="form-group">
+                <label
+                    data-en="Notes / Address"
+                    data-ur="نوٹس / پتہ">
+                    Notes / Address
+                </label>
+
+                <textarea
+                    id="customerNotes"
+                    placeholder="Any special instructions..."></textarea>
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="payment">
+
+                <h3
+                    data-en="💳 Payment Details"
+                    data-ur="💳 پیمنٹ کی تفصیلات">
+                    💳 Payment Details
+                </h3>
+
+                <div class="payment-row">
+                    <strong>JazzCash</strong>
+                    <span>0302-7292497</span>
+                </div>
+
+                <div class="payment-row">
+                    <strong>EasyPaisa</strong>
+                    <span>0302-7292497</span>
+                </div>
+
+                <div class="payment-row">
+                    <strong>Allied Bank IBAN</strong>
+                    <span>PK10ABPA0010081815620010</span>
+                </div>
+
+                <div class="payment-row">
+                    <strong>Account Title</strong>
+                    <span>Sami ul Allah</span>
+                </div>
+
+                <div class="payment-row">
+                    <strong>WhatsApp</strong>
+                    <span>+966 59 507 3180</span>
+                </div>
+
+                <div class="payment-note"
+                     data-en="After payment, enter your Transaction ID below. Your payment will be manually verified."
+                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی درج کریں۔ پیمنٹ کی دستی تصدیق کی جائے گی۔">
+                    After payment, enter your Transaction ID below. Your payment will be manually verified.
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label
+                    data-en="Transaction ID (TID) *"
+                    data-ur="ٹرانزیکشن آئی ڈی *">
+                    Transaction ID (TID) *
+                </label>
+
+                <input
+                    id="transactionId"
+                    type="text"
+                    placeholder="Enter JazzCash / EasyPaisa TID">
+
+            </div>
+
+
+            <button
+                class="checkout"
+                onclick="placeOrder()"
+                data-en="✅ Confirm Order on WhatsApp"
+                data-ur="✅ واٹس ایپ پر آرڈر کی تصدیق کریں">
+                ✅ Confirm Order on WhatsApp
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= WHATSAPP ================= -->
+
+<a
+    id="whatsappButton"
+    class="whatsapp"
     target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Chat on WhatsApp">
-
+    rel="noopener"
+    aria-label="WhatsApp">
     💬
+</a>
 
-  </a>
 
+<!-- ================= TOAST ================= -->
 
-  <!-- =========================
-       CART MODAL
-  ========================== -->
+<div id="toast" class="toast"></div>
 
-  <div
-    id="overlay"
-    class="overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="cartTitle">
 
-    <div class="modal">
+<!-- ================= FOOTER ================= -->
 
-      <button
-        id="closeBtn"
-        class="close"
-        type="button"
-        aria-label="Close cart">
+<footer>
 
-        ✕
-
-      </button>
-
-
-      <h2
-        id="cartTitle"
-        data-i18n="cartTitle">
-
-        🛒 Your cart
-
-      </h2>
-
-
-      <div id="cartItems"></div>
-
-
-      <div
-        id="cartTotal"
-        class="total">
-
-      </div>
-
-
-      <!-- CHECKOUT -->
-
-      <section
-        id="checkout"
-        class="checkout"
-        hidden>
-
-        <h2 data-i18n="orderDetails">
-
-          📋 Order details
-
-        </h2>
-
-
-        <div class="field">
-
-          <label
-            for="name"
-            data-i18n="nameLabel">
-
-            Full name *
-
-          </label>
-
-          <input
-            id="name"
-            autocomplete="name"
-            required>
-
-        </div>
-
-
-        <div class="field">
-
-          <label
-            for="phone"
-            data-i18n="phoneLabel">
-
-            WhatsApp number *
-
-          </label>
-
-          <input
-            id="phone"
-            type="tel"
-            autocomplete="tel"
-            required>
-
-        </div>
-
-
-        <div class="field">
-
-          <label
-            for="email"
-            data-i18n="emailLabel">
-
-            Email (optional)
-
-          </label>
-
-          <input
-            id="email"
-            type="email"
-            autocomplete="email">
-
-        </div>
-
-
-        <div class="field">
-
-          <label
-            for="notes"
-            data-i18n="notesLabel">
-
-            Notes / address
-
-          </label>
-
-          <textarea
-            id="notes">
-          </textarea>
-
-        </div>
-
-
-        <!-- PAYMENT -->
-
-        <div class="payment">
-
-          <strong data-i18n="paymentTitle">
-
-            💳 Payment details
-
-          </strong>
-
-          <div>
-            <b>JazzCash:</b>
-            0302-7292497
-          </div>
-
-          <div>
-            <b>EasyPaisa:</b>
-            0302-7292497
-          </div>
-
-          <div>
-            <b>Allied Bank IBAN:</b>
-            PK10ABPA0010081815620010
-          </div>
-
-          <div>
-            <b>Account Title:</b>
-            Sami ul Allah
-          </div>
-
-          <div>
-            <b>WhatsApp:</b>
-            +966 59 507 3180
-          </div>
-
-
-          <div
-            class="note"
-            data-i18n="paymentNote">
-
-            After payment, enter your transaction ID.
-            Payment is manually verified before the order
-            is processed.
-
-          </div>
-
-        </div>
-
-
-        <div class="field">
-
-          <label
-            for="tid"
-            data-i18n="tidLabel">
-
-            Transaction ID *
-
-          </label>
-
-          <input
-            id="tid"
-            required>
-
-        </div>
-
-
-        <button
-          id="confirmBtn"
-          class="primary-btn"
-          type="button"
-          data-i18n="confirm">
-
-          ✅ Confirm order on WhatsApp
-
-        </button>
-
-      </section>
-
+    <div class="footer-brand">
+        ◆ Sami AI Tools
     </div>
 
-  </div>
+    <p
+        data-en="© 2026 Sami AI Tools · All rights reserved."
+        data-ur="© 2026 Sami AI Tools · جملہ حقوق محفوظ ہیں۔">
+        © 2026 Sami AI Tools · All rights reserved.
+    </p>
+
+    <p style="margin-top:6px;">
+        WhatsApp: +966 59 507 3180
+    </p>
+
+</footer>
 
 
-  <!-- =========================
-       TOAST
-  ========================== -->
+<script>
 
-  <div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite">
+/* =========================================================
+   SAMI AI TOOLS
+   PRODUCT DATABASE
+   ========================================================= */
 
-  </div>
+const products = [
+
+    {
+        id: 1,
+        name: "Google Gemini — 18 Months",
+        urdu: "گوگل جیمنائی — 18 ماہ",
+        desc: "2TB Storage + Private Gmail Account",
+        descUrdu: "2 ٹی بی اسٹوریج + پرائیویٹ جی میل اکاؤنٹ",
+        price: 270,
+        oldPrice: 350,
+        stock: 180,
+        sold: 120,
+        icon: "✨",
+        badge: "HOT DEAL"
+    },
+
+    {
+        id: 2,
+        name: "CapCut Pro — 6 Months",
+        urdu: "کیپ کٹ پرو — 6 ماہ",
+        desc: "6 Months Subscription + Pro Features",
+        descUrdu: "6 ماہ سبسکرپشن + تمام پرو فیچرز",
+        price: 3000,
+        oldPrice: 0,
+        stock: 43,
+        sold: 7,
+        icon: "🎬",
+        badge: "PREMIUM"
+    },
+
+    {
+        id: 3,
+        name: "CapCut Pro — 1 Month",
+        urdu: "کیپ کٹ پرو — 1 ماہ",
+        desc: "1 Month Subscription + Pro Features",
+        descUrdu: "1 ماہ سبسکرپشن + تمام پرو فیچرز",
+        price: 650,
+        oldPrice: 0,
+        stock: 70,
+        sold: 30,
+        icon: "🎞️",
+        badge: ""
+    },
+
+    {
+        id: 4,
+        name: "Canva Pro — 1 Month",
+        urdu: "کینوا پرو — 1 ماہ",
+        desc: "1 Month Subscription + Premium Features",
+        descUrdu: "1 ماہ سبسکرپشن + پریمیم فیچرز",
+        price: 300,
+        oldPrice: 0,
+        stock: 56,
+        sold: 0,
+        icon: "🎨",
+        badge: ""
+    },
+
+    {
+        id: 5,
+        name: "Canva Pro — 2 Years",
+        urdu: "کینوا پرو — 2 سال",
+        desc: "2 Years Subscription + Premium Features",
+        descUrdu: "2 سال سبسکرپشن + پریمیم فیچرز",
+        price: 500,
+        oldPrice: 0,
+        stock: 17,
+        sold: 13,
+        icon: "🖌️",
+        badge: "BEST VALUE"
+    },
+
+    {
+        id: 6,
+        name: "Microsoft Office 365",
+        urdu: "مائیکروسافٹ آفس 365",
+        desc: "Office Apps + Word, Excel & PowerPoint",
+        descUrdu: "آفس ایپس + ورڈ، ایکسل اور پاورپوائنٹ",
+        price: 250,
+        oldPrice: 0,
+        stock: 13,
+        sold: 2,
+        icon: "📊",
+        badge: ""
+    }
+
+];
 
 
-  <script>
-    "use strict";
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+const WHATSAPP_NUMBER = "966595073180";
+
+const WHATSAPP_GREETING =
+    "Salam! Mujhe Sami AI Tools ke baare mein maloomat chahiye.";
 
 
-    /*
-    ============================================================
-      CONFIGURATION
-    ============================================================
-    */
+/* =========================================================
+   STATE
+   ========================================================= */
 
-    const CONFIG = Object.freeze({
+let language = localStorage.getItem("sami_language") || "en";
 
-      whatsapp:
-        "966595073180",
+let cart = [];
 
-      currency:
-        "Rs.",
+try {
+    cart = JSON.parse(
+        localStorage.getItem("sami_cart") || "[]"
+    );
+} catch {
+    cart = [];
+}
 
-      storageKey:
-        "sami-ai-cart-v2",
 
-      langKey:
-        "sami-ai-lang-v2"
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+function money(number){
+
+    return "Rs. " + Number(number).toLocaleString("en-PK");
+
+}
+
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },2200);
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+function setLanguage(lang){
+
+    language = lang;
+
+    localStorage.setItem("sami_language",lang);
+
+    document.body.classList.toggle(
+        "urdu",
+        lang === "ur"
+    );
+
+    document.documentElement.lang = lang;
+
+    document.documentElement.dir =
+        lang === "ur" ? "rtl" : "ltr";
+
+
+    document.getElementById("enBtn")
+        .classList.toggle("active",lang === "en");
+
+    document.getElementById("urBtn")
+        .classList.toggle("active",lang === "ur");
+
+
+    document.querySelectorAll("[data-en]")
+        .forEach(element => {
+
+            element.innerHTML =
+                lang === "ur"
+                    ? element.dataset.ur
+                    : element.dataset.en;
+
+        });
+
+
+    const search =
+        document.getElementById("search");
+
+    search.placeholder =
+        lang === "ur"
+            ? search.dataset.placeholderUr
+            : search.dataset.placeholderEn;
+
+
+    renderProducts();
+    renderCart();
+
+}
+
+
+/* =========================================================
+   PRODUCT RENDER
+   ========================================================= */
+
+function renderProducts(){
+
+    const container =
+        document.getElementById("products");
+
+    const search =
+        document.getElementById("search")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered = products.filter(product => {
+
+        const text =
+            product.name.toLowerCase() +
+            " " +
+            product.urdu +
+            " " +
+            product.desc.toLowerCase();
+
+        return text.includes(search);
 
     });
 
 
-    /*
-    ============================================================
-      PRODUCTS
-    ============================================================
-    */
+    if(!filtered.length){
 
-    const PRODUCTS = Object.freeze([
-
-      {
-        id: "gemini-18m",
-
-        name:
-          "Google Gemini 18 Months",
-
-        ur:
-          "گوگل جیمنائی 18 ماہ",
-
-        desc:
-          "2TB storage + private account on your Gmail",
-
-        urDesc:
-          "2 ٹی بی اسٹوریج + آپ کے جی میل پر پرائیویٹ اکاؤنٹ",
-
-        price:
-          270,
-
-        oldPrice:
-          350,
-
-        emoji:
-          "✨",
-
-        badge:
-          "HOT DEAL"
-      },
-
-
-      {
-        id: "canva-1m",
-
-        name:
-          "Canva Pro Edu",
-
-        ur:
-          "کینوا پرو ایڈو",
-
-        desc:
-          "1 month subscription · premium features",
-
-        urDesc:
-          "1 ماہ سبسکرپشن · پریمیم فیچرز",
-
-        price:
-          90,
-
-        oldPrice:
-          0,
-
-        emoji:
-          "🎨",
-
-        badge:
-          ""
-      },
-
-
-      {
-        id: "office-365",
-
-        name:
-          "Microsoft Office 365 Plus",
-
-        ur:
-          "مائیکروسافٹ آفس 365 پلس",
-
-        desc:
-          "1 year subscription · Word, Excel, PowerPoint",
-
-        urDesc:
-          "1 سال سبسکرپشن · ورڈ، ایکسل، پاورپوائنٹ",
-
-        price:
-          250,
-
-        oldPrice:
-          0,
-
-        emoji:
-          "📊",
-
-        badge:
-          ""
-      },
-
-
-      {
-        id: "capcut-6m",
-
-        name:
-          "CapCut Pro",
-
-        ur:
-          "کیپ کٹ پرو",
-
-        desc:
-          "6 months subscription · Pro features",
-
-        urDesc:
-          "6 ماہ سبسکرپشن · پرو فیچرز",
-
-        price:
-          3000,
-
-        oldPrice:
-          0,
-
-        emoji:
-          "🎬",
-
-        badge:
-          "PREMIUM"
-      },
-
-
-      {
-        id: "canva-2y",
-
-        name:
-          "Canva Pro Edu 2 Years",
-
-        ur:
-          "کینوا پرو ایڈو 2 سال",
-
-        desc:
-          "2 years subscription · best value",
-
-        urDesc:
-          "2 سال سبسکرپشن · بہترین ویلیو",
-
-        price:
-          500,
-
-        oldPrice:
-          0,
-
-        emoji:
-          "🎨",
-
-        badge:
-          "BEST VALUE"
-      }
-
-    ]);
-
-
-    /*
-    ============================================================
-      TRANSLATIONS
-    ============================================================
-    */
-
-    const I18N = {
-
-      en: {
-
-        badge:
-          "⚡ PREMIUM AI SUBSCRIPTIONS",
-
-        heroTitle:
-          "Unlock the power of<br>artificial intelligence",
-
-        heroText:
-          "AI and productivity subscriptions with simple ordering and WhatsApp support.",
-
-        tools:
-          "AI Tools",
-
-        support:
-          "Support",
-
-        processing:
-          "Processing",
-
-        productsTitle:
-          "Featured tools",
-
-        productsSub:
-          "Choose a subscription and add it to your cart.",
-
-        why:
-          "Why choose us",
-
-        f1t:
-          "Fast processing",
-
-        f1p:
-          "Orders are handled after payment verification.",
-
-        f2t:
-          "Clear checkout",
-
-        f2p:
-          "Your order summary is shown before you confirm.",
-
-        f3t:
-          "Manual verification",
-
-        f3p:
-          "Payment references are reviewed before fulfillment.",
-
-        f4t:
-          "WhatsApp support",
-
-        f4p:
-          "Contact the store directly for order assistance.",
-
-        cartTitle:
-          "🛒 Your cart",
-
-        orderDetails:
-          "📋 Order details",
-
-        nameLabel:
-          "Full name *",
-
-        phoneLabel:
-          "WhatsApp number *",
-
-        emailLabel:
-          "Email (optional)",
-
-        notesLabel:
-          "Notes / address",
-
-        paymentTitle:
-          "💳 Payment details",
-
-        paymentNote:
-          "After payment, enter your transaction ID. Payment is manually verified before the order is processed.",
-
-        tidLabel:
-          "Transaction ID *",
-
-        confirm:
-          "✅ Confirm order on WhatsApp",
-
-        empty:
-          "🛒 Your cart is empty",
-
-        total:
-          "Total",
-
-        added:
-          "✓ Added to cart",
-
-        required:
-          "⚠️ Name, WhatsApp number and transaction ID are required.",
-
-        cartEmpty:
-          "⚠️ Add at least one product first.",
-
-        invalidEmail:
-          "⚠️ Please enter a valid email address.",
-
-        orderOpened:
-          "✓ WhatsApp opened with your order details."
-
-      },
-
-
-      ur: {
-
-        badge:
-          "⚡ پریمیم اے آئی سبسکرپشنز",
-
-        heroTitle:
-          "مصنوعی ذہانت کی<br>طاقت حاصل کریں",
-
-        heroText:
-          "اے آئی اور پروڈکٹیوٹی سبسکرپشنز، آسان آرڈر اور واٹس ایپ سپورٹ کے ساتھ۔",
-
-        tools:
-          "اے آئی ٹولز",
-
-        support:
-          "سپورٹ",
-
-        processing:
-          "پروسیسنگ",
-
-        productsTitle:
-          "مقبول ٹولز",
-
-        productsSub:
-          "سبسکرپشن منتخب کریں اور کارٹ میں شامل کریں۔",
-
-        why:
-          "ہمیں کیوں منتخب کریں",
-
-        f1t:
-          "تیز پروسیسنگ",
-
-        f1p:
-          "پیمنٹ کی تصدیق کے بعد آرڈر پروسیس کیا جاتا ہے۔",
-
-        f2t:
-          "واضح چیک آؤٹ",
-
-        f2p:
-          "کنفرم کرنے سے پہلے مکمل آرڈر دکھایا جاتا ہے۔",
-
-        f3t:
-          "دستی تصدیق",
-
-        f3p:
-          "فل فلمنٹ سے پہلے پیمنٹ ریفرنس چیک کیا جاتا ہے۔",
-
-        f4t:
-          "واٹس ایپ سپورٹ",
-
-        f4p:
-          "آرڈر میں مدد کے لیے براہ راست رابطہ کریں۔",
-
-        cartTitle:
-          "🛒 آپ کا کارٹ",
-
-        orderDetails:
-          "📋 آرڈر کی تفصیلات",
-
-        nameLabel:
-          "پورا نام *",
-
-        phoneLabel:
-          "واٹس ایپ نمبر *",
-
-        emailLabel:
-          "ای میل (اختیاری)",
-
-        notesLabel:
-          "نوٹس / پتہ",
-
-        paymentTitle:
-          "💳 پیمنٹ کی تفصیلات",
-
-        paymentNote:
-          "پیمنٹ کے بعد ٹرانزیکشن آئی ڈی درج کریں۔ آرڈر سے پہلے پیمنٹ کی دستی تصدیق ہوگی۔",
-
-        tidLabel:
-          "ٹرانزیکشن آئی ڈی *",
-
-        confirm:
-          "✅ واٹس ایپ پر آرڈر کنفرم کریں",
-
-        empty:
-          "🛒 آپ کا کارٹ خالی ہے",
-
-        total:
-          "کل",
-
-        added:
-          "✓ کارٹ میں شامل ہو گیا",
-
-        required:
-          "⚠️ نام، واٹس ایپ نمبر اور ٹرانزیکشن آئی ڈی ضروری ہیں۔",
-
-        cartEmpty:
-          "⚠️ پہلے کم از کم ایک پروڈکٹ شامل کریں۔",
-
-        invalidEmail:
-          "⚠️ درست ای میل درج کریں۔",
-
-        orderOpened:
-          "✓ واٹس ایپ آپ کے آرڈر کی تفصیلات کے ساتھ کھول دیا گیا ہے۔"
-
-      }
-
-    };
-
-
-    /*
-    ============================================================
-      STATE
-    ============================================================
-    */
-
-    let lang =
-      localStorage.getItem(CONFIG.langKey)
-      || "en";
-
-    let cart =
-      loadCart();
-
-
-    /*
-    ============================================================
-      HELPERS
-    ============================================================
-    */
-
-    const $ = selector =>
-      document.querySelector(selector);
-
-
-    function money(value) {
-
-      return `${CONFIG.currency} ${Number(value).toLocaleString("en-PK")}`;
-
-    }
-
-
-    function t(key) {
-
-      return I18N[lang][key] || key;
-
-    }
-
-
-    /*
-    Escape dynamic text before inserting into HTML.
-    */
-
-    function esc(value) {
-
-      return String(value).replace(
-        /[&<>"']/g,
-
-        char => ({
-
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-
-        }[char])
-
-      );
-
-    }
-
-
-    /*
-    ============================================================
-      LOCAL STORAGE
-    ============================================================
-    */
-
-    function saveCart() {
-
-      localStorage.setItem(
-        CONFIG.storageKey,
-        JSON.stringify(cart)
-      );
-
-    }
-
-
-    function loadCart() {
-
-      try {
-
-        const data =
-          JSON.parse(
-            localStorage.getItem(
-              CONFIG.storageKey
-            ) || "[]"
-          );
-
-
-        if (!Array.isArray(data)) {
-
-          return [];
-
-        }
-
-
-        return data.filter(item =>
-
-          PRODUCTS.some(
-            product =>
-              product.id === item.id
-          )
-
-          && Number.isInteger(item.qty)
-
-          && item.qty > 0
-
-          && item.qty <= 99
-
-        );
-
-      }
-
-      catch {
-
-        return [];
-
-      }
-
-    }
-
-
-    /*
-    ============================================================
-      LANGUAGE
-    ============================================================
-    */
-
-    function setLang(nextLanguage) {
-
-      lang =
-        nextLanguage;
-
-
-      document.documentElement.lang =
-        nextLanguage;
-
-
-      document.documentElement.dir =
-        nextLanguage === "ur"
-          ? "rtl"
-          : "ltr";
-
-
-      document.body.classList.toggle(
-        "urdu",
-        nextLanguage === "ur"
-      );
-
-
-      $("#enBtn").classList.toggle(
-        "active",
-        nextLanguage === "en"
-      );
-
-
-      $("#urBtn").classList.toggle(
-        "active",
-        nextLanguage === "ur"
-      );
-
-
-      document
-        .querySelectorAll("[data-i18n]")
-        .forEach(element => {
-
-          element.innerHTML =
-            I18N[nextLanguage][
-              element.dataset.i18n
-            ];
-
-        });
-
-
-      renderProducts();
-
-      renderCart();
-
-
-      localStorage.setItem(
-        CONFIG.langKey,
-        nextLanguage
-      );
-
-    }
-
-
-    /*
-    ============================================================
-      PRODUCTS
-    ============================================================
-    */
-
-    function renderProducts() {
-
-      $("#productsGrid").innerHTML =
-        PRODUCTS.map(product => `
-
-          <article class="card">
-
-            <div class="visual">
-
-              ${
-                product.badge
-                  ? `
-                    <span class="deal">
-                      ${esc(product.badge)}
-                    </span>
-                  `
-                  : ""
-              }
-
-              <span aria-hidden="true">
-                ${product.emoji}
-              </span>
-
-            </div>
-
-
-            <div class="body">
-
-              <h3>
-                ${esc(
-                  lang === "ur"
-                    ? product.ur
-                    : product.name
-                )}
-              </h3>
-
-
-              <div class="desc">
-
-                ${esc(
-                  lang === "ur"
-                    ? product.urDesc
-                    : product.desc
-                )}
-
-              </div>
-
-
-              <div class="price">
-
+        container.innerHTML = `
+            <div class="empty" style="grid-column:1/-1;">
                 ${
-                  product.oldPrice
-                    ? `
-                      <span class="old">
-                        ${money(product.oldPrice)}
-                      </span>
-                    `
-                    : ""
+                    language === "ur"
+                    ? "کوئی پروڈکٹ نہیں ملی۔"
+                    : "No products found."
                 }
-
-                <strong>
-                  ${money(product.price)}
-                </strong>
-
-              </div>
-
-
-              <button
-                class="add"
-                type="button"
-                data-add="${product.id}">
-
-                +
-                ${
-                  lang === "ur"
-                    ? "کارٹ میں شامل کریں"
-                    : "ADD TO CART"
-                }
-
-              </button>
-
             </div>
-
-          </article>
-
-        `).join("");
-
-    }
-
-
-    /*
-    ============================================================
-      CART RENDERING
-    ============================================================
-    */
-
-    function renderCart() {
-
-      const count =
-        cart.reduce(
-          (sum, item) =>
-            sum + item.qty,
-          0
-        );
-
-
-      $("#cartCount").textContent =
-        count;
-
-
-      if (!cart.length) {
-
-        $("#cartItems").innerHTML = `
-
-          <div class="empty">
-
-            ${t("empty")}
-
-          </div>
-
         `;
-
-
-        $("#cartTotal").innerHTML =
-          "";
-
-
-        $("#checkout").hidden =
-          true;
-
 
         return;
 
-      }
+    }
 
 
-      $("#checkout").hidden =
-        false;
+    container.innerHTML =
+        filtered.map(product => {
+
+            const available =
+                product.stock > 0;
+
+            const total =
+                product.stock + product.sold;
+
+            const soldPercent =
+                total > 0
+                    ? Math.min(
+                        100,
+                        Math.round(
+                            (product.sold / total) * 100
+                        )
+                    )
+                    : 0;
 
 
-      $("#cartItems").innerHTML =
-        cart.map(item => {
+            let stockClass = "stock-ok";
 
-          const product =
-            PRODUCTS.find(
-              product =>
-                product.id === item.id
+            if(product.stock <= 10 && product.stock > 0){
+                stockClass = "stock-low";
+            }
+
+            if(product.stock <= 0){
+                stockClass = "stock-out";
+            }
+
+
+            let stockText;
+
+            if(product.stock <= 0){
+
+                stockText =
+                    language === "ur"
+                    ? "❌ ختم ہو گیا"
+                    : "❌ SOLD OUT";
+
+            }else{
+
+                stockText =
+                    language === "ur"
+                    ? `✓ ${product.stock} دستیاب`
+                    : `✓ ${product.stock} Available`;
+
+            }
+
+
+            const title =
+                language === "ur"
+                    ? product.urdu
+                    : product.name;
+
+            const description =
+                language === "ur"
+                    ? product.descUrdu
+                    : product.desc;
+
+
+            return `
+
+            <article class="product">
+
+                <div class="product-top">
+
+                    ${
+                        product.badge
+                        ? `<div class="hot-badge">
+                            ${escapeHTML(product.badge)}
+                           </div>`
+                        : ""
+                    }
+
+                    <div class="stock-badge ${stockClass}">
+                        ${stockText}
+                    </div>
+
+                    <div class="product-icon">
+                        ${product.icon}
+                    </div>
+
+                </div>
+
+
+                <div class="product-body">
+
+                    <h3 class="product-title">
+                        ${escapeHTML(title)}
+                    </h3>
+
+                    <p class="product-desc">
+                        ${escapeHTML(description)}
+                    </p>
+
+
+                    <div class="price">
+
+                        ${
+                            product.oldPrice > 0
+                            ? `<span class="old-price">
+                                ${money(product.oldPrice)}
+                               </span>`
+                            : ""
+                        }
+
+                        <span class="new-price">
+                            ${money(product.price)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="stock-info">
+
+                        <div class="stock-text">
+
+                            <span>
+                                ${
+                                    language === "ur"
+                                    ? "فروخت شدہ"
+                                    : "Sold"
+                                }
+                                : ${product.sold}
+                            </span>
+
+                            <span>
+                                ${
+                                    language === "ur"
+                                    ? "اسٹاک"
+                                    : "Stock"
+                                }
+                                : ${product.stock}
+                            </span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width:${soldPercent}%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="add-button"
+                        ${available ? "" : "disabled"}
+                        onclick="addToCart(${product.id})">
+
+                        ${
+                            available
+                            ? (
+                                language === "ur"
+                                ? "+ کارٹ میں شامل کریں"
+                                : "+ ADD TO CART"
+                              )
+                            : (
+                                language === "ur"
+                                ? "اسٹاک ختم"
+                                : "OUT OF STOCK"
+                              )
+                        }
+
+                    </button>
+
+                </div>
+
+            </article>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   CART
+   ========================================================= */
+
+function saveCart(){
+
+    localStorage.setItem(
+        "sami_cart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function addToCart(id){
+
+    const product =
+        products.find(p => p.id === id);
+
+    if(!product || product.stock <= 0){
+
+        showToast(
+            language === "ur"
+                ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے"
+                : "❌ Product is out of stock"
+        );
+
+        return;
+    }
+
+
+    const existing =
+        cart.find(item => item.id === id);
+
+
+    if(existing){
+
+        if(existing.qty >= product.stock){
+
+            showToast(
+                language === "ur"
+                    ? "⚠️ اتنا اسٹاک دستیاب نہیں"
+                    : "⚠️ Not enough stock available"
             );
 
+            return;
+        }
 
-          return `
+        existing.qty++;
 
-            <div class="item">
+    }else{
 
-              <div>
+        cart.push({
+            id:id,
+            qty:1
+        });
 
-                <h4>
-
-                  ${product.emoji}
-
-                  ${esc(
-                    lang === "ur"
-                      ? product.ur
-                      : product.name
-                  )}
-
-                </h4>
+    }
 
 
-                <p>
-
-                  ${money(
-                    product.price *
-                    item.qty
-                  )}
-
-                </p>
-
-              </div>
+    saveCart();
+    renderCart();
 
 
-              <div
-                class="qty"
-                aria-label="Quantity controls">
+    showToast(
+        language === "ur"
+            ? "✓ کارٹ میں شامل ہوگیا"
+            : "✓ Added to cart"
+    );
+
+}
+
+
+function removeFromCart(id){
+
+    cart =
+        cart.filter(item => item.id !== id);
+
+    saveCart();
+    renderCart();
+
+}
+
+
+function changeQuantity(id,change){
+
+    const item =
+        cart.find(i => i.id === id);
+
+    const product =
+        products.find(p => p.id === id);
+
+    if(!item || !product) return;
+
+
+    item.qty += change;
+
+
+    if(item.qty <= 0){
+
+        removeFromCart(id);
+        return;
+
+    }
+
+
+    if(item.qty > product.stock){
+
+        item.qty = product.stock;
+
+        showToast(
+            language === "ur"
+                ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں"
+                : "⚠️ Cannot exceed available stock"
+        );
+
+    }
+
+
+    saveCart();
+    renderCart();
+
+}
+
+
+/* =========================================================
+   RENDER CART
+   ========================================================= */
+
+function renderCart(){
+
+    const items =
+        document.getElementById("cartItems");
+
+    const totalElement =
+        document.getElementById("cartTotal");
+
+    const checkout =
+        document.getElementById("checkoutArea");
+
+
+    const count =
+        cart.reduce(
+            (sum,item) => sum + item.qty,
+            0
+        );
+
+
+    document.getElementById("cartCount")
+        .textContent = count;
+
+
+    if(cart.length === 0){
+
+        items.innerHTML = `
+            <div class="empty">
+                ${
+                    language === "ur"
+                    ? "🛒 کارٹ خالی ہے"
+                    : "🛒 Your cart is empty"
+                }
+            </div>
+        `;
+
+        totalElement.innerHTML = "";
+
+        checkout.style.display = "none";
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+
+    items.innerHTML =
+        cart.map(item => {
+
+            const product =
+                products.find(p => p.id === item.id);
+
+            if(!product) return "";
+
+
+            const subtotal =
+                product.price * item.qty;
+
+            total += subtotal;
+
+
+            const title =
+                language === "ur"
+                    ? product.urdu
+                    : product.name;
+
+
+            return `
+
+            <div class="cart-item">
+
+                <div class="cart-info">
+
+                    <h4>
+                        ${product.icon}
+                        ${escapeHTML(title)}
+                    </h4>
+
+                    <p>
+                        ${item.qty} ×
+                        ${money(product.price)}
+                        =
+                        ${money(subtotal)}
+                    </p>
+
+                </div>
+
+
+                <div class="qty">
+
+                    <button
+                        onclick="changeQuantity(${item.id},-1)">
+                        −
+                    </button>
+
+                    <span>${item.qty}</span>
+
+                    <button
+                        onclick="changeQuantity(${item.id},1)">
+                        +
+                    </button>
+
+                </div>
+
 
                 <button
-                  type="button"
-                  data-minus="${product.id}"
-                  aria-label="Decrease quantity">
-
-                  −
-
+                    class="remove"
+                    onclick="removeFromCart(${item.id})">
+                    ✕
                 </button>
-
-
-                <span>
-                  ${item.qty}
-                </span>
-
-
-                <button
-                  type="button"
-                  data-plus="${product.id}"
-                  aria-label="Increase quantity">
-
-                  +
-
-                </button>
-
-              </div>
-
-
-              <button
-                class="remove"
-                type="button"
-                data-remove="${product.id}"
-                aria-label="Remove item">
-
-                ✕
-
-              </button>
 
             </div>
 
-          `;
+            `;
 
         }).join("");
 
 
-      const total =
-        cart.reduce(
-          (sum, item) => {
-
-            const product =
-              PRODUCTS.find(
-                product =>
-                  product.id === item.id
-              );
-
-            return sum +
-              product.price *
-              item.qty;
-
-          },
-
-          0
-        );
-
-
-      $("#cartTotal").innerHTML = `
+    totalElement.innerHTML = `
 
         <span>
-          ${t("total")}
+            ${
+                language === "ur"
+                    ? "کل رقم"
+                    : "Total"
+            }
         </span>
 
-        <strong>
-          ${money(total)}
-        </strong>
+        <span class="total-value">
+            ${money(total)}
+        </span>
 
-      `;
-
-    }
+    `;
 
 
-    /*
-    ============================================================
-      ADD TO CART
-    ============================================================
-    */
+    checkout.style.display = "block";
 
-    function addToCart(id) {
-
-      const item =
-        cart.find(
-          item =>
-            item.id === id
-        );
+}
 
 
-      if (item) {
+/* =========================================================
+   MODAL
+   ========================================================= */
 
-        if (item.qty < 99) {
+function openCart(){
 
-          item.qty++;
+    document
+        .getElementById("cartModal")
+        .classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    renderCart();
+
+}
+
+
+function closeCart(){
+
+    document
+        .getElementById("cartModal")
+        .classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* Close when clicking outside */
+
+document
+    .getElementById("cartModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(event.target === this){
+
+                closeCart();
+
+            }
 
         }
-
-      }
-
-      else {
-
-        cart.push({
-
-          id: id,
-
-          qty: 1
-
-        });
-
-      }
-
-
-      saveCart();
-
-      renderCart();
-
-      showToast(
-        t("added")
-      );
-
-    }
-
-
-    /*
-    ============================================================
-      CHANGE QUANTITY
-    ============================================================
-    */
-
-    function changeQuantity(
-      id,
-      delta
-    ) {
-
-      const item =
-        cart.find(
-          item =>
-            item.id === id
-        );
-
-
-      if (!item) {
-
-        return;
-
-      }
-
-
-      item.qty += delta;
-
-
-      if (item.qty <= 0) {
-
-        cart =
-          cart.filter(
-            item =>
-              item.id !== id
-          );
-
-      }
-
-
-      saveCart();
-
-      renderCart();
-
-    }
-
-
-    /*
-    ============================================================
-      REMOVE
-    ============================================================
-    */
-
-    function removeFromCart(id) {
-
-      cart =
-        cart.filter(
-          item =>
-            item.id !== id
-        );
-
-
-      saveCart();
-
-      renderCart();
-
-    }
-
-
-    /*
-    ============================================================
-      MODAL
-    ============================================================
-    */
-
-    function openCart() {
-
-      renderCart();
-
-
-      $("#overlay")
-        .classList
-        .add("open");
-
-
-      document.body.style.overflow =
-        "hidden";
-
-
-      setTimeout(
-        () =>
-          $("#closeBtn").focus(),
-        0
-      );
-
-    }
-
-
-    function closeCart() {
-
-      $("#overlay")
-        .classList
-        .remove("open");
-
-
-      document.body.style.overflow =
-        "";
-
-    }
-
-
-    /*
-    ============================================================
-      TOAST
-    ============================================================
-    */
-
-    function showToast(message) {
-
-      const toast =
-        $("#toast");
-
-
-      toast.textContent =
-        message;
-
-
-      toast.classList.add(
-        "show"
-      );
-
-
-      clearTimeout(
-        showToast.timer
-      );
-
-
-      showToast.timer =
-        setTimeout(
-          () =>
-            toast.classList.remove(
-              "show"
-            ),
-
-          2200
-        );
-
-    }
-
-
-    /*
-    ============================================================
-      CHECKOUT
-    ============================================================
-    */
-
-    function confirmOrder() {
-
-      if (!cart.length) {
-
-        showToast(
-          t("cartEmpty")
-        );
-
-        return;
-
-      }
-
-
-      const name =
-        $("#name")
-          .value
-          .trim();
-
-
-      const phone =
-        $("#phone")
-          .value
-          .trim();
-
-
-      const email =
-        $("#email")
-          .value
-          .trim();
-
-
-      const notes =
-        $("#notes")
-          .value
-          .trim();
-
-
-      const tid =
-        $("#tid")
-          .value
-          .trim();
-
-
-      if (
-        !name ||
-        !phone ||
-        !tid
-      ) {
-
-        showToast(
-          t("required")
-        );
-
-        return;
-
-      }
-
-
-      if (
-        email &&
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-          .test(email)
-      ) {
-
-        showToast(
-          t("invalidEmail")
-        );
-
-        return;
-
-      }
-
-
-      const total =
-        cart.reduce(
-          (sum, item) => {
-
-            const product =
-              PRODUCTS.find(
-                product =>
-                  product.id === item.id
-              );
-
-            return sum +
-              product.price *
-              item.qty;
-
-          },
-
-          0
-        );
-
-
-      let message =
-        "🛒 NEW ORDER — Sami AI Tools\n\n";
-
-
-      message +=
-        `Name: ${name}\n`;
-
-
-      message +=
-        `WhatsApp: ${phone}\n`;
-
-
-      if (email) {
-
-        message +=
-          `Email: ${email}\n`;
-
-      }
-
-
-      if (notes) {
-
-        message +=
-          `Notes: ${notes}\n`;
-
-      }
-
-
-      message +=
-        "\nORDER DETAILS:\n";
-
-
-      cart.forEach(
-        (item, index) => {
-
-          const product =
-            PRODUCTS.find(
-              product =>
-                product.id === item.id
-            );
-
-
-          const subtotal =
-            product.price *
-            item.qty;
-
-
-          message +=
-            `${index + 1}. ` +
-            `${product.name} — ` +
-            `${item.qty} × ` +
-            `${money(product.price)} = ` +
-            `${money(subtotal)}\n`;
-
-        }
-      );
-
-
-      message +=
-        `\nTOTAL: ${money(total)}\n`;
-
-
-      message +=
-        `Payment TID: ${tid}\n`;
-
-
-      message +=
-        "\nPayment will be manually verified before fulfillment.";
-
-
-      const whatsappURL =
-        `https://wa.me/${CONFIG.whatsapp}` +
-        `?text=${encodeURIComponent(message)}`;
-
-
-      window.open(
-        whatsappURL,
-        "_blank",
-        "noopener,noreferrer"
-      );
-
-
-      showToast(
-        t("orderOpened")
-      );
-
-    }
-
-
-    /*
-    ============================================================
-      EVENT DELEGATION
-    ============================================================
-    */
-
-    document.addEventListener(
-      "click",
-      event => {
-
-        const addButton =
-          event.target.closest(
-            "[data-add]"
-          );
-
-
-        if (addButton) {
-
-          addToCart(
-            addButton.dataset.add
-          );
-
-          return;
-
-        }
-
-
-        const plusButton =
-          event.target.closest(
-            "[data-plus]"
-          );
-
-
-        if (plusButton) {
-
-          changeQuantity(
-            plusButton.dataset.plus,
-            1
-          );
-
-          return;
-
-        }
-
-
-        const minusButton =
-          event.target.closest(
-            "[data-minus]"
-          );
-
-
-        if (minusButton) {
-
-          changeQuantity(
-            minusButton.dataset.minus,
-            -1
-          );
-
-          return;
-
-        }
-
-
-        const removeButton =
-          event.target.closest(
-            "[data-remove]"
-          );
-
-
-        if (removeButton) {
-
-          removeFromCart(
-            removeButton.dataset.remove
-          );
-
-        }
-
-      }
     );
 
 
-    /*
-    ============================================================
-      BUTTON EVENTS
-    ============================================================
-    */
+/* Escape key */
 
-    $("#enBtn")
-      .addEventListener(
-        "click",
-        () =>
-          setLang("en")
-      );
+document.addEventListener(
+    "keydown",
+    function(event){
 
-
-    $("#urBtn")
-      .addEventListener(
-        "click",
-        () =>
-          setLang("ur")
-      );
-
-
-    $("#cartBtn")
-      .addEventListener(
-        "click",
-        openCart
-      );
-
-
-    $("#closeBtn")
-      .addEventListener(
-        "click",
-        closeCart
-      );
-
-
-    $("#confirmBtn")
-      .addEventListener(
-        "click",
-        confirmOrder
-      );
-
-
-    /*
-    Close when clicking backdrop.
-    */
-
-    $("#overlay")
-      .addEventListener(
-        "click",
-        event => {
-
-          if (
-            event.target ===
-            $("#overlay")
-          ) {
+        if(event.key === "Escape"){
 
             closeCart();
 
-          }
-
-        }
-      );
-
-
-    /*
-    Close with Escape.
-    */
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Escape" &&
-          $("#overlay")
-            .classList
-            .contains("open")
-        ) {
-
-          closeCart();
-
         }
 
-      }
+    }
+);
+
+
+/* =========================================================
+   WHATSAPP ORDER
+   ========================================================= */
+
+function placeOrder(){
+
+    const name =
+        document.getElementById("customerName")
+            .value.trim();
+
+    const phone =
+        document.getElementById("customerPhone")
+            .value.trim();
+
+    const email =
+        document.getElementById("customerEmail")
+            .value.trim();
+
+    const notes =
+        document.getElementById("customerNotes")
+            .value.trim();
+
+    const tid =
+        document.getElementById("transactionId")
+            .value.trim();
+
+
+    if(!name || !phone || !tid){
+
+        showToast(
+            language === "ur"
+                ? "⚠️ نام، واٹس ایپ نمبر اور TID ضروری ہیں"
+                : "⚠️ Name, WhatsApp and TID are required"
+        );
+
+        return;
+
+    }
+
+
+    if(cart.length === 0){
+
+        showToast(
+            language === "ur"
+                ? "⚠️ کارٹ خالی ہے"
+                : "⚠️ Cart is empty"
+        );
+
+        return;
+
+    }
+
+
+    let message =
+        "🛒 *NEW ORDER — Sami AI Tools*\\n\\n";
+
+
+    message +=
+        `👤 *Name:* ${name}\\n`;
+
+    message +=
+        `📱 *WhatsApp:* ${phone}\\n`;
+
+
+    if(email){
+
+        message +=
+            `📧 *Email:* ${email}\\n`;
+
+    }
+
+
+    if(notes){
+
+        message +=
+            `📍 *Notes:* ${notes}\\n`;
+
+    }
+
+
+    message +=
+        "\\n📦 *ORDER DETAILS:*\\n";
+
+    message +=
+        "────────────────\\n";
+
+
+    let total = 0;
+
+
+    cart.forEach((item,index) => {
+
+        const product =
+            products.find(p => p.id === item.id);
+
+        if(!product) return;
+
+
+        const subtotal =
+            product.price * item.qty;
+
+        total += subtotal;
+
+
+        message +=
+            `${index + 1}. ${product.name}\\n`;
+
+        message +=
+            `   ${item.qty} × ${money(product.price)} = *${money(subtotal)}*\\n`;
+
+    });
+
+
+    message +=
+        "────────────────\\n";
+
+    message +=
+        `💰 *TOTAL: ${money(total)}*\\n\\n`;
+
+    message +=
+        `💳 *Payment TID:* ${tid}\\n\\n`;
+
+    message +=
+        "✅ Payment verification ke baad order process hoga.";
+
+
+    const url =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
     );
 
-
-    /*
-    ============================================================
-      WHATSAPP FLOAT BUTTON
-    ============================================================
-    */
-
-    $("#waFloat").href =
-      `https://wa.me/${CONFIG.whatsapp}` +
-      `?text=${encodeURIComponent(
-        "Salam! Mujhe AI tools ke baare mein maloomat chahiye."
-      )}`;
+}
 
 
-    /*
-    ============================================================
-      INITIALIZE
-    ============================================================
-    */
+/* =========================================================
+   WHATSAPP FLOAT BUTTON
+   ========================================================= */
 
-    setLang(lang);
+document
+    .getElementById("whatsappButton")
+    .href =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(
+            WHATSAPP_GREETING
+        );
 
-  </script>
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+setLanguage(language);
+
+</script>
 
 </body>
 </html>
