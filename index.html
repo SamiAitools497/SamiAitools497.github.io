@@ -8,6 +8,16 @@
 <meta name="description" content="Premium AI tools and software subscriptions at affordable prices.">
 <meta name="theme-color" content="#080812">
 
+<!-- Google tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DLMHG38GIP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DLMHG38GIP');
+</script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap');
 
@@ -411,6 +421,52 @@ header{
     cursor:not-allowed;
 }
 
+/* ================= PAYMENT DISPLAY SECTION ================= */
+
+.payment-banner{
+    background:rgba(255,179,0,.04);
+    border:1px solid rgba(255,179,0,.2);
+    border-radius:20px;
+    padding:25px;
+    margin:20px 0 40px;
+}
+
+.payment-banner h2{
+    color:var(--gold);
+    font-size:20px;
+    font-weight:900;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.payment-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.payment-card{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,179,0,.15);
+    border-radius:14px;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.payment-card-info h4{
+    color:var(--gold);
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.payment-card-info p{
+    color:white;
+    font-size:12px;
+    font-weight:700;
+}
+
 /* ================= FEATURES ================= */
 
 .features{
@@ -614,7 +670,7 @@ body.urdu .close{
     box-shadow:0 0 0 3px rgba(102,126,234,.12);
 }
 
-/* ================= PAYMENT ================= */
+/* ================= PAYMENT IN MODAL ================= */
 
 .payment{
     margin:18px 0;
@@ -978,6 +1034,47 @@ footer{
 </section>
 
 
+<!-- ================= PAYMENT METHODS BANNER ================= -->
+
+<section class="section">
+    <div class="payment-banner">
+        <h2 data-en="💳 Easy Payment Methods" data-ur="💳 آسان پیمنٹ کے طریقے">💳 Easy Payment Methods</h2>
+        <div class="payment-grid">
+            
+            <div class="payment-card">
+                <div class="payment-card-info">
+                    <h4 data-en="JazzCash / EasyPaisa" data-ur="جاز کیش / ایزی پیسہ">JazzCash / EasyPaisa</h4>
+                    <p>0302-7292497</p>
+                </div>
+                <button class="copy-btn" onclick="copyText('0302-7292497')">Copy</button>
+            </div>
+
+            <div class="payment-card">
+                <div class="payment-card-info">
+                    <h4 data-en="Binance Pay ID" data-ur="بائنانس پے آئی ڈی">Binance Pay ID</h4>
+                    <p style="font-size:11px;">742793058 (sunny_497)</p>
+                </div>
+                <button class="copy-btn" onclick="copyText('742793058')">Copy ID</button>
+            </div>
+
+            <div class="payment-card">
+                <div class="payment-card-info">
+                    <h4 data-en="Allied Bank IBAN" data-ur="آئی بی اے این (بینک)">Allied Bank IBAN</h4>
+                    <p style="font-size:10px;">PK10ABPA0010081815620010</p>
+                </div>
+                <button class="copy-btn" onclick="copyText('PK10ABPA0010081815620010')">Copy</button>
+            </div>
+
+        </div>
+        <p style="text-align:center; color:#85859c; font-size:11px; margin-top:12px;"
+           data-en="Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID on WhatsApp."
+           data-ur="اکاؤنٹ ٹائتل: سمیع اللہ — پیمنٹ کرنے کے بعد واٹس ایپ پر TID / بائنانس آرڈر آئی ڈی شیئر کریں۔">
+           Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID on WhatsApp.
+        </p>
+    </div>
+</section>
+
+
 <!-- ================= FEATURES ================= -->
 
 <section class="section">
@@ -1139,21 +1236,21 @@ footer{
 
                 <div class="payment-row">
                     <div>
-                        <strong>JazzCash:</strong> <span>0302-7292497</span>
+                        <strong>JazzCash / EasyPaisa:</strong> <span>0302-7292497</span>
                     </div>
                     <button class="copy-btn" onclick="copyText('0302-7292497')">Copy</button>
                 </div>
 
                 <div class="payment-row">
                     <div>
-                        <strong>EasyPaisa:</strong> <span>0302-7292497</span>
+                        <strong>Binance Pay ID:</strong> <span>742793058 (sunny_497)</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText('0302-7292497')">Copy</button>
+                    <button class="copy-btn" onclick="copyText('742793058')">Copy ID</button>
                 </div>
 
                 <div class="payment-row">
                     <div>
-                        <strong>Allied Bank IBAN:</strong> <span id="ibanText">PK10ABPA0010081815620010</span>
+                        <strong>Allied Bank IBAN:</strong> <span>PK10ABPA0010081815620010</span>
                     </div>
                     <button class="copy-btn" onclick="copyText('PK10ABPA0010081815620010')">Copy</button>
                 </div>
@@ -1169,9 +1266,9 @@ footer{
                 </div>
 
                 <div class="payment-note"
-                     data-en="After payment, enter your Transaction ID below. Your payment will be manually verified."
-                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی درج کریں۔ پیمنٹ کی دستی تصدیق کی جائے گی۔">
-                    After payment, enter your Transaction ID below. Your payment will be manually verified.
+                     data-en="After payment, enter your Transaction ID or Binance Order ID below."
+                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی یا بائنانس آرڈر آئی ڈی درج کریں۔">
+                    After payment, enter your Transaction ID or Binance Order ID below.
                 </div>
 
             </div>
@@ -1180,15 +1277,15 @@ footer{
             <div class="form-group">
 
                 <label
-                    data-en="Transaction ID (TID) *"
-                    data-ur="ٹرانزیکشن آئی ڈی *">
-                    Transaction ID (TID) *
+                    data-en="Transaction ID / Binance ID *"
+                    data-ur="ٹرانزیکشن آئی ڈی / بائنانس آئی ڈی *">
+                    Transaction ID / Binance ID *
                 </label>
 
                 <input
                     id="transactionId"
                     type="text"
-                    placeholder="Enter JazzCash / EasyPaisa TID">
+                    placeholder="Enter TID / Binance Order ID">
 
             </div>
 
@@ -1415,7 +1512,7 @@ function copyText(text){
     navigator.clipboard.writeText(text).then(() => {
         showToast(
             language === "ur"
-                ? "✓ نمبر کاپی ہوگیا!"
+                ? "✓ کاپی ہوگیا!"
                 : "✓ Copied to clipboard!"
         );
     }).catch(err => {
@@ -2070,8 +2167,8 @@ function placeOrder(){
 
         showToast(
             language === "ur"
-                ? "⚠️ نام، واٹس ایپ نمبر اور TID ضروری ہیں"
-                : "⚠️ Name, WhatsApp and TID are required"
+                ? "⚠️ نام، واٹس ایپ نمبر اور TID/Binance ID ضروری ہیں"
+                : "⚠️ Name, WhatsApp and TID/Binance ID are required"
         );
 
         return;
@@ -2092,7 +2189,6 @@ function placeOrder(){
     }
 
 
-    // Fixed WhatsApp line breaks with proper single backslashes (\n)
     let message = "🛒 *NEW ORDER — Sami AI Tools*\n\n";
 
     message += `👤 *Name:* ${name}\n`;
@@ -2130,7 +2226,7 @@ function placeOrder(){
 
     message += "────────────────\n";
     message += `💰 *TOTAL: ${money(total)}*\n\n`;
-    message += `💳 *Payment TID:* ${tid}\n\n`;
+    message += `💳 *Payment Proof / ID:* ${tid}\n\n`;
     message += "✅ Payment verification ke baad order process hoga.";
 
 
