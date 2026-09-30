@@ -5,10 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sami AI Tools — Premium AI Subscriptions</title>
-<meta name="description" content="Premium AI tools and software subscriptions at affordable prices.">
+<meta name="description" content="Premium AI tools, creative software and productivity subscriptions at affordable prices.">
 <meta name="theme-color" content="#080812">
 
-<!-- Google tag (gtag.js) -->
+<!-- Open Graph / Social Media Preview Tags -->
+<meta property="og:title" content="Sami AI Tools — Premium AI Subscriptions">
+<meta property="og:description" content="Get Canva Pro, Google Gemini, CapCut Pro and Office 365 at affordable prices.">
+<meta property="og:type" content="website">
+
+<!-- Google tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLMHG38G8P"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -218,6 +223,7 @@ header{
     align-items:center;
     gap:15px;
     margin-bottom:22px;
+    flex-wrap:wrap;
 }
 
 .section-title{
@@ -229,11 +235,37 @@ header{
     color:var(--primary);
 }
 
+/* ================= CATEGORY TABS ================= */
+
+.categories{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.cat-btn{
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    color:var(--muted);
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.cat-btn.active, .cat-btn:hover{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    border-color:transparent;
+}
+
 /* ================= SEARCH ================= */
 
 .search-box{
     width:100%;
-    max-width:330px;
+    max-width:300px;
 }
 
 .search-box input{
@@ -465,6 +497,45 @@ header{
     color:white;
     font-size:12px;
     font-weight:700;
+}
+
+/* ================= TESTIMONIALS (REVIEWS) ================= */
+
+.testimonials{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    margin-top:20px;
+}
+
+.testimonial-card{
+    background:rgba(255,255,255,.025);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+}
+
+.testimonial-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.testimonial-name{
+    font-size:12px;
+    font-weight:800;
+}
+
+.stars{
+    color:var(--gold);
+    font-size:11px;
+}
+
+.testimonial-text{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
 }
 
 /* ================= FEATURES ================= */
@@ -1002,7 +1073,7 @@ footer{
 </section>
 
 
-<!-- ================= PRODUCTS ================= -->
+<!-- ================= PRODUCTS SECTION ================= -->
 
 <section class="section">
 
@@ -1027,6 +1098,14 @@ footer{
                 oninput="renderProducts()">
         </div>
 
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)" data-en="All Products" data-ur="تمام پروڈکٹس">All Products</button>
+        <button class="cat-btn" onclick="filterCategory('ai', this)" data-en="AI Tools" data-ur="اے آئی ٹولز">AI Tools</button>
+        <button class="cat-btn" onclick="filterCategory('editing', this)" data-en="Editing Software" data-ur="ایڈیٹنگ سافٹ ویئر">Editing Software</button>
+        <button class="cat-btn" onclick="filterCategory('productivity', this)" data-en="Productivity" data-ur="پروڈکٹیوٹی">Productivity</button>
     </div>
 
     <div class="products" id="products"></div>
@@ -1059,7 +1138,7 @@ footer{
 
             <div class="payment-card">
                 <div class="payment-card-info">
-                    <h4 data-en="Allied Bank IBAN" data-ur="آئی بی اے این (بینک)">Allied Bank IBAN</h4>
+                    <h4 data-en="Allied Bank IBAN" data-ur="آئی بی اے اینڈ (بینک)">Allied Bank IBAN</h4>
                     <p style="font-size:10px;">PK10ABPA0010081815620010</p>
                 </div>
                 <button class="copy-btn" onclick="copyText('PK10ABPA0010081815620010')">Copy</button>
@@ -1067,10 +1146,46 @@ footer{
 
         </div>
         <p style="text-align:center; color:#85859c; font-size:11px; margin-top:12px;"
-           data-en="Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID on WhatsApp."
-           data-ur="اکاؤنٹ ٹائتل: سمیع اللہ — پیمنٹ کرنے کے بعد واٹس ایپ پر TID / بائنانس آرڈر آئی ڈی شیئر کریں۔">
-           Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID on WhatsApp.
+           data-en="Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID along with screenshot on WhatsApp."
+           data-ur="اکاؤنٹ ٹائتل: سمیع اللہ — پیمنٹ کرنے کے بعد واٹس ایپ پر TID / بائنانس آرڈر آئی ڈی اور اسکرین شاٹ ضرور شیئر کریں۔">
+           Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID along with screenshot on WhatsApp.
         </p>
+    </div>
+</section>
+
+
+<!-- ================= CUSTOMER REVIEWS (TESTIMONIALS) ================= -->
+
+<section class="section">
+    <h2 class="section-title" style="text-align:center; margin-bottom:20px;">
+        <span data-en="What Our" data-ur="ہمارے صارفین">What Our</span>
+        <span data-en=" Customers Say" data-ur=" کیا کہتے ہیں؟"> Customers Say</span>
+    </h2>
+
+    <div class="testimonials">
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <span class="testimonial-name">Usman Ali</span>
+                <span class="stars">★★★★★</span>
+            </div>
+            <p class="testimonial-text" data-en="Very fast service! Got my Canva Pro account within 5 minutes after sending payment." data-ur="بہت تیز سروس! پیمنٹ کے 5 منٹ کے اندر مجھے کینوا پرو اکاؤنٹ مل گیا۔">Very fast service! Got my Canva Pro account within 5 minutes after sending payment.</p>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <span class="testimonial-name">Hamza Khan</span>
+                <span class="stars">★★★★★</span>
+            </div>
+            <p class="testimonial-text" data-en="Gemini 18 months subscription is working perfectly. Highly trusted seller!" data-ur="جیمنائی 18 ماہ کی سبسکرپشن بالکل زبردست کام کر رہی ہے۔ قابلِ بھروسہ سیلر!">Gemini 18 months subscription is working perfectly. Highly trusted seller!</p>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <span class="testimonial-name">Bilal Ahmed</span>
+                <span class="stars">★★★★★</span>
+            </div>
+            <p class="testimonial-text" data-en="Amazing prices and reliable support on WhatsApp. Will buy again!" data-ur="بہترین قیمتیں اور واٹس ایپ پر شاندار سپورٹ۔ دوبارہ ضرور لوں گا!">Amazing prices and reliable support on WhatsApp. Will buy again!</p>
+        </div>
     </div>
 </section>
 
@@ -1266,9 +1381,9 @@ footer{
                 </div>
 
                 <div class="payment-note"
-                     data-en="After payment, enter your Transaction ID or Binance Order ID below."
-                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی یا بائنانس آرڈر آئی ڈی درج کریں۔">
-                    After payment, enter your Transaction ID or Binance Order ID below.
+                     data-en="After payment, enter your Transaction ID or Binance Order ID below. Also share screenshot on WhatsApp."
+                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی یا بائنانس آرڈر آئی ڈی درج کریں اور اسکرین شاٹ واٹس ایپ پر بھیجیں۔">
+                    After payment, enter your Transaction ID or Binance Order ID below. Also share screenshot on WhatsApp.
                 </div>
 
             </div>
@@ -1347,7 +1462,7 @@ footer{
 
 /* =========================================================
    SAMI AI TOOLS
-   PRODUCT DATABASE
+   PRODUCT DATABASE WITH CATEGORIES
    ========================================================= */
 
 const products = [
@@ -1356,6 +1471,7 @@ const products = [
         id: 1,
         name: "Google Gemini — 18 Months",
         urdu: "گوگل جیمنائی — 18 ماہ",
+        category: "ai",
         desc: "2TB Storage + Private Gmail Account",
         descUrdu: "2 ٹی بی اسٹوریج + پرائیویٹ جی میل اکاؤنٹ",
         price: 270,
@@ -1370,6 +1486,7 @@ const products = [
         id: 2,
         name: "CapCut Pro — 6 Months",
         urdu: "کیپ کٹ پرو — 6 ماہ",
+        category: "editing",
         desc: "6 Months Subscription + Pro Features",
         descUrdu: "6 ماہ سبسکرپشن + تمام پرو فیچرز",
         price: 3000,
@@ -1384,6 +1501,7 @@ const products = [
         id: 3,
         name: "CapCut Pro — 1 Month",
         urdu: "کیپ کٹ پرو — 1 ماہ",
+        category: "editing",
         desc: "1 Month Subscription + Pro Features",
         descUrdu: "1 ماہ سبسکرپشن + تمام پرو فیچرز",
         price: 650,
@@ -1398,6 +1516,7 @@ const products = [
         id: 4,
         name: "Canva Pro — 1 Month",
         urdu: "کینوا پرو — 1 ماہ",
+        category: "editing",
         desc: "1 Month Subscription + Premium Features",
         descUrdu: "1 ماہ سبسکرپشن + پریمیم فیچرز",
         price: 90,
@@ -1412,13 +1531,14 @@ const products = [
         id: 5,
         name: "Canva Pro — 2 Years",
         urdu: "کینوا پرو — 2 سال",
+        category: "editing",
         desc: "2 Years Subscription + Premium Features",
         descUrdu: "2 سال سبسکرپشن + پریمیم فیچرز",
         price: 500,
         oldPrice: 0,
         stock: 17,
         sold: 13,
-        icon: "🖌️️",
+        icon: "🖌️",
         badge: "BEST VALUE"
     },
 
@@ -1426,6 +1546,7 @@ const products = [
         id: 6,
         name: "Microsoft Office 365",
         urdu: "مائیکروسافٹ آفس 365",
+        category: "productivity",
         desc: "Office Apps + Word, Excel & PowerPoint",
         descUrdu: "آفس ایپس + ورڈ، ایکسل اور پاورپوائنٹ",
         price: 250,
@@ -1440,27 +1561,18 @@ const products = [
 
 
 /* =========================================================
-   SETTINGS
+   SETTINGS & STATE
    ========================================================= */
 
 const WHATSAPP_NUMBER = "966595073180";
-
-const WHATSAPP_GREETING =
-    "Salam! Mujhe Sami AI Tools ke baare mein maloomat chahiye.";
-
-
-/* =========================================================
-   STATE
-   ========================================================= */
+const WHATSAPP_GREETING = "Salam! Mujhe Sami AI Tools ke baare mein maloomat chahiye.";
 
 let language = localStorage.getItem("sami_language") || "en";
-
+let currentCategory = "all";
 let cart = [];
 
 try {
-    cart = JSON.parse(
-        localStorage.getItem("sami_cart") || "[]"
-    );
+    cart = JSON.parse(localStorage.getItem("sami_cart") || "[]");
 } catch {
     cart = [];
 }
@@ -1471,51 +1583,34 @@ try {
    ========================================================= */
 
 function escapeHTML(value){
-
     return String(value)
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
-
 }
-
 
 function money(number){
-
     return "Rs. " + Number(number).toLocaleString("en-PK");
-
 }
-
 
 function showToast(message){
-
     const toast = document.getElementById("toast");
-
     toast.textContent = message;
-
     toast.classList.add("show");
-
     clearTimeout(window.toastTimer);
-
     window.toastTimer = setTimeout(() => {
-
         toast.classList.remove("show");
-
-    },2200);
-
+    }, 2200);
 }
-
 
 function copyText(text){
     navigator.clipboard.writeText(text).then(() => {
         showToast(
-            language === "ur"
-                ? "✓ کاپی ہوگیا!"
-                : "✓ Copied to clipboard!"
+            language === "ur" ? "✓ کاپی ہوگیا!" : "✓ Copied to clipboard!"
         );
-    }).catch(err => {
+    }).catch(() => {
         showToast("❌ Copy failed");
     });
 }
@@ -1526,52 +1621,37 @@ function copyText(text){
    ========================================================= */
 
 function setLanguage(lang){
-
     language = lang;
+    localStorage.setItem("sami_language", lang);
 
-    localStorage.setItem("sami_language",lang);
-
-    document.body.classList.toggle(
-        "urdu",
-        lang === "ur"
-    );
-
+    document.body.classList.toggle("urdu", lang === "ur");
     document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
 
-    document.documentElement.dir =
-        lang === "ur" ? "rtl" : "ltr";
+    document.getElementById("enBtn").classList.toggle("active", lang === "en");
+    document.getElementById("urBtn").classList.toggle("active", lang === "ur");
 
+    document.querySelectorAll("[data-en]").forEach(element => {
+        element.innerHTML = lang === "ur" ? element.dataset.ur : element.dataset.en;
+    });
 
-    document.getElementById("enBtn")
-        .classList.toggle("active",lang === "en");
-
-    document.getElementById("urBtn")
-        .classList.toggle("active",lang === "ur");
-
-
-    document.querySelectorAll("[data-en]")
-        .forEach(element => {
-
-            element.innerHTML =
-                lang === "ur"
-                    ? element.dataset.ur
-                    : element.dataset.en;
-
-        });
-
-
-    const search =
-        document.getElementById("search");
-
-    search.placeholder =
-        lang === "ur"
-            ? search.dataset.placeholderUr
-            : search.dataset.placeholderEn;
-
+    const search = document.getElementById("search");
+    search.placeholder = lang === "ur" ? search.dataset.placeholderUr : search.dataset.placeholderEn;
 
     renderProducts();
     renderCart();
+}
 
+
+/* =========================================================
+   FILTER CATEGORY
+   ========================================================= */
+
+function filterCategory(cat, btn){
+    currentCategory = cat;
+    document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderProducts();
 }
 
 
@@ -1580,352 +1660,132 @@ function setLanguage(lang){
    ========================================================= */
 
 function renderProducts(){
-
-    const container =
-        document.getElementById("products");
-
-    const search =
-        document.getElementById("search")
-            .value
-            .trim()
-            .toLowerCase();
-
+    const container = document.getElementById("products");
+    const search = document.getElementById("search").value.trim().toLowerCase();
 
     const filtered = products.filter(product => {
-
-        const text =
-            product.name.toLowerCase() +
-            " " +
-            product.urdu +
-            " " +
-            product.desc.toLowerCase();
-
-        return text.includes(search);
-
+        const matchesCategory = currentCategory === "all" || product.category === currentCategory;
+        const text = (product.name + " " + product.urdu + " " + product.desc).toLowerCase();
+        const matchesSearch = text.includes(search);
+        return matchesCategory && matchesSearch;
     });
 
-
     if(!filtered.length){
-
         container.innerHTML = `
             <div class="empty" style="grid-column:1/-1;">
-                ${
-                    language === "ur"
-                    ? "کوئی پروڈکٹ نہیں ملی۔"
-                    : "No products found."
-                }
+                ${language === "ur" ? "کوئی پروڈکٹ نہیں ملی۔" : "No products found."}
             </div>
         `;
-
         return;
-
     }
 
+    container.innerHTML = filtered.map(product => {
+        const available = product.stock > 0;
+        const total = product.stock + product.sold;
+        const soldPercent = total > 0 ? Math.min(100, Math.round((product.sold / total) * 100)) : 0;
 
-    container.innerHTML =
-        filtered.map(product => {
+        let stockClass = "stock-ok";
+        if(product.stock <= 10 && product.stock > 0) stockClass = "stock-low";
+        if(product.stock <= 0) stockClass = "stock-out";
 
-            const available =
-                product.stock > 0;
+        let stockText = product.stock <= 0 
+            ? (language === "ur" ? "❌ ختم ہو گیا" : "❌ SOLD OUT")
+            : (language === "ur" ? `✓ ${product.stock} دستیاب` : `✓ ${product.stock} Available`);
 
-            const total =
-                product.stock + product.sold;
+        const title = language === "ur" ? product.urdu : product.name;
+        const description = language === "ur" ? product.descUrdu : product.desc;
 
-            const soldPercent =
-                total > 0
-                    ? Math.min(
-                        100,
-                        Math.round(
-                            (product.sold / total) * 100
-                        )
-                    )
-                    : 0;
-
-
-            let stockClass = "stock-ok";
-
-            if(product.stock <= 10 && product.stock > 0){
-                stockClass = "stock-low";
-            }
-
-            if(product.stock <= 0){
-                stockClass = "stock-out";
-            }
-
-
-            let stockText;
-
-            if(product.stock <= 0){
-
-                stockText =
-                    language === "ur"
-                    ? "❌ ختم ہو گیا"
-                    : "❌ SOLD OUT";
-
-            }else{
-
-                stockText =
-                    language === "ur"
-                    ? `✓ ${product.stock} دستیاب`
-                    : `✓ ${product.stock} Available`;
-
-            }
-
-
-            const title =
-                language === "ur"
-                    ? product.urdu
-                    : product.name;
-
-            const description =
-                language === "ur"
-                    ? product.descUrdu
-                    : product.desc;
-
-
-            return `
-
+        return `
             <article class="product">
-
                 <div class="product-top">
-
-                    ${
-                        product.badge
-                        ? `<div class="hot-badge">
-                            ${escapeHTML(product.badge)}
-                           </div>`
-                        : ""
-                    }
-
-                    <div class="stock-badge ${stockClass}">
-                        ${stockText}
-                    </div>
-
-                    <div class="product-icon">
-                        ${product.icon}
-                    </div>
-
+                    ${product.badge ? `<div class="hot-badge">${escapeHTML(product.badge)}</div>` : ""}
+                    <div class="stock-badge ${stockClass}">${stockText}</div>
+                    <div class="product-icon">${product.icon}</div>
                 </div>
-
 
                 <div class="product-body">
-
-                    <h3 class="product-title">
-                        ${escapeHTML(title)}
-                    </h3>
-
-                    <p class="product-desc">
-                        ${escapeHTML(description)}
-                    </p>
-
+                    <h3 class="product-title">${escapeHTML(title)}</h3>
+                    <p class="product-desc">${escapeHTML(description)}</p>
 
                     <div class="price">
-
-                        ${
-                            product.oldPrice > 0
-                            ? `<span class="old-price">
-                                ${money(product.oldPrice)}
-                               </span>`
-                            : ""
-                        }
-
-                        <span class="new-price">
-                            ${money(product.price)}
-                        </span>
-
+                        ${product.oldPrice > 0 ? `<span class="old-price">${money(product.oldPrice)}</span>` : ""}
+                        <span class="new-price">${money(product.price)}</span>
                     </div>
-
 
                     <div class="stock-info">
-
                         <div class="stock-text">
-
-                            <span>
-                                ${
-                                    language === "ur"
-                                    ? "فروخت شدہ"
-                                    : "Sold"
-                                }
-                                : ${product.sold}
-                            </span>
-
-                            <span>
-                                ${
-                                    language === "ur"
-                                    ? "اسٹاک"
-                                    : "Stock"
-                                }
-                                : ${product.stock}
-                            </span>
-
+                            <span>${language === "ur" ? "فروخت شدہ" : "Sold"}: ${product.sold}</span>
+                            <span>${language === "ur" ? "اسٹاک" : "Stock"}: ${product.stock}</span>
                         </div>
-
                         <div class="progress">
-
-                            <div
-                                class="progress-bar"
-                                style="width:${soldPercent}%">
-                            </div>
-
+                            <div class="progress-bar" style="width:${soldPercent}%"></div>
                         </div>
-
                     </div>
 
-
-                    <button
-                        class="add-button"
-                        ${available ? "" : "disabled"}
-                        onclick="addToCart(${product.id})">
-
-                        ${
-                            available
-                            ? (
-                                language === "ur"
-                                ? "+ کارٹ میں شامل کریں"
-                                : "+ ADD TO CART"
-                              )
-                            : (
-                                language === "ur"
-                                ? "اسٹاک ختم"
-                                : "OUT OF STOCK"
-                              )
-                        }
-
+                    <button class="add-button" ${available ? "" : "disabled"} onclick="addToCart(${product.id})">
+                        ${available ? (language === "ur" ? "+ کارٹ میں شامل کریں" : "+ ADD TO CART") : (language === "ur" ? "اسٹاک ختم" : "OUT OF STOCK")}
                     </button>
-
                 </div>
-
             </article>
-
-            `;
-
-        }).join("");
-
+        `;
+    }).join("");
 }
 
 
 /* =========================================================
-   CART
+   CART MANAGEMENT
    ========================================================= */
 
 function saveCart(){
-
-    localStorage.setItem(
-        "sami_cart",
-        JSON.stringify(cart)
-    );
-
+    localStorage.setItem("sami_cart", JSON.stringify(cart));
 }
-
 
 function addToCart(id){
-
-    const product =
-        products.find(p => p.id === id);
-
+    const product = products.find(p => p.id === id);
     if(!product || product.stock <= 0){
-
-        showToast(
-            language === "ur"
-                ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے"
-                : "❌ Product is out of stock"
-        );
-
+        showToast(language === "ur" ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے" : "❌ Product is out of stock");
         return;
     }
 
-
-    const existing =
-        cart.find(item => item.id === id);
-
-
+    const existing = cart.find(item => item.id === id);
     if(existing){
-
         if(existing.qty >= product.stock){
-
-            showToast(
-                language === "ur"
-                    ? "⚠️ اتنا اسٹاک دستیاب نہیں"
-                    : "⚠️ Not enough stock available"
-            );
-
+            showToast(language === "ur" ? "⚠️ اتنا اسٹاک دستیاب نہیں" : "⚠️ Not enough stock available");
             return;
         }
-
         existing.qty++;
-
-    }else{
-
-        cart.push({
-            id:id,
-            qty:1
-        });
-
+    } else {
+        cart.push({ id: id, qty: 1 });
     }
-
 
     saveCart();
     renderCart();
-
-
-    showToast(
-        language === "ur"
-            ? "✓ کارٹ میں شامل ہوگیا"
-            : "✓ Added to cart"
-    );
-
+    showToast(language === "ur" ? "✓ کارٹ میں شامل ہوگیا" : "✓ Added to cart");
 }
-
 
 function removeFromCart(id){
-
-    cart =
-        cart.filter(item => item.id !== id);
-
+    cart = cart.filter(item => item.id !== id);
     saveCart();
     renderCart();
-
 }
 
-
-function changeQuantity(id,change){
-
-    const item =
-        cart.find(i => i.id === id);
-
-    const product =
-        products.find(p => p.id === id);
-
+function changeQuantity(id, change){
+    const item = cart.find(i => i.id === id);
+    const product = products.find(p => p.id === id);
     if(!item || !product) return;
 
-
     item.qty += change;
-
-
     if(item.qty <= 0){
-
         removeFromCart(id);
         return;
-
     }
-
-
     if(item.qty > product.stock){
-
         item.qty = product.stock;
-
-        showToast(
-            language === "ur"
-                ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں"
-                : "⚠️ Cannot exceed available stock"
-        );
-
+        showToast(language === "ur" ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں" : "⚠️ Cannot exceed available stock");
     }
-
 
     saveCart();
     renderCart();
-
 }
 
 
@@ -1934,206 +1794,76 @@ function changeQuantity(id,change){
    ========================================================= */
 
 function renderCart(){
+    const items = document.getElementById("cartItems");
+    const totalElement = document.getElementById("cartTotal");
+    const checkout = document.getElementById("checkoutArea");
 
-    const items =
-        document.getElementById("cartItems");
-
-    const totalElement =
-        document.getElementById("cartTotal");
-
-    const checkout =
-        document.getElementById("checkoutArea");
-
-
-    const count =
-        cart.reduce(
-            (sum,item) => sum + item.qty,
-            0
-        );
-
-
-    document.getElementById("cartCount")
-        .textContent = count;
-
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById("cartCount").textContent = count;
 
     if(cart.length === 0){
-
-        items.innerHTML = `
-            <div class="empty">
-                ${
-                    language === "ur"
-                    ? "🛒 کارٹ خالی ہے"
-                    : "🛒 Your cart is empty"
-                }
-            </div>
-        `;
-
+        items.innerHTML = `<div class="empty">${language === "ur" ? "🛒 کارٹ خالی ہے" : "🛒 Your cart is empty"}</div>`;
         totalElement.innerHTML = "";
-
         checkout.style.display = "none";
-
         return;
-
     }
 
-
     let total = 0;
+    items.innerHTML = cart.map(item => {
+        const product = products.find(p => p.id === item.id);
+        if(!product) return "";
 
+        const subtotal = product.price * item.qty;
+        total += subtotal;
+        const title = language === "ur" ? product.urdu : product.name;
 
-    items.innerHTML =
-        cart.map(item => {
-
-            const product =
-                products.find(p => p.id === item.id);
-
-            if(!product) return "";
-
-
-            const subtotal =
-                product.price * item.qty;
-
-            total += subtotal;
-
-
-            const title =
-                language === "ur"
-                    ? product.urdu
-                    : product.name;
-
-
-            return `
-
+        return `
             <div class="cart-item">
-
                 <div class="cart-info">
-
-                    <h4>
-                        ${product.icon}
-                        ${escapeHTML(title)}
-                    </h4>
-
-                    <p>
-                        ${item.qty} ×
-                        ${money(product.price)}
-                        =
-                        ${money(subtotal)}
-                    </p>
-
+                    <h4>${product.icon} ${escapeHTML(title)}</h4>
+                    <p>${item.qty} × ${money(product.price)} = ${money(subtotal)}</p>
                 </div>
-
-
                 <div class="qty">
-
-                    <button
-                        onclick="changeQuantity(${item.id},-1)">
-                        −
-                    </button>
-
+                    <button onclick="changeQuantity(${item.id},-1)">−</button>
                     <span>${item.qty}</span>
-
-                    <button
-                        onclick="changeQuantity(${item.id},1)">
-                        +
-                    </button>
-
+                    <button onclick="changeQuantity(${item.id},1)">+</button>
                 </div>
-
-
-                <button
-                    class="remove"
-                    onclick="removeFromCart(${item.id})">
-                    ✕
-                </button>
-
+                <button class="remove" onclick="removeFromCart(${item.id})">✕</button>
             </div>
-
-            `;
-
-        }).join("");
-
+        `;
+    }).join("");
 
     totalElement.innerHTML = `
-
-        <span>
-            ${
-                language === "ur"
-                    ? "کل رقم"
-                    : "Total"
-            }
-        </span>
-
-        <span class="total-value">
-            ${money(total)}
-        </span>
-
+        <span>${language === "ur" ? "کل رقم" : "Total"}</span>
+        <span class="total-value">${money(total)}</span>
     `;
 
-
     checkout.style.display = "block";
-
 }
 
 
 /* =========================================================
-   MODAL
+   MODAL CONTROLS
    ========================================================= */
 
 function openCart(){
-
-    document
-        .getElementById("cartModal")
-        .classList.add("active");
-
+    document.getElementById("cartModal").classList.add("active");
     document.body.style.overflow = "hidden";
-
     renderCart();
-
 }
-
 
 function closeCart(){
-
-    document
-        .getElementById("cartModal")
-        .classList.remove("active");
-
+    document.getElementById("cartModal").classList.remove("active");
     document.body.style.overflow = "";
-
 }
 
+document.getElementById("cartModal").addEventListener("click", function(event){
+    if(event.target === this) closeCart();
+});
 
-/* Close when clicking outside */
-
-document
-    .getElementById("cartModal")
-    .addEventListener(
-        "click",
-        function(event){
-
-            if(event.target === this){
-
-                closeCart();
-
-            }
-
-        }
-    );
-
-
-/* Escape key */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key === "Escape"){
-
-            closeCart();
-
-        }
-
-    }
-);
+document.addEventListener("keydown", function(event){
+    if(event.key === "Escape") closeCart();
+});
 
 
 /* =========================================================
@@ -2141,129 +1871,62 @@ document.addEventListener(
    ========================================================= */
 
 function placeOrder(){
-
-    const name =
-        document.getElementById("customerName")
-            .value.trim();
-
-    const phone =
-        document.getElementById("customerPhone")
-            .value.trim();
-
-    const email =
-        document.getElementById("customerEmail")
-            .value.trim();
-
-    const notes =
-        document.getElementById("customerNotes")
-            .value.trim();
-
-    const tid =
-        document.getElementById("transactionId")
-            .value.trim();
-
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const notes = document.getElementById("customerNotes").value.trim();
+    const tid = document.getElementById("transactionId").value.trim();
 
     if(!name || !phone || !tid){
-
         showToast(
-            language === "ur"
-                ? "⚠️ نام، واٹس ایپ نمبر اور TID/Binance ID ضروری ہیں"
-                : "⚠️ Name, WhatsApp and TID/Binance ID are required"
+            language === "ur" ? "⚠️ نام، واٹس ایپ نمبر اور TID ضروری ہیں" : "⚠️ Name, WhatsApp and TID are required"
         );
-
         return;
-
     }
-
 
     if(cart.length === 0){
-
-        showToast(
-            language === "ur"
-                ? "⚠️ کارٹ خالی ہے"
-                : "⚠️ Cart is empty"
-        );
-
+        showToast(language === "ur" ? "⚠️ کارٹ خالی ہے" : "⚠️ Cart is empty");
         return;
-
     }
 
-
     let message = "🛒 *NEW ORDER — Sami AI Tools*\n\n";
-
     message += `👤 *Name:* ${name}\n`;
     message += `📱 *WhatsApp:* ${phone}\n`;
 
-    if(email){
-        message += `📧 *Email:* ${email}\n`;
-    }
-
-    if(notes){
-        message += `📍 *Notes:* ${notes}\n`;
-    }
+    if(email) message += `📧 *Email:* ${email}\n`;
+    if(notes) message += `📍 *Notes:* ${notes}\n`;
 
     message += "\n📦 *ORDER DETAILS:*\n";
     message += "────────────────\n";
 
     let total = 0;
-
-    cart.forEach((item,index) => {
-
-        const product =
-            products.find(p => p.id === item.id);
-
+    cart.forEach((item, index) => {
+        const product = products.find(p => p.id === item.id);
         if(!product) return;
 
-        const subtotal =
-            product.price * item.qty;
-
+        const subtotal = product.price * item.qty;
         total += subtotal;
 
         message += `${index + 1}. ${product.name}\n`;
         message += `   ${item.qty} × ${money(product.price)} = *${money(subtotal)}*\n`;
-
     });
 
     message += "────────────────\n";
     message += `💰 *TOTAL: ${money(total)}*\n\n`;
     message += `💳 *Payment Proof / ID:* ${tid}\n\n`;
-    message += "✅ Payment verification ke baad order process hoga.";
+    message += "✅ Payment verification ke baad order process hoga aur screenshot zaroor bhejiye ga.";
 
-
-    const url =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(message);
-
-
-    window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
+    const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+    window.open(url, "_blank", "noopener,noreferrer");
 }
-
-
-/* =========================================================
-   WHATSAPP FLOAT BUTTON
-   ========================================================= */
-
-document
-    .getElementById("whatsappButton")
-    .href =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(
-            WHATSAPP_GREETING
-        );
 
 
 /* =========================================================
    INITIALIZE
    ========================================================= */
+
+document.getElementById("whatsappButton").href = 
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_GREETING);
 
 setLanguage(language);
 
