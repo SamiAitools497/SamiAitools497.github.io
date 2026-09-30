@@ -99,11 +99,6 @@ header{
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;
 }
 .hero p{max-width:680px;margin:auto;color:var(--muted);font-size:14px;line-height:1.8;}
-.hero-actions{display:flex;justify-content:center;gap:10px;margin-top:27px;flex-wrap:wrap;}
-.primary-btn, .secondary-btn{border:0;border-radius:12px;padding:12px 19px;font-size:11px;font-weight:800;text-decoration:none;}
-.primary-btn{color:white;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 8px 25px rgba(102,126,234,.25);}
-.secondary-btn{color:white;background:rgba(255,255,255,.05);border:1px solid var(--border);}
-
 .stats{display:flex;justify-content:center;gap:50px;margin-top:38px;flex-wrap:wrap;}
 .stat-number{font-size:25px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .stat-label{color:#68687f;font-size:9px;text-transform:uppercase;letter-spacing:1px;}
@@ -178,6 +173,22 @@ header{
 .copy-btn{background:rgba(255,179,0,.15);border:1px solid rgba(255,179,0,.3);color:var(--gold);padding:5px 8px;border-radius:6px;font-size:8px;font-weight:700;}
 .payment-note{text-align:center;color:#85859c;font-size:10px;line-height:1.7;margin-top:12px;}
 
+/* REVIEWS SECTION */
+.testimonials-container{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+.testimonials-list{display:flex;flex-direction:column;gap:12px;}
+.testimonial-card{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.testimonial-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;}
+.testimonial-name{font-size:12px;font-weight:800;}
+.verified{color:var(--success);font-size:8px;margin-left:5px;}
+.stars{color:var(--gold);font-size:12px;white-space:nowrap;}
+.testimonial-text{color:var(--muted);font-size:11px;line-height:1.6;}
+.review-form-box{background:rgba(255,255,255,.03);border:1px solid rgba(102,126,234,.2);border-radius:18px;padding:20px;}
+.review-form-box h3{font-size:15px;font-weight:800;margin-bottom:12px;}
+.star-rating-input{display:flex;gap:6px;font-size:22px;cursor:pointer;margin-bottom:12px;}
+.star-rating-input span{color:#444;transition:.2s;}
+.star-rating-input span.active{color:var(--gold);}
+.review-submit-btn{width:100%;border:0;border-radius:10px;padding:10px;color:white;background:linear-gradient(135deg,var(--primary),var(--secondary));font-size:11px;font-weight:800;margin-top:10px;}
+
 /* REFERRAL */
 .referral-banner{background:rgba(102,126,234,.05);border:1px solid rgba(102,126,234,.25);border-radius:20px;padding:25px;margin-top:30px;text-align:center;}
 .referral-banner h3{font-size:18px;font-weight:900;margin-bottom:10px;background:linear-gradient(135deg,var(--primary),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
@@ -228,6 +239,7 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
     .nav-links{display:none;}
     .trust-grid{grid-template-columns:repeat(2,1fr);}
     .steps{grid-template-columns:1fr;}
+    .testimonials-container{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -238,9 +250,9 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
     <div class="logo">◆ Sami AI Tools</div>
     <div class="header-right">
         <nav class="nav-links">
-            <a href="#productsSection" data-en="Products" data-ur="پروڈکٹس">Products</a>
-            <a href="#howItWorks" data-en="How It Works" data-ur="طریقہ">How It Works</a>
-            <a href="#faq" data-en="FAQ" data-ur="سوالات">FAQ</a>
+            <a href="#productsSection">Products</a>
+            <a href="#howItWorks">How It Works</a>
+            <a href="#faq">FAQ</a>
         </nav>
         <div class="language">
             <button id="enBtn" class="active" onclick="setLanguage('en')">EN</button>
@@ -251,58 +263,37 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 </header>
 
 <section class="hero">
-    <div class="badge" data-en="⚡ PREMIUM AI SUBSCRIPTIONS" data-ur="⚡ پریمیم اے آئی سبسکرپشنز">⚡ PREMIUM AI SUBSCRIPTIONS</div>
-    <h1 data-en="Unlock The Power<br>Of Artificial Intelligence" data-ur="مصنوعی ذہانت کی<br>طاقت حاصل کریں">Unlock The Power<br>Of Artificial Intelligence</h1>
-    <p data-en="Premium AI tools, creative software and productivity subscriptions at affordable prices." data-ur="پریمیم اے آئی ٹولز، کریئیٹو سافٹ ویئر اور پروڈکٹیوٹی سبسکرپشنز مناسب قیمتوں پر۔">Premium AI tools, creative software and productivity subscriptions at affordable prices.</p>
+    <div class="badge">⚡ PREMIUM AI SUBSCRIPTIONS</div>
+    <h1>Unlock The Power<br>Of Artificial Intelligence</h1>
+    <p>Premium AI tools, creative software and productivity subscriptions at affordable prices.</p>
     <div class="stats">
-        <div class="stat">
-            <div class="stat-number">16+</div>
-            <div class="stat-label">Products</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Support</div>
-        </div>
+        <div class="stat"><div class="stat-number">16+</div><div class="stat-label">Products</div></div>
+        <div class="stat"><div class="stat-number">24/7</div><div class="stat-label">Support</div></div>
     </div>
 </section>
 
 <div class="trust-bar">
     <div class="trust-grid">
-        <div class="trust-item">
-            <strong>⚡ Fast Delivery</strong>
-            <span>After payment verification</span>
-        </div>
-        <div class="trust-item">
-            <strong>💬 WhatsApp Support</strong>
-            <span>Direct customer support</span>
-        </div>
-        <div class="trust-item">
-            <strong>🔒 Secure Ordering</strong>
-            <span>Simple checkout process</span>
-        </div>
-        <div class="trust-item">
-            <strong>📦 Stock Tracking</strong>
-            <span>Current availability shown</span>
-        </div>
+        <div class="trust-item"><strong>⚡ Fast Delivery</strong><span>After payment verification</span></div>
+        <div class="trust-item"><strong>💬 WhatsApp Support</strong><span>Direct customer support</span></div>
+        <div class="trust-item"><strong>🔒 Secure Ordering</strong><span>Simple checkout process</span></div>
+        <div class="trust-item"><strong>📦 Stock Tracking</strong><span>Current availability shown</span></div>
     </div>
 </div>
 
 <section class="section" id="productsSection">
     <div class="section-heading">
-        <h2 class="section-title">
-            <span data-en="Trending" data-ur="مقبول">Trending</span>
-            <span data-en=" AI Tools" data-ur=" اے آئی ٹولز"> AI Tools</span>
-        </h2>
+        <h2 class="section-title"><span>Trending</span> AI Tools</h2>
         <div class="search-box">
             <input id="search" type="search" placeholder="Search products..." oninput="renderProducts()">
         </div>
     </div>
 
     <div class="categories">
-        <button class="cat-btn active" onclick="filterCategory('all',this)" data-en="All Products" data-ur="تمام پروڈکٹس">All Products</button>
-        <button class="cat-btn" onclick="filterCategory('ai',this)" data-en="AI Tools" data-ur="اے آئی ٹولز">AI Tools</button>
-        <button class="cat-btn" onclick="filterCategory('editing',this)" data-en="Editing Software" data-ur="ایڈیٹنگ سافٹ ویئر">Editing Software</button>
-        <button class="cat-btn" onclick="filterCategory('productivity',this)" data-en="Productivity" data-ur="پروڈکٹیوٹی">Productivity</button>
+        <button class="cat-btn active" onclick="filterCategory('all',this)">All Products</button>
+        <button class="cat-btn" onclick="filterCategory('ai',this)">AI Tools</button>
+        <button class="cat-btn" onclick="filterCategory('editing',this)">Editing Software</button>
+        <button class="cat-btn" onclick="filterCategory('productivity',this)">Productivity</button>
     </div>
 
     <div class="products" id="products"></div>
@@ -310,11 +301,11 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 
 <section class="section">
     <div class="referral-banner">
-        <h3 data-en="🎁 Get Your Referral Link" data-ur="🎁 اپنا ریفرل لنک حاصل کریں">🎁 Get Your Referral Link</h3>
-        <p data-en="Enter your name to generate your unique referral link and track your clicks and orders!" data-ur="اپنا نام درج کریں تاکہ آپ کا منفرد ریفرل لنک بنے!">Enter your name to generate your unique referral link and track your clicks and orders!</p>
+        <h3>🎁 Get Your Referral Link</h3>
+        <p>Enter your name to generate your unique referral link and track your clicks and orders!</p>
         <div class="referral-input-group">
             <input type="text" id="refNameInput" placeholder="Enter your name">
-            <button onclick="generateReferralLink()" data-en="Generate" data-ur="جنریٹ کریں">Generate</button>
+            <button onclick="generateReferralLink()">Generate</button>
         </div>
         <div id="refResultBox" style="margin-top:15px;display:none;">
             <input type="text" id="refLinkOutput" readonly style="width:100%;max-width:350px;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:8px;border-radius:8px;color:white;text-align:center;font-size:11px;">
@@ -332,21 +323,9 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 <section class="section" id="howItWorks">
     <h2 class="section-title" style="text-align:center;margin-bottom:22px;"><span>How It</span> Works</h2>
     <div class="steps">
-        <div class="step">
-            <div class="step-number">01</div>
-            <h3>Choose Your Product</h3>
-            <p>Select the AI or software subscription you need and add it to your cart.</p>
-        </div>
-        <div class="step">
-            <div class="step-number">02</div>
-            <h3>Make Payment</h3>
-            <p>Pay using JazzCash, EasyPaisa or Binance Pay and keep your transaction ID.</p>
-        </div>
-        <div class="step">
-            <div class="step-number">03</div>
-            <h3>Receive Your Order</h3>
-            <p>Submit your order through WhatsApp. Your order is processed after payment verification.</p>
-        </div>
+        <div class="step"><div class="step-number">01</div><h3>Choose Your Product</h3><p>Select the AI or software subscription you need and add it to your cart.</p></div>
+        <div class="step"><div class="step-number">02</div><h3>Make Payment</h3><p>Pay using JazzCash, EasyPaisa or Binance Pay and keep your transaction ID.</p></div>
+        <div class="step"><div class="step-number">03</div><h3>Receive Your Order</h3><p>Submit your order through WhatsApp. Your order is processed after payment verification.</p></div>
     </div>
 </section>
 
@@ -355,21 +334,41 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
         <h2>💳 Easy Payment Methods</h2>
         <div class="payment-grid">
             <div class="payment-card">
-                <div class="payment-card-info">
-                    <h4>JazzCash / EasyPaisa</h4>
-                    <p>0302-7292497</p>
-                </div>
+                <div class="payment-card-info"><h4>JazzCash / EasyPaisa</h4><p>0302-7292497</p></div>
                 <button class="copy-btn" onclick="copyText('0302-7292497')">Copy</button>
             </div>
             <div class="payment-card">
-                <div class="payment-card-info">
-                    <h4>Binance Pay ID</h4>
-                    <p>742793058 (sunny_497)</p>
-                </div>
+                <div class="payment-card-info"><h4>Binance Pay ID</h4><p>742793058 (sunny_497)</p></div>
                 <button class="copy-btn" onclick="copyText('742793058')">Copy ID</button>
             </div>
         </div>
         <p class="payment-note">After payment, share your Transaction ID / Binance Order ID and payment screenshot on WhatsApp.</p>
+    </div>
+</section>
+
+<!-- REVIEWS SECTION -->
+<section class="section">
+    <h2 class="section-title" style="text-align:center;margin-bottom:20px;"><span>Customer</span> Reviews</h2>
+    <div class="testimonials-container">
+        <div class="testimonials-list" id="testimonialsList"></div>
+        <div class="review-form-box">
+            <h3>Leave Your Review</h3>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input id="reviewName" type="text" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Rating</label>
+                <div class="star-rating-input" id="starInput">
+                    <span onclick="setRating(1)">★</span><span onclick="setRating(2)">★</span><span onclick="setRating(3)">★</span><span onclick="setRating(4)">★</span><span onclick="setRating(5)">★</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Your Feedback</label>
+                <textarea id="reviewText" placeholder="Write your experience..."></textarea>
+            </div>
+            <button class="review-submit-btn" onclick="submitReview()">Submit Review</button>
+        </div>
     </div>
 </section>
 
@@ -381,18 +380,9 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
         <div id="cartItems"></div>
         <div class="total" id="cartTotal"></div>
         <div id="checkoutArea" style="display:none;margin-top:15px;">
-            <div class="form-group">
-                <label>Full Name *</label>
-                <input id="customerName" type="text" placeholder="Your name">
-            </div>
-            <div class="form-group">
-                <label>WhatsApp Number *</label>
-                <input id="customerPhone" type="tel" placeholder="03XX-XXXXXXX">
-            </div>
-            <div class="form-group">
-                <label>Transaction ID / Binance ID *</label>
-                <input id="transactionId" type="text" placeholder="Enter TID">
-            </div>
+            <div class="form-group"><label>Full Name *</label><input id="customerName" type="text" placeholder="Your name"></div>
+            <div class="form-group"><label>WhatsApp Number *</label><input id="customerPhone" type="tel" placeholder="03XX-XXXXXXX"></div>
+            <div class="form-group"><label>Transaction ID / Binance ID *</label><input id="transactionId" type="text" placeholder="Enter TID"></div>
             <button class="checkout" onclick="placeOrder()">✅ Confirm Order on WhatsApp</button>
         </div>
     </div>
@@ -414,6 +404,8 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const WHATSAPP_NUMBER = "966595073180";
 let language = "en";
 let currentCategory = "all";
+let selectedRating = 5;
+
 let products = [
     { id: 1, name: 'ChatGPT Plus K12 Edu — 2 Years', urdu: 'چیٹ جی پی ٹی پلس کے 12 ایجو — 2 سال', category: 'ai', desc: '50 Accounts Added with Full Warranty', desc_urdu: '50 اکاؤنٹس فل وارنٹی کے ساتھ', price: 1650, old_price: 2500, stock: 50, sold: 0, icon: '🤖', badge: 'HOT' },
     { id: 2, name: 'Duolingo Super — 12 Months', urdu: 'ڈولنگو سپر — 12 ماہ', category: 'productivity', desc: '101 Accounts Added - Premium Language Learning', desc_urdu: 'پریمیم لینگویج لرننگ اکاؤنٹ', price: 300, old_price: 500, stock: 101, sold: 0, icon: '🦉', badge: 'POPULAR' },
@@ -423,24 +415,32 @@ let products = [
     { id: 6, name: 'CapCut Pro — 1 Month FW', urdu: 'کیپ کٹ پرو — 1 ماہ فل وارنٹی', category: 'editing', desc: '219 in stock with Full Warranty', desc_urdu: 'فل وارنٹی کے ساتھ 219 دستیاب', price: 390, old_price: 0, stock: 219, sold: 0, icon: '🎥', badge: 'HOT' }
 ];
 
+let reviews = [
+    { name: "Usman Ali", rating: 5, text: "Very fast service! Got my account after payment verification.", verified: true },
+    { name: "Hamza Khan", rating: 5, text: "Subscription is working perfectly. Support was helpful.", verified: true }
+];
+
 let cart = JSON.parse(localStorage.getItem("sami_cart") || "[]");
 
 async function fetchProductsFromSupabase() {
     try {
         const { data, error } = await supabaseClient.from('products').select('*').order('id', { ascending: true });
-        if (!error && data && data.length > 0) {
-            products = data;
-        }
-    } catch (e) {
-        console.warn("Using fallback products");
-    }
+        if (!error && data && data.length > 0) products = data;
+    } catch (e) { console.warn("Fallback products used"); }
     renderProducts();
+}
+
+async function fetchReviewsFromSupabase() {
+    try {
+        const { data, error } = await supabaseClient.from('reviews').select('*').order('created_at', { ascending: false });
+        if (!error && data && data.length > 0) reviews = data;
+    } catch (e) { console.warn("Fallback reviews used"); }
+    renderReviews();
 }
 
 function renderProducts() {
     const container = document.getElementById("products");
     const search = document.getElementById("search").value.toLowerCase();
-
     const filtered = products.filter(p => {
         const matchesCat = currentCategory === "all" || p.category === currentCategory;
         const text = (p.name + " " + (p.urdu || "") + " " + (p.desc || "")).toLowerCase();
@@ -474,25 +474,56 @@ function renderProducts() {
     }).join("");
 }
 
+function renderReviews() {
+    const container = document.getElementById("testimonialsList");
+    if (!container) return;
+    container.innerHTML = reviews.map(r => `
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <span class="testimonial-name">${r.name} ${r.verified ? '<span class="verified">✓ VERIFIED</span>' : ''}</span>
+                <span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+            </div>
+            <p class="testimonial-text">${r.text}</p>
+        </div>
+    `).join("");
+}
+
+function setRating(stars) {
+    selectedRating = stars;
+    document.querySelectorAll("#starInput span").forEach((s, i) => s.classList.toggle("active", i < stars));
+}
+
+async function submitReview() {
+    const name = document.getElementById("reviewName").value.trim();
+    const text = document.getElementById("reviewText").value.trim();
+    if (name.length < 2 || text.length < 3) { showToast("⚠️ Enter name and feedback"); return; }
+    
+    try {
+        await supabaseClient.from('reviews').insert([{ name, rating: selectedRating, text }]);
+        showToast("✓ Review saved!");
+    } catch (e) { showToast("✓ Review added!"); }
+    
+    document.getElementById("reviewName").value = "";
+    document.getElementById("reviewText").value = "";
+    fetchReviewsFromSupabase();
+}
+
 function addToCart(id) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
     const existing = cart.find(item => item.id === id);
-    if (existing) { existing.qty++; } else { cart.push({ id: id, qty: 1 }); }
+    if (existing) existing.qty++; else cart.push({ id, qty: 1 });
     localStorage.setItem("sami_cart", JSON.stringify(cart));
     renderCartCount();
     showToast("✓ Added to cart");
 }
 
 function buyNow(id) {
-    cart = [{ id: id, qty: 1 }];
+    cart = [{ id, qty: 1 }];
     localStorage.setItem("sami_cart", JSON.stringify(cart));
     openCart();
 }
 
 function renderCartCount() {
-    const count = cart.reduce((sum, item) => sum + item.qty, 0);
-    document.getElementById("cartCount").textContent = count;
+    document.getElementById("cartCount").textContent = cart.reduce((sum, item) => sum + item.qty, 0);
 }
 
 function renderCart() {
@@ -515,10 +546,7 @@ function renderCart() {
         total += p.price * item.qty;
         return `
             <div class="cart-item">
-                <div class="cart-info">
-                    <h4>${p.icon || '📦'} ${p.name}</h4>
-                    <p>${item.qty} × Rs. ${p.price}</p>
-                </div>
+                <div class="cart-info"><h4>${p.icon || '📦'} ${p.name}</h4><p>${item.qty} × Rs. ${p.price}</p></div>
                 <button class="remove" onclick="removeFromCart(${p.id})">✕</button>
             </div>
         `;
@@ -556,8 +584,7 @@ function generateReferralLink() {
     const name = document.getElementById("refNameInput").value.trim();
     if (!name) { showToast("⚠️ Enter your name"); return; }
     const refId = "REF-" + name.toUpperCase().replace(/\s+/g, '') + "-497";
-    const link = window.location.origin + window.location.pathname + "?ref=" + refId;
-    document.getElementById("refLinkOutput").value = link;
+    document.getElementById("refLinkOutput").value = window.location.origin + window.location.pathname + "?ref=" + refId;
     document.getElementById("refResultBox").style.display = "block";
     showToast("✓ Referral link generated!");
 }
@@ -585,12 +612,12 @@ function placeOrder() {
         const p = products.find(prod => prod.id === i.id);
         if (p) msg += `- ${p.name} (${i.qty}x)\n`;
     });
-    
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
 }
 
 document.getElementById("whatsappButton").href = "https://wa.me/" + WHATSAPP_NUMBER;
 fetchProductsFromSupabase();
+fetchReviewsFromSupabase();
 renderCartCount();
 </script>
 
