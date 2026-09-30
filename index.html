@@ -1450,7 +1450,7 @@ footer{
 
     <div class="stats">
         <div class="stat">
-            <div class="stat-number">6+</div>
+            <div class="stat-number">16+</div>
             <div class="stat-label" data-en="Products" data-ur="پروڈکٹس">Products</div>
         </div>
 
@@ -2137,101 +2137,29 @@ function copyReferralLink() {
 
 
 /* =========================================================
-   PRODUCTS
+   PRODUCTS (FETCHED FROM SUPABASE)
 ========================================================= */
 
-const products = [
+let products = [];
 
-    {
-        id:1,
-        name:"Google Gemini — 18 Months",
-        urdu:"گوگل جیمنائی — 18 ماہ",
-        category:"ai",
-        desc:"2TB Storage + Private Gmail Account",
-        descUrdu:"2 ٹی بی اسٹوریج + پرائیویٹ جی میل اکاؤنٹ",
-        price:270,
-        oldPrice:350,
-        stock:180,
-        sold:120,
-        icon:"✨",
-        badge:"HOT DEAL"
-    },
+async function fetchProductsFromSupabase() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('products')
+            .select('*')
+            .order('id', { ascending: true });
 
-    {
-        id:2,
-        name:"CapCut Pro — 6 Months",
-        urdu:"کیپ کٹ پرو — 6 ماہ",
-        category:"editing",
-        desc:"6 Months Subscription + Pro Features",
-        descUrdu:"6 ماہ سبسکرپشن + تمام پرو فیچرز",
-        price:3000,
-        oldPrice:0,
-        stock:43,
-        sold:7,
-        icon:"🎬",
-        badge:"PREMIUM"
-    },
-
-    {
-        id:3,
-        name:"CapCut Pro — 1 Month",
-        urdu:"کیپ کٹ پرو — 1 ماہ",
-        category:"editing",
-        desc:"1 Month Subscription + Pro Features",
-        descUrdu:"1 ماہ سبسکرپشن + تمام پرو فیچرز",
-        price:650,
-        oldPrice:0,
-        stock:70,
-        sold:30,
-        icon:"🎞️",
-        badge:""
-    },
-
-    {
-        id:4,
-        name:"Canva Pro — 1 Month",
-        urdu:"کینوا پرو — 1 ماہ",
-        category:"editing",
-        desc:"1 Month Subscription + Premium Features",
-        descUrdu:"1 ماہ سبسکرپشن + پریمیم فیچرز",
-        price:90,
-        oldPrice:300,
-        stock:56,
-        sold:0,
-        icon:"🎨",
-        badge:"SALE"
-    },
-
-    {
-        id:5,
-        name:"Canva Pro — 2 Years",
-        urdu:"کینوا پرو — 2 سال",
-        category:"editing",
-        desc:"2 Years Subscription + Premium Features",
-        descUrdu:"2 سال سبسکرپشن + پریمیم فیچرز",
-        price:500,
-        oldPrice:0,
-        stock:17,
-        sold:13,
-        icon:"🖌️️",
-        badge:"BEST VALUE"
-    },
-
-    {
-        id:6,
-        name:"Microsoft Office 365",
-        urdu:"مائیکروسافٹ آفس 365",
-        category:"productivity",
-        desc:"Office Apps + Word, Excel & PowerPoint",
-        descUrdu:"آفس ایپس + ورڈ، ایکسل اور پاورپوائنٹ",
-        price:250,
-        oldPrice:0,
-        stock:13,
-        sold:2,
-        icon:"📊",
-        badge:""
+        if (!error && data && data.length > 0) {
+            products = data;
+            renderProducts();
+        } else {
+            console.warn("Could not load products from Supabase");
+        }
+    } catch (e) {
+        console.error("Error fetching products:", e);
     }
-];
+}
+
 
 /* =========================================================
    REVIEWS (SUPABASE SYNC)
@@ -2342,8 +2270,7 @@ function renderReviews(){
             <div class="testimonial-card">
                 <div class="testimonial-header">
                     <span class="testimonial-name">
-                        ${escapeHTML(review.name)}
-                        ${
+                        ${escapeHTML(review.name)}${
                             review.verified
                             ? `<span class="verified">✓ VERIFIED</span>`
                             : ""
@@ -2461,7 +2388,7 @@ function changeQuantity(id,change){
         item.qty = product.stock;
         showToast(
             language === "ur"
-            ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں"
+            ? "⚠️️ دستیاب اسٹاک سے زیادہ نہیں"
             : "⚠️ Cannot exceed available stock"
         );
     }
@@ -2488,7 +2415,7 @@ function renderProducts(){
                 product.name + " " +
                 product.urdu + " " +
                 product.desc + " " +
-                product.descUrdu
+                product.desc_urdu
             ).toLowerCase();
 
         return matchesCategory && text.includes(search);
@@ -2525,7 +2452,7 @@ function renderProducts(){
             : (language==="ur" ? `✓ ${product.stock} دستیاب` : `✓ ${product.stock} Available`);
 
         const title = language==="ur" ? product.urdu : product.name;
-        const description = language==="ur" ? product.descUrdu : product.desc;
+        const description = language==="ur" ? product.desc_urdu : product.desc;
 
         return `
             <article class="product">
@@ -2545,8 +2472,8 @@ function renderProducts(){
 
                     <div class="price">
                         ${
-                            product.oldPrice>0
-                            ? `<span class="old-price">${money(product.oldPrice)}</span>`
+                            product.old_price>0
+                            ? `<span class="old-price">${money(product.old_price)}</span>`
                             : ""
                         }
                         <span class="new-price">${money(product.price)}</span>
@@ -2591,7 +2518,7 @@ function openProductModal(id){
     if(!product) return;
 
     const title = language==="ur" ? product.urdu : product.name;
-    const desc = language==="ur" ? product.descUrdu : product.desc;
+    const desc = language==="ur" ? product.desc_urdu : product.desc;
     const content = document.getElementById("productDetail");
 
     content.innerHTML = `
@@ -2659,8 +2586,8 @@ function renderCart(){
         return `
             <div class="cart-item">
                 <div class="cart-info">
-                    <h4>${product.icon} ${escapeHTML(title)}</h4>
-                    <p>${item.qty} × ${money(product.price)} = ${money(subtotal)}</p>
+                    <h4>${product.icon}${escapeHTML(title)}</h4>
+                    <p>${item.qty} × ${money(product.price)} =${money(subtotal)}</p>
                 </div>
                 <div class="qty">
                     <button onclick="changeQuantity(${item.id},-1)">−</button>
@@ -2742,7 +2669,7 @@ async function placeOrder(){
         return;
     }
     if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        showToast(language==="ur" ? "⚠️️ درست ای میل درج کریں" : "⚠️ Please enter a valid email");
+        showToast(language==="ur" ? "⚠ درست ای میل درج کریں" : "⚠️ Please enter a valid email");
         return;
     }
     if(tid.length < 3){
@@ -2802,12 +2729,12 @@ async function placeOrder(){
         const product = products.find(p=>p.id===item.id);
         if(!product) return;
         const subtotal = product.price * item.qty;
-        message += `${index+1}. ${product.name}\n`;
+        message += `${index+1}.${product.name}\n`;
         message += `   ${item.qty} × ${money(product.price)} = *${money(subtotal)}*\n`;
     });
 
     message += "────────────────\n";
-    message += `💰 *TOTAL: ${money(total)}*\n\n`;
+    message += `💰 *TOTAL: ${money(total)}*\n\n";
     message += `💳 *Payment ID:* ${tid}\n\n`;
     message += "✅ Payment verification ke baad order process hoga.\n";
     message += "📸 Payment screenshot WhatsApp par zaroor bhejiye ga.";
@@ -2973,7 +2900,7 @@ setLanguage(language);
 setRating(5);
 fetchReviewsFromSupabase();
 trackReferralVisit();
-renderProducts();
+fetchProductsFromSupabase();
 renderCart();
 
 </script>
