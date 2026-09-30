@@ -312,7 +312,7 @@ header{
     border-color:var(--primary);
 }
 
-/* CATEGories */
+/* CATEGORIES */
 
 .categories{
     display:flex;
@@ -793,6 +793,59 @@ header{
     font-size:11px;
     font-weight:800;
     margin-top:10px;
+}
+
+/* REFERRAL SECTION */
+.referral-banner{
+    background:rgba(102,126,234,.05);
+    border:1px solid rgba(102,126,234,.25);
+    border-radius:20px;
+    padding:25px;
+    margin-top:30px;
+    text-align:center;
+}
+
+.referral-banner h3{
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:10px;
+    background:linear-gradient(135deg,var(--primary),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.referral-banner p{
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:15px;
+}
+
+.referral-input-group{
+    display:flex;
+    gap:10px;
+    max-width:450px;
+    margin:0 auto;
+}
+
+.referral-input-group input{
+    flex:1;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px 14px;
+    color:white;
+    font-size:11px;
+    outline:none;
+}
+
+.referral-input-group button{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    border:0;
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:800;
 }
 
 /* FAQ */
@@ -1475,6 +1528,21 @@ footer{
     <div class="products" id="products"></div>
 </section>
 
+<section class="section">
+    <div class="referral-banner">
+        <h3 data-en="🎁 Get Your Referral Link" data-ur="🎁 اپنا ریفرل لنک حاصل کریں">🎁 Get Your Referral Link</h3>
+        <p data-en="Enter your name to generate your unique referral link and track your shares!" data-ur="اپنا منفرد ریفرل لنک بنانے اور شیئرز ٹریک کرنے کے لیے اپنا نام درج کریں!">Enter your name to generate your unique referral link and track your shares!</p>
+        <div class="referral-input-group">
+            <input type="text" id="refNameInput" placeholder="Enter your name">
+            <button onclick="generateReferralLink()" data-en="Generate" data-ur="جنریٹ کریں">Generate</button>
+        </div>
+        <div id="refResultBox" style="margin-top:15px;display:none;">
+            <input type="text" id="refLinkOutput" readonly style="width:100%;max-width:350px;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:8px;border-radius:8px;color:white;text-align:center;font-size:11px;">
+            <button onclick="copyReferralLink()" class="copy-btn" style="margin-top:8px;padding:6px 14px;" data-en="Copy Link" data-ur="لنک کاپی کریں">Copy Link</button>
+        </div>
+    </div>
+</section>
+
 <section class="section" id="howItWorks">
 
     <h2 class="section-title" style="text-align:center;margin-bottom:22px;">
@@ -2005,7 +2073,70 @@ const WHATSAPP_GREETING =
 let language = localStorage.getItem("sami_language") || "en";
 let currentCategory = "all";
 let selectedRating = 5;
-let temporaryBuyNow = false;
+
+/* =========================================================
+   REFERRAL SYSTEM HANDLER
+========================================================= */
+
+async function trackReferralVisit() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refCode = urlParams.get('ref');
+    if (refCode) {
+        try {
+            // Check if referral exists
+            const { data, error } = await supabaseClient
+                .from('referrals')
+                .select('*')
+                .eq('id', refCode)
+                .single();
+
+            if (data) {
+                // Increment clicks
+                await supabaseClient
+                    .from('referrals')
+                    .update({ clicks: (data.clicks || 0) + 1 })
+                    .eq('id', refCode);
+            }
+        } catch (e) {
+            console.error("Referral track error:", e);
+        }
+    }
+}
+
+async function generateReferralLink() {
+    const nameInput = document.getElementById("refNameInput").value.trim();
+    if (nameInput.length < 2) {
+        showToast("⚠️ Enter your name first");
+        return;
+    }
+
+    const refId = "REF-" + nameInput.toUpperCase().replace(/\s+/g, '') + "-" + Math.floor(100 + Math.random() * 900);
+    
+    try {
+        const { error } = await supabaseClient
+            .from('referrals')
+            .insert([{ id: refId, referrer_name: nameInput, clicks: 0, orders_count: 0 }]);
+
+        if (error && error.code !== '23505') { // Ignore duplicate key if generated twice
+            console.error(error);
+        }
+
+        const fullLink = window.location.origin + window.location.pathname + "?ref=" + refId;
+        document.getElementById("refLinkOutput").value = fullLink;
+        document.getElementById("refResultBox").style.display = "block";
+        showToast("✓ Referral link generated!");
+    } catch (err) {
+        showToast("⚠️ Error generating link");
+    }
+}
+
+function copyReferralLink() {
+    const linkInput = document.getElementById("refLinkOutput");
+    linkInput.select();
+    navigator.clipboard.writeText(linkInput.value);
+    showToast("✓ Link copied to clipboard!");
+}
+
 
 /* =========================================================
    PRODUCTS
@@ -2167,41 +2298,37 @@ async function submitReview(){
 
     const newReview = {
         name: name.substring(0, 50),
-        rating: selectedRating,
+        rating: Number(selectedRating),
         text: text.substring(0, 500)
     };
 
-    // Save to Supabase Database
     try {
         const { error } = await supabaseClient
             .from('reviews')
             .insert([newReview]);
 
         if (error) {
-            console.error("Supabase error:", error);
-            showToast("❌ Error saving review to database");
+            console.error("Supabase insert error:", error);
+            showToast("❌ DB Error: " + (error.message || "Failed to save"));
             return;
+        } else {
+            showToast(
+                language === "ur"
+                ? "✓ شکریہ! ریویو ڈیٹا بیس میں محفوظ ہوگیا"
+                : "✓ Thank you! Review saved to database"
+            );
         }
     } catch (err) {
         console.error("Network error:", err);
+        showToast("⚠️ Network error saving review");
+        return;
     }
-
-    reviews.unshift({
-        ...newReview,
-        verified: false
-    });
 
     document.getElementById("reviewName").value = "";
     document.getElementById("reviewText").value = "";
-
     setRating(5);
-    renderReviews();
 
-    showToast(
-        language === "ur"
-        ? "✓ شکریہ! ریویو ڈیٹا بیس میں محفوظ ہوگیا"
-        : "✓ Thank you! Review saved to database"
-    );
+    fetchReviewsFromSupabase();
 }
 
 function renderReviews(){
@@ -2309,8 +2436,6 @@ function buyNow(id){
     }
 
     cart = [{ id: id, qty: 1 }];
-    temporaryBuyNow = true;
-
     saveCart();
     openCart();
 }
@@ -2651,8 +2776,18 @@ async function placeOrder(){
             total_amount: total,
             status: 'payment_pending'
         }]);
+
+        // If placed via referral, update referral order count
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+        if (refCode) {
+            const { data: refData } = await supabaseClient.from('referrals').select('orders_count').eq('id', refCode).single();
+            if (refData) {
+                await supabaseClient.from('referrals').update({ orders_count: (refData.orders_count || 0) + 1 }).eq('id', refCode);
+            }
+        }
     }catch(err){
-        console.error("Order save note:", err);
+        console.error("Order save error:", err);
     }
 
     let message = "🛒 *NEW ORDER — SAMI AI TOOLS*\n\n";
@@ -2749,8 +2884,8 @@ function toggleFaq(button){
 const policies = {
     privacy:{
         enTitle:"Privacy Policy", urTitle:"پرائیویسی پالیسی",
-        en:`We respect your privacy. Information entered during checkout is used for order communication and customer support. Reviews and orders are synced directly with Supabase secure cloud database.`,
-        ur:`ہم آپ کی پرائیویسی کا احترام کرتے ہیں۔ چیک آؤٹ کے دوران درج کی گئی معلومات آرڈر اور کسٹمر سپورٹ کے لیے استعمال ہوتی ہیں۔ ریویوز اور آرڈرز براہ راست سپ بیس (Supabase) کے محفوظ کلاؤڈ ڈیٹا بیس میں محفوظ ہوتے ہیں۔`
+        en:`We respect your privacy. Information entered during checkout is used for order communication and customer support. Reviews, orders, and referrals are synced directly with Supabase secure cloud database.`,
+        ur:`ہم آپ کی پرائیویسی کا احترام کرتے ہیں۔ چیک آؤٹ کے دوران درج کی گئی معلومات آرڈر اور کسٹمر سپورٹ کے لیے استعمال ہوتی ہیں۔ ریویوز، آرڈرز، اور ریفرلز براہ راست سپ بیس (Supabase) کے محفوظ کلاؤڈ ڈیٹا بیس میں محفوظ ہوتے ہیں۔`
     },
     terms:{
         enTitle:"Terms & Conditions", urTitle:"شرائط و ضوابط",
@@ -2841,6 +2976,7 @@ document.getElementById("whatsappButton").href =
 setLanguage(language);
 setRating(5);
 fetchReviewsFromSupabase();
+trackReferralVisit();
 renderProducts();
 renderCart();
 
