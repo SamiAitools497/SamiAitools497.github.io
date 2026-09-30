@@ -2083,7 +2083,6 @@ async function trackReferralVisit() {
     const refCode = urlParams.get('ref');
     if (refCode) {
         try {
-            // Check if referral exists
             const { data, error } = await supabaseClient
                 .from('referrals')
                 .select('*')
@@ -2091,7 +2090,6 @@ async function trackReferralVisit() {
                 .single();
 
             if (data) {
-                // Increment clicks
                 await supabaseClient
                     .from('referrals')
                     .update({ clicks: (data.clicks || 0) + 1 })
@@ -2117,7 +2115,7 @@ async function generateReferralLink() {
             .from('referrals')
             .insert([{ id: refId, referrer_name: nameInput, clicks: 0, orders_count: 0 }]);
 
-        if (error && error.code !== '23505') { // Ignore duplicate key if generated twice
+        if (error && error.code !== '23505') {
             console.error(error);
         }
 
@@ -2215,7 +2213,7 @@ const products = [
         oldPrice:0,
         stock:17,
         sold:13,
-        icon:"🖌️",
+        icon:"🖌️️",
         badge:"BEST VALUE"
     },
 
@@ -2744,7 +2742,7 @@ async function placeOrder(){
         return;
     }
     if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        showToast(language==="ur" ? "⚠️ درست ای میل درج کریں" : "⚠️ Please enter a valid email");
+        showToast(language==="ur" ? "⚠️️ درست ای میل درج کریں" : "⚠️ Please enter a valid email");
         return;
     }
     if(tid.length < 3){
@@ -2766,7 +2764,6 @@ async function placeOrder(){
         if(p) total += p.price * item.qty;
     });
 
-    // Save order data to Supabase orders table
     try{
         await supabaseClient.from('orders').insert([{
             id: orderId,
@@ -2777,7 +2774,6 @@ async function placeOrder(){
             status: 'payment_pending'
         }]);
 
-        // If placed via referral, update referral order count
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('ref');
         if (refCode) {
