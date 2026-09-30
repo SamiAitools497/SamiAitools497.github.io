@@ -3,80 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sami AI Tools — Premium AI Subscriptions</title>
+<meta name="description" content="Premium AI tools, creative software and productivity subscriptions at affordable prices.">
+<meta name="theme-color" content="#080812">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#050510;--card:rgba(255,255,255,.045);--border:rgba(255,255,255,.09);--text:#f5f5ff;--muted:#9292aa;--primary:#667eea;--secondary:#764ba2;--pink:#f093fb;--green:#25d366;--gold:#ffb300;}
+:root{
+    --bg:#050510;
+    --bg2:#0b0b18;
+    --card:rgba(255,255,255,.045);
+    --border:rgba(255,255,255,.09);
+    --text:#f5f5ff;
+    --muted:#9292aa;
+    --primary:#667eea;
+    --secondary:#764ba2;
+    --pink:#f093fb;
+    --green:#25d366;
+    --danger:#ff4757;
+    --gold:#ffb300;
+    --success:#45e58a;
+}
+
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:sans-serif;padding:20px;}
-header{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:rgba(5,5,16,.9);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+html{scroll-behavior:smooth;}
+body{
+    background:radial-gradient(circle at 15% 15%,rgba(102,126,234,.13),transparent 32%),
+    radial-gradient(circle at 85% 75%,rgba(118,75,162,.13),transparent 32%),var(--bg);
+    color:var(--text);font-family:'Poppins',sans-serif;overflow-x:hidden;min-height:100vh;
+}
+body.urdu, body.urdu *{font-family:'Noto Nastaliq Urdu',serif!important;}
+body.urdu{direction:rtl;}
+button,input,textarea{font-family:inherit;}
+button{cursor:pointer;}
+a{color:inherit;}
+
+header{
+    position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;
+    gap:15px;padding:13px 5%;background:rgba(5,5,16,.84);backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(102,126,234,.18);
+}
 .logo{font-size:18px;font-weight:900;background:linear-gradient(135deg,#667eea,#f093fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero{text-align:center;padding:40px 20px;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px;max-width:1100px;margin:20px auto;}
-.product{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:15px;display:flex;flex-direction:column;}
-.product-icon{font-size:45px;text-align:center;margin-bottom:10px;}
-.product-title{font-size:14px;font-weight:bold;margin-bottom:8px;}
-.product-desc{color:var(--muted);font-size:11px;margin-bottom:12px;flex:1;}
-.new-price{font-size:18px;font-weight:bold;color:var(--primary);margin-bottom:10px;}
-.buy-btn{background:var(--green);color:white;border:0;padding:10px;border-radius:8px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:none;display:block;}
+.header-right{display:flex;align-items:center;gap:9px;}
+.nav-links{display:flex;gap:18px;margin-right:10px;}
+.nav-links a{text-decoration:none;color:#aaaabe;font-size:11px;font-weight:700;}
+.language{display:flex;padding:3px;border-radius:30px;background:rgba(255,255,255,.05);border:1px solid var(--border);}
+.language button{border:0;color:#8d8da5;background:transparent;border-radius:25px;padding:6px 10px;font-size:10px;font-weight:800;}
+.language button.active{color:white;background:linear-gradient(135deg,var(--primary),var(--secondary));}
+.cart-button{border:0;color:white;background:linear-gradient(135deg,var(--primary),var(--secondary));padding:9px 14px;border-radius:25px;font-size:12px;font-weight:800;}
+
+.hero{text-align:center;padding:75px 20px 50px;max-width:950px;margin:auto;}
+.badge{display:inline-block;padding:7px 17px;border:1px solid rgba(102,126,234,.35);background:rgba(102,126,234,.12);color:#b4beff;border-radius:30px;font-size:10px;font-weight:800;margin-bottom:20px;}
+.hero h1{font-size:clamp(36px,7vw,68px);line-height:1.1;font-weight:900;background:linear-gradient(135deg,#fff,#b6c0ff,#c77dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;}
+.hero p{max-width:680px;margin:auto;color:var(--muted);font-size:14px;line-height:1.8;}
+
+.section{max-width:1200px;margin:auto;padding:25px 18px 50px;}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap;}
+.section-title{font-size:24px;font-weight:900;}
+.section-title span{color:var(--primary);}
+
+.search-box input{width:100%;max-width:320px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:30px;color:white;padding:11px 17px;outline:none;font-size:12px;}
+
+.categories{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.cat-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;font-size:10px;font-weight:700;}
+.cat-btn.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border-color:transparent;}
+
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:17px;}
+.product{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;}
+.product-top{height:145px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(102,126,234,.2),transparent 65%);position:relative;}
+.product-icon{font-size:58px;}
+.product-body{padding:16px;display:flex;flex-direction:column;flex:1;}
+.product-title{font-size:15px;font-weight:800;margin-bottom:7px;}
+.product-desc{color:var(--muted);font-size:11px;line-height:1.65;flex:1;margin-bottom:13px;}
+.new-price{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.product-actions{display:flex;gap:7px;margin-top:10px;}
+.buy-button{flex:1;border:0;padding:10px;border-radius:10px;font-size:10px;font-weight:800;color:white;background:linear-gradient(135deg,#25d366,#128c7e);}
+
+.referral-banner{background:rgba(102,126,234,.05);border:1px solid rgba(102,126,234,.25);border-radius:20px;padding:25px;margin-top:30px;text-align:center;}
+.referral-input-group{display:flex;gap:10px;max-width:450px;margin:15px auto 0;}
+.referral-input-group input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:10px;color:white;font-size:11px;outline:none;}
+.referral-input-group button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:0;padding:10px 18px;border-radius:10px;font-weight:800;}
+
+footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px 20px;color:#55556b;font-size:10px;}
 </style>
 </head>
+
 <body>
 
 <header>
     <div class="logo">◆ Sami AI Tools</div>
-    <div>🛒 Cart</div>
+    <div class="header-right">
+        <nav class="nav-links">
+            <a href="#productsSection">Products</a>
+        </nav>
+        <div class="language">
+            <button id="enBtn" class="active" onclick="setLanguage('en')">EN</button>
+            <button id="urBtn" onclick="setLanguage('ur')">اردو</button>
+        </div>
+        <button class="cart-button" onclick="alert('Cart is ready')">🛒 <span id="cartCount">0</span></button>
+    </div>
 </header>
 
-<div class="hero">
-    <h1>Unlock The Power Of AI</h1>
-    <p>Premium AI tools & subscriptions at affordable prices.</p>
-</div>
+<section class="hero">
+    <div class="badge">⚡ PREMIUM AI SUBSCRIPTIONS</div>
+    <h1>Unlock The Power<br>Of Artificial Intelligence</h1>
+    <p>Premium AI tools, creative software and productivity subscriptions at affordable prices.</p>
+</section>
 
-<div class="products" id="productsContainer">
-    <div style="text-align:center;grid-column:1/-1;color:#9292aa;">Loading products...</div>
-</div>
+<section class="section" id="productsSection">
+    <div class="section-heading">
+        <h2 class="section-title"><span>Trending</span> AI Tools</h2>
+        <div class="search-box">
+            <input id="search" type="search" placeholder="Search products..." oninput="renderProducts()">
+        </div>
+    </div>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all',this)">All Products</button>
+        <button class="cat-btn" onclick="filterCategory('ai',this)">AI Tools</button>
+        <button class="cat-btn" onclick="filterCategory('editing',this)">Editing Software</button>
+        <button class="cat-btn" onclick="filterCategory('productivity',this)">Productivity</button>
+    </div>
+
+    <div class="products" id="products"></div>
+</section>
+
+<section class="section">
+    <div class="referral-banner">
+        <h3>🎁 Get Your Referral Link</h3>
+        <p>Enter your name to generate your unique referral link!</p>
+        <div class="referral-input-group">
+            <input type="text" id="refNameInput" placeholder="Enter your name">
+            <button onclick="generateReferralLink()">Generate</button>
+        </div>
+        <div id="refResultBox" style="margin-top:15px;display:none;">
+            <input type="text" id="refLinkOutput" readonly style="width:100%;max-width:350px;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:8px;border-radius:8px;color:white;text-align:center;">
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Sami AI Tools · All rights reserved.</p>
+</footer>
 
 <script>
 const SUPABASE_URL = "https://ovktqkltatyfbzmwlwla.supabase.co";
 const SUPABASE_KEY = "sb_publishable_xYKjjm0YywNfblgeZuCNtA_X7fOhrwi";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const fallbackProducts = [
-    { id: 1, name: 'ChatGPT Plus K12 Edu — 2 Years', urdu: 'چیٹ جی پی ٹی پلس کے 12 ایجو — 2 سال', desc: '50 Accounts Added with Full Warranty', price: 1650, icon: '🤖' },
-    { id: 2, name: 'Duolingo Super — 12 Months', urdu: 'ڈولنگو سپر — 12 ماہ', desc: '101 Accounts Added - Premium Language Learning', price: 300, icon: '🦉' },
-    { id: 3, name: 'CapCut Pro — 6 Days FW', urdu: 'کیپ کٹ پرو — 6 دن فل وارنٹی', desc: 'Full Warranty Key - 39 Keys in Stock', price: 150, icon: '🎬' },
-    { id: 4, name: 'Gemini Pro — 18 Months (Link)', urdu: 'جیمنائی پرو — 18 ماہ (لنک)', desc: '117 in stock with link access', price: 240, icon: '✨' },
-    { id: 5, name: 'CapCut Pro — 6 Months', urdu: 'کیپ کٹ پرو — 6 ماہ', desc: '18 in stock', price: 2670, icon: '🎞️' },
-    { id: 6, name: 'CapCut Pro — 1 Month FW', urdu: 'کیپ کٹ پرو — 1 ماہ فل وارنٹی', desc: '219 in stock with Full Warranty', price: 390, icon: '🎥' }
+let currentCategory = "all";
+let language = "en";
+
+// Fallback products taake screen kabhi khali na ho
+let products = [
+    { id: 1, name: 'ChatGPT Plus K12 Edu — 2 Years', urdu: 'چیٹ جی پی ٹی پلس کے 12 ایجو — 2 سال', category: 'ai', desc: '50 Accounts Added with Full Warranty', desc_urdu: '50 اکاؤنٹس فل وارنٹی کے ساتھ', price: 1650, icon: '🤖' },
+    { id: 2, name: 'Duolingo Super — 12 Months', urdu: 'ڈولنگو سپر — 12 ماہ', category: 'productivity', desc: '101 Accounts Added - Premium Language Learning', desc_urdu: 'پریمیم لینگویج لرننگ اکاؤنٹ', price: 300, icon: '🦉' },
+    { id: 3, name: 'CapCut Pro — 6 Days FW', urdu: 'کیپ کٹ پرو — 6 دن فل وارنٹی', category: 'editing', desc: 'Full Warranty Key - 39 Keys in Stock', desc_urdu: 'فل وارنٹی کی — 39 کیز دستیاب', price: 150, icon: '🎬' },
+    { id: 4, name: 'Gemini Pro — 18 Months (Link)', urdu: 'جیمنائی پرو — 18 ماہ (لنک)', category: 'ai', desc: '117 in stock with link access', desc_urdu: 'لنک ایکسیس کے ساتھ دستیاب', price: 240, icon: '✨' },
+    { id: 5, name: 'CapCut Pro — 6 Months', urdu: 'کیپ کٹ پرو — 6 ماہ', category: 'editing', desc: '18 in stock', desc_urdu: '18 اسٹاک میں موجود', price: 2670, icon: '🎞️' },
+    { id: 6, name: 'CapCut Pro — 1 Month FW', urdu: 'کیپ کٹ پرو — 1 ماہ فل وارنٹی', category: 'editing', desc: '219 in stock with Full Warranty', desc_urdu: 'فل وارنٹی کے ساتھ 219 دستیاب', price: 390, icon: '🎥' }
 ];
 
-async function loadProducts() {
-    const container = document.getElementById("productsContainer");
-    let items = fallbackProducts;
-
+async function fetchProductsFromSupabase() {
     try {
         const { data, error } = await supabaseClient.from('products').select('*');
         if (!error && data && data.length > 0) {
-            items = data;
+            products = data;
         }
     } catch (e) {
         console.log("Using fallback data");
     }
+    renderProducts();
+}
 
-    container.innerHTML = items.map(p => `
+function renderProducts() {
+    const container = document.getElementById("products");
+    const search = document.getElementById("search").value.toLowerCase();
+
+    const filtered = products.filter(p => {
+        const matchesCat = currentCategory === "all" || p.category === currentCategory;
+        const text = (p.name + " " + (p.urdu || "") + " " + (p.desc || "")).toLowerCase();
+        return matchesCat && text.includes(search);
+    });
+
+    container.innerHTML = filtered.map(p => `
         <div class="product">
-            <div class="product-icon">${p.icon || '📦'}</div>
-            <div class="product-title">${p.name}</div>
-            <div class="product-desc">${p.desc || p.description || ''}</div>
-            <div class="new-price">Rs. ${Number(p.price).toLocaleString()}</div>
-            <a href="https://wa.me/966595073180?text=Salam,%20mujhe%20ye%20product%20chahiye:%20${encodeURIComponent(p.name)}" class="buy-btn" target="_blank">⚡ Order on WhatsApp</a>
+            <div class="product-top">
+                <div class="product-icon">${p.icon || '📦'}</div>
+            </div>
+            <div class="product-body">
+                <h3 class="product-title">${language === 'ur' && p.urdu ? p.urdu : p.name}</h3>
+                <p class="product-desc">${language === 'ur' && p.desc_urdu ? p.desc_urdu : (p.desc || '')}</p>
+                <div class="new-price">Rs. ${Number(p.price).toLocaleString()}</div>
+                <div class="product-actions">
+                    <a href="https://wa.me/966595073180?text=Salam,%20mujhe%20ye%20product%20chahiye:%20${encodeURIComponent(p.name)}" class="buy-button" target="_blank" style="text-align:center;text-decoration:none;">⚡ Order on WhatsApp</a>
+                </div>
+            </div>
         </div>
     `).join("");
 }
 
-loadProducts();
+function filterCategory(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderProducts();
+}
+
+function setLanguage(lang) {
+    language = lang;
+    document.body.classList.toggle("urdu", lang === "ur");
+    document.getElementById("enBtn").classList.toggle("active", lang === "en");
+    document.getElementById("urBtn").classList.toggle("active", lang === "ur");
+    renderProducts();
+}
+
+function generateReferralLink() {
+    const name = document.getElementById("refNameInput").value.trim();
+    if (!name) { alert("Enter your name"); return; }
+    const refId = "REF-" + name.toUpperCase().replace(/\s+/g, '') + "-497";
+    const link = window.location.origin + window.location.pathname + "?ref=" + refId;
+    document.getElementById("refLinkOutput").value = link;
+    document.getElementById("refResultBox").style.display = "block";
+}
+
+fetchProductsFromSupabase();
 </script>
 
 </body>
