@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sami AI Tools — Premium AI Subscriptions</title>
-<meta name="description" content="Premium AI tools, creative software and productivity subscriptions at affordable prices.">
+<meta name="description" content="Premium AI tools and software subscriptions at affordable prices.">
 <meta name="theme-color" content="#080812">
 
 <!-- Open Graph / Social Media Preview Tags -->
@@ -499,27 +499,39 @@ header{
     font-weight:700;
 }
 
-/* ================= TESTIMONIALS (REVIEWS) ================= */
+/* ================= TESTIMONIALS & RATING SYSTEM ================= */
 
-.testimonials{
+.testimonials-container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-    margin-top:20px;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    align-items:start;
+}
+
+@media(max-width:768px){
+    .testimonials-container{
+        grid-template-columns:1fr;
+    }
+}
+
+.testimonials-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
 }
 
 .testimonial-card{
     background:rgba(255,255,255,.025);
     border:1px solid var(--border);
     border-radius:16px;
-    padding:18px;
+    padding:16px;
 }
 
 .testimonial-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:8px;
+    margin-bottom:6px;
 }
 
 .testimonial-name{
@@ -529,13 +541,57 @@ header{
 
 .stars{
     color:var(--gold);
-    font-size:11px;
+    font-size:12px;
 }
 
 .testimonial-text{
     color:var(--muted);
     font-size:11px;
     line-height:1.6;
+}
+
+/* Review Form Box */
+.review-form-box{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(102,126,234,.2);
+    border-radius:18px;
+    padding:20px;
+}
+
+.review-form-box h3{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:12px;
+    color:var(--text);
+}
+
+.star-rating-input{
+    display:flex;
+    gap:6px;
+    font-size:22px;
+    cursor:pointer;
+    margin-bottom:12px;
+}
+
+.star-rating-input span{
+    color:#444;
+    transition:0.2s;
+}
+
+.star-rating-input span.active{
+    color:var(--gold);
+}
+
+.review-submit-btn{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:10px;
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    font-size:11px;
+    font-weight:800;
+    margin-top:10px;
 }
 
 /* ================= FEATURES ================= */
@@ -1138,7 +1194,7 @@ footer{
 
             <div class="payment-card">
                 <div class="payment-card-info">
-                    <h4 data-en="Allied Bank IBAN" data-ur="آئی بی اے اینڈ (بینک)">Allied Bank IBAN</h4>
+                    <h4 data-en="Allied Bank IBAN" data-ur="آئی بی اے این (بینک)">Allied Bank IBAN</h4>
                     <p style="font-size:10px;">PK10ABPA0010081815620010</p>
                 </div>
                 <button class="copy-btn" onclick="copyText('PK10ABPA0010081815620010')">Copy</button>
@@ -1154,37 +1210,44 @@ footer{
 </section>
 
 
-<!-- ================= CUSTOMER REVIEWS (TESTIMONIALS) ================= -->
+<!-- ================= CUSTOMER REVIEWS & RATING SECTION ================= -->
 
 <section class="section">
     <h2 class="section-title" style="text-align:center; margin-bottom:20px;">
-        <span data-en="What Our" data-ur="ہمارے صارفین">What Our</span>
-        <span data-en=" Customers Say" data-ur=" کیا کہتے ہیں؟"> Customers Say</span>
+        <span data-en="Customer" data-ur="صارفین کی">Customer</span>
+        <span data-en=" Reviews & Rating" data-ur=" آراء اور ریٹنگ"> Reviews & Rating</span>
     </h2>
 
-    <div class="testimonials">
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-                <span class="testimonial-name">Usman Ali</span>
-                <span class="stars">★★★★★</span>
-            </div>
-            <p class="testimonial-text" data-en="Very fast service! Got my Canva Pro account within 5 minutes after sending payment." data-ur="بہت تیز سروس! پیمنٹ کے 5 منٹ کے اندر مجھے کینوا پرو اکاؤنٹ مل گیا۔">Very fast service! Got my Canva Pro account within 5 minutes after sending payment.</p>
-        </div>
+    <div class="testimonials-container">
+        <!-- Display Reviews -->
+        <div class="testimonials-list" id="testimonialsList"></div>
 
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-                <span class="testimonial-name">Hamza Khan</span>
-                <span class="stars">★★★★★</span>
+        <!-- Add Review Form -->
+        <div class="review-form-box">
+            <h3 data-en="Leave Your Review" data-ur="اپنا ریویو درج کریں">Leave Your Review</h3>
+            
+            <div class="form-group">
+                <label data-en="Your Name" data-ur="آپ کا نام">Your Name</label>
+                <input id="reviewName" type="text" placeholder="Enter your name">
             </div>
-            <p class="testimonial-text" data-en="Gemini 18 months subscription is working perfectly. Highly trusted seller!" data-ur="جیمنائی 18 ماہ کی سبسکرپشن بالکل زبردست کام کر رہی ہے۔ قابلِ بھروسہ سیلر!">Gemini 18 months subscription is working perfectly. Highly trusted seller!</p>
-        </div>
 
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-                <span class="testimonial-name">Bilal Ahmed</span>
-                <span class="stars">★★★★★</span>
+            <div class="form-group">
+                <label data-en="Rating" data-ur="ریٹنگ (ستارے)">Rating</label>
+                <div class="star-rating-input" id="starInput">
+                    <span onclick="setRating(1)">★</span>
+                    <span onclick="setRating(2)">★</span>
+                    <span onclick="setRating(3)">★</span>
+                    <span onclick="setRating(4)">★</span>
+                    <span onclick="setRating(5)">★</span>
+                </div>
             </div>
-            <p class="testimonial-text" data-en="Amazing prices and reliable support on WhatsApp. Will buy again!" data-ur="بہترین قیمتیں اور واٹس ایپ پر شاندار سپورٹ۔ دوبارہ ضرور لوں گا!">Amazing prices and reliable support on WhatsApp. Will buy again!</p>
+
+            <div class="form-group">
+                <label data-en="Your Feedback" data-ur="آپ کا تبصرہ">Your Feedback</label>
+                <textarea id="reviewText" placeholder="Write your experience..."></textarea>
+            </div>
+
+            <button class="review-submit-btn" onclick="submitReview()" data-en="Submit Review" data-ur="ریویو جمع کریں">Submit Review</button>
         </div>
     </div>
 </section>
@@ -1461,8 +1524,7 @@ footer{
 <script>
 
 /* =========================================================
-   SAMI AI TOOLS
-   PRODUCT DATABASE WITH CATEGORIES
+   PRODUCTS DATABASE
    ========================================================= */
 
 const products = [
@@ -1561,6 +1623,81 @@ const products = [
 
 
 /* =========================================================
+   REVIEWS STORAGE SYSTEM
+   ========================================================= */
+
+let reviews = [
+    { name: "Usman Ali", rating: 5, text: "Very fast service! Got my Canva Pro account within 5 minutes after sending payment." },
+    { name: "Hamza Khan", rating: 5, text: "Gemini 18 months subscription is working perfectly. Highly trusted seller!" },
+    { name: "Bilal Ahmed", rating: 5, text: "Amazing prices and reliable support on WhatsApp. Will buy again!" }
+];
+
+try {
+    const savedReviews = localStorage.getItem("sami_reviews");
+    if(savedReviews) reviews = JSON.parse(savedReviews);
+} catch {
+    // fallback to default
+}
+
+let selectedRating = 5;
+
+function setRating(stars){
+    selectedRating = stars;
+    const starSpans = document.querySelectorAll("#starInput span");
+    starSpans.forEach((span, index) => {
+        if(index < stars) {
+            span.classList.add("active");
+        } else {
+            span.classList.remove("active");
+        }
+    });
+}
+
+function submitReview(){
+    const name = document.getElementById("reviewName").value.trim();
+    const text = document.getElementById("reviewText").value.trim();
+
+    if(!name || !text){
+        showToast(language === "ur" ? "⚠️ نام اور تبصرہ لکھنا لازمی ہے" : "⚠️️ Name and feedback are required");
+        return;
+    }
+
+    reviews.unshift({
+        name: name,
+        rating: selectedRating,
+        text: text
+    });
+
+    localStorage.setItem("sami_reviews", JSON.stringify(reviews));
+
+    document.getElementById("reviewName").value = "";
+    document.getElementById("reviewText").value = "";
+    setRating(5);
+
+    renderReviews();
+    showToast(language === "ur" ? "✓ شکریہ! ریویو شامل ہو گیا" : "✓ Thank you! Review submitted");
+}
+
+function renderReviews(){
+    const container = document.getElementById("testimonialsList");
+    if(!container) return;
+
+    container.innerHTML = reviews.map(r => {
+        const starsStr = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+        return `
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <span class="testimonial-name">${escapeHTML(r.name)}</span>
+                    <span class="stars">${starsStr}</span>
+                </div>
+                <p class="testimonial-text">${escapeHTML(r.text)}</p>
+            </div>
+        `;
+    }).join("");
+}
+
+
+/* =========================================================
    SETTINGS & STATE
    ========================================================= */
 
@@ -1607,9 +1744,7 @@ function showToast(message){
 
 function copyText(text){
     navigator.clipboard.writeText(text).then(() => {
-        showToast(
-            language === "ur" ? "✓ کاپی ہوگیا!" : "✓ Copied to clipboard!"
-        );
+        showToast(language === "ur" ? "✓ کاپی ہوگیا!" : "✓ Copied to clipboard!");
     }).catch(() => {
         showToast("❌ Copy failed");
     });
@@ -1929,6 +2064,8 @@ document.getElementById("whatsappButton").href =
     "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_GREETING);
 
 setLanguage(language);
+setRating(5);
+renderReviews();
 
 </script>
 
