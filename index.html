@@ -431,25 +431,50 @@ header{
     border-radius:10px;
 }
 
+.product-actions{
+    display:flex;
+    gap:8px;
+}
+
 .add-button{
-    width:100%;
+    flex:1;
     border:0;
     color:white;
-    padding:11px;
-    border-radius:11px;
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    font-size:11px;
-    font-weight:800;
-    transition:.25s;
+    padding:10px 5px;
+    border-radius:10px;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+    font-size:10px;
+    font-weight:700;
+    transition:.2s;
 }
 
 .add-button:hover{
+    background:rgba(255,255,255,.12);
+}
+
+.buy-button{
+    flex:1;
+    border:0;
+    color:white;
+    padding:10px 5px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#25d366,#128c7e);
+    font-size:10px;
+    font-weight:800;
+    box-shadow:0 4px 15px rgba(37,211,102,.25);
+    transition:.2s;
+}
+
+.buy-button:hover{
     transform:scale(1.02);
 }
 
-.add-button:disabled{
+.add-button:disabled, .buy-button:disabled{
     background:#252532;
     color:#66667a;
+    border:0;
+    box-shadow:none;
     cursor:not-allowed;
 }
 
@@ -550,7 +575,6 @@ header{
     line-height:1.6;
 }
 
-/* Review Form Box */
 .review-form-box{
     background:rgba(255,255,255,.03);
     border:1px solid rgba(102,126,234,.2);
@@ -1020,8 +1044,8 @@ footer{
         font-size:8px;
     }
 
-    .add-button{
-        padding:9px 5px;
+    .add-button, .buy-button{
+        padding:8px 3px;
         font-size:9px;
     }
 }
@@ -1570,7 +1594,7 @@ const products = [
         oldPrice: 0,
         stock: 70,
         sold: 30,
-        icon: "🎞️",
+        icon: "🎞️️",
         badge: ""
     },
 
@@ -1636,7 +1660,7 @@ try {
     const savedReviews = localStorage.getItem("sami_reviews");
     if(savedReviews) reviews = JSON.parse(savedReviews);
 } catch {
-    // fallback to default
+    // fallback
 }
 
 let selectedRating = 5;
@@ -1658,7 +1682,7 @@ function submitReview(){
     const text = document.getElementById("reviewText").value.trim();
 
     if(!name || !text){
-        showToast(language === "ur" ? "⚠️ نام اور تبصرہ لکھنا لازمی ہے" : "⚠️️ Name and feedback are required");
+        showToast(language === "ur" ? "⚠️ نام اور تبصرہ لکھنا لازمی ہے" : "⚠️ Name and feedback are required");
         return;
     }
 
@@ -1857,9 +1881,14 @@ function renderProducts(){
                         </div>
                     </div>
 
-                    <button class="add-button" ${available ? "" : "disabled"} onclick="addToCart(${product.id})">
-                        ${available ? (language === "ur" ? "+ کارٹ میں شامل کریں" : "+ ADD TO CART") : (language === "ur" ? "اسٹاک ختم" : "OUT OF STOCK")}
-                    </button>
+                    <div class="product-actions">
+                        <button class="add-button" ${available ? "" : "disabled"} onclick="addToCart(${product.id})">
+                            ${available ? (language === "ur" ? "+ کارٹ" : "+ Cart") : "Out"}
+                        </button>
+                        <button class="buy-button" ${available ? "" : "disabled"} onclick="buyNow(${product.id})">
+                            ${available ? (language === "ur" ? "⚡ آرڈر کریں" : "⚡ Order Now") : "Sold Out"}
+                        </button>
+                    </div>
                 </div>
             </article>
         `;
@@ -1868,7 +1897,7 @@ function renderProducts(){
 
 
 /* =========================================================
-   CART MANAGEMENT
+   CART & DIRECT BUY MANAGEMENT
    ========================================================= */
 
 function saveCart(){
@@ -1898,6 +1927,19 @@ function addToCart(id){
     showToast(language === "ur" ? "✓ کارٹ میں شامل ہوگیا" : "✓ Added to cart");
 }
 
+function buyNow(id){
+    const product = products.find(p => p.id === id);
+    if(!product || product.stock <= 0){
+        showToast(language === "ur" ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے" : "❌ Product is out of stock");
+        return;
+    }
+
+    // Clear cart or add single item for instant checkout
+    cart = [{ id: id, qty: 1 }];
+    saveCart();
+    openCart();
+}
+
 function removeFromCart(id){
     cart = cart.filter(item => item.id !== id);
     saveCart();
@@ -1916,7 +1958,7 @@ function changeQuantity(id, change){
     }
     if(item.qty > product.stock){
         item.qty = product.stock;
-        showToast(language === "ur" ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں" : "⚠️ Cannot exceed available stock");
+        showToast(language === "ur" ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں" : "⚠️️ Cannot exceed available stock");
     }
 
     saveCart();
