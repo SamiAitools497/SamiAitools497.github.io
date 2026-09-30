@@ -5,31 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sami AI Tools — Premium AI Subscriptions</title>
-<meta name="description" content="Premium AI tools and software subscriptions at affordable prices.">
+<meta name="description" content="Premium AI tools, creative software and productivity subscriptions at affordable prices.">
 <meta name="theme-color" content="#080812">
 
-<!-- Open Graph / Social Media Preview Tags -->
 <meta property="og:title" content="Sami AI Tools — Premium AI Subscriptions">
-<meta property="og:description" content="Get Canva Pro, Google Gemini, CapCut Pro and Office 365 at affordable prices.">
+<meta property="og:description" content="Premium AI tools, creative software and productivity subscriptions at affordable prices.">
 <meta property="og:type" content="website">
 
-<!-- Google tag (gtag.js) - Google Analytics -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLMHG38G8P"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DLMHG38G8P');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DLMHG38G8P');
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap');
-
 :root{
     --bg:#050510;
     --bg2:#0b0b18;
     --card:rgba(255,255,255,.045);
+    --card2:rgba(255,255,255,.065);
     --border:rgba(255,255,255,.09);
     --text:#f5f5ff;
     --muted:#9292aa;
@@ -39,6 +40,7 @@
     --green:#25d366;
     --danger:#ff4757;
     --gold:#ffb300;
+    --success:#45e58a;
 }
 
 *{
@@ -53,8 +55,8 @@ html{
 
 body{
     background:
-        radial-gradient(circle at 15% 15%,rgba(102,126,234,.12),transparent 35%),
-        radial-gradient(circle at 85% 75%,rgba(118,75,162,.12),transparent 35%),
+        radial-gradient(circle at 15% 15%,rgba(102,126,234,.13),transparent 32%),
+        radial-gradient(circle at 85% 75%,rgba(118,75,162,.13),transparent 32%),
         var(--bg);
     color:var(--text);
     font-family:'Poppins',sans-serif;
@@ -71,9 +73,7 @@ body.urdu{
     direction:rtl;
 }
 
-button,
-input,
-textarea{
+button,input,textarea{
     font-family:inherit;
 }
 
@@ -81,7 +81,11 @@ button{
     cursor:pointer;
 }
 
-/* ================= HEADER ================= */
+a{
+    color:inherit;
+}
+
+/* HEADER */
 
 header{
     position:sticky;
@@ -92,7 +96,7 @@ header{
     justify-content:space-between;
     gap:15px;
     padding:13px 5%;
-    background:rgba(5,5,16,.82);
+    background:rgba(5,5,16,.84);
     backdrop-filter:blur(20px);
     border-bottom:1px solid rgba(102,126,234,.18);
 }
@@ -109,7 +113,25 @@ header{
 .header-right{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:9px;
+}
+
+.nav-links{
+    display:flex;
+    gap:18px;
+    margin-right:10px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#aaaabe;
+    font-size:11px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:white;
 }
 
 .language{
@@ -125,8 +147,8 @@ header{
     color:#8d8da5;
     background:transparent;
     border-radius:25px;
-    padding:6px 11px;
-    font-size:11px;
+    padding:6px 10px;
+    font-size:10px;
     font-weight:800;
 }
 
@@ -139,19 +161,19 @@ header{
     border:0;
     color:white;
     background:linear-gradient(135deg,var(--primary),var(--secondary));
-    padding:9px 15px;
+    padding:9px 14px;
     border-radius:25px;
     font-size:12px;
     font-weight:800;
     box-shadow:0 5px 20px rgba(102,126,234,.35);
 }
 
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
     text-align:center;
-    padding:70px 20px 45px;
-    max-width:900px;
+    padding:75px 20px 50px;
+    max-width:950px;
     margin:auto;
 }
 
@@ -162,15 +184,15 @@ header{
     background:rgba(102,126,234,.12);
     color:#b4beff;
     border-radius:30px;
-    font-size:11px;
-    font-weight:700;
+    font-size:10px;
+    font-weight:800;
     letter-spacing:1px;
     margin-bottom:20px;
 }
 
 .hero h1{
-    font-size:clamp(34px,7vw,65px);
-    line-height:1.12;
+    font-size:clamp(36px,7vw,68px);
+    line-height:1.1;
     font-weight:900;
     background:linear-gradient(135deg,#fff,#b6c0ff,#c77dff);
     -webkit-background-clip:text;
@@ -179,18 +201,48 @@ header{
 }
 
 .hero p{
-    max-width:650px;
+    max-width:680px;
     margin:auto;
     color:var(--muted);
     font-size:14px;
     line-height:1.8;
 }
 
+.hero-actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:27px;
+    flex-wrap:wrap;
+}
+
+.primary-btn,
+.secondary-btn{
+    border:0;
+    border-radius:12px;
+    padding:12px 19px;
+    font-size:11px;
+    font-weight:800;
+    text-decoration:none;
+}
+
+.primary-btn{
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    box-shadow:0 8px 25px rgba(102,126,234,.25);
+}
+
+.secondary-btn{
+    color:white;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+}
+
 .stats{
     display:flex;
     justify-content:center;
-    gap:45px;
-    margin-top:35px;
+    gap:50px;
+    margin-top:38px;
     flex-wrap:wrap;
 }
 
@@ -204,17 +256,17 @@ header{
 
 .stat-label{
     color:#68687f;
-    font-size:10px;
+    font-size:9px;
     text-transform:uppercase;
     letter-spacing:1px;
 }
 
-/* ================= SECTION ================= */
+/* SECTION */
 
 .section{
     max-width:1200px;
     margin:auto;
-    padding:20px 18px 45px;
+    padding:25px 18px 50px;
 }
 
 .section-heading{
@@ -222,7 +274,7 @@ header{
     justify-content:space-between;
     align-items:center;
     gap:15px;
-    margin-bottom:22px;
+    margin-bottom:20px;
     flex-wrap:wrap;
 }
 
@@ -235,37 +287,11 @@ header{
     color:var(--primary);
 }
 
-/* ================= CATEGORY TABS ================= */
-
-.categories{
-    display:flex;
-    gap:8px;
-    margin-bottom:18px;
-    flex-wrap:wrap;
-}
-
-.cat-btn{
-    background:rgba(255,255,255,.04);
-    border:1px solid var(--border);
-    color:var(--muted);
-    padding:6px 14px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:700;
-    transition:.2s;
-}
-
-.cat-btn.active, .cat-btn:hover{
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    color:white;
-    border-color:transparent;
-}
-
-/* ================= SEARCH ================= */
+/* SEARCH */
 
 .search-box{
     width:100%;
-    max-width:300px;
+    max-width:320px;
 }
 
 .search-box input{
@@ -276,17 +302,45 @@ header{
     color:white;
     padding:11px 17px;
     outline:none;
+    font-size:12px;
 }
 
 .search-box input:focus{
     border-color:var(--primary);
 }
 
-/* ================= PRODUCTS ================= */
+/* CATEGORIES */
+
+.categories{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.cat-btn{
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    color:var(--muted);
+    padding:7px 14px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.cat-btn.active,
+.cat-btn:hover{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    border-color:transparent;
+}
+
+/* PRODUCTS */
 
 .products{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
     gap:17px;
 }
 
@@ -303,23 +357,22 @@ header{
 }
 
 .product:hover{
-    transform:translateY(-7px);
+    transform:translateY(-6px);
     border-color:rgba(102,126,234,.45);
     box-shadow:0 20px 45px rgba(0,0,0,.35);
 }
 
 .product-top{
-    height:140px;
+    height:145px;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:
-        radial-gradient(circle,rgba(102,126,234,.2),transparent 65%);
+    background:radial-gradient(circle,rgba(102,126,234,.2),transparent 65%);
     position:relative;
 }
 
 .product-icon{
-    font-size:55px;
+    font-size:58px;
     filter:drop-shadow(0 8px 20px rgba(102,126,234,.45));
 }
 
@@ -433,44 +486,39 @@ header{
 
 .product-actions{
     display:flex;
-    gap:8px;
+    gap:7px;
 }
 
-.add-button{
-    flex:1;
-    border:0;
-    color:white;
-    padding:10px 5px;
-    border-radius:10px;
-    background:rgba(255,255,255,.06);
-    border:1px solid var(--border);
-    font-size:10px;
-    font-weight:700;
-    transition:.2s;
-}
-
-.add-button:hover{
-    background:rgba(255,255,255,.12);
-}
-
+.add-button,
 .buy-button{
     flex:1;
     border:0;
-    color:white;
     padding:10px 5px;
     border-radius:10px;
-    background:linear-gradient(135deg,#25d366,#128c7e);
     font-size:10px;
     font-weight:800;
-    box-shadow:0 4px 15px rgba(37,211,102,.25);
     transition:.2s;
 }
 
-.buy-button:hover{
-    transform:scale(1.02);
+.add-button{
+    color:white;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
 }
 
-.add-button:disabled, .buy-button:disabled{
+.buy-button{
+    color:white;
+    background:linear-gradient(135deg,#25d366,#128c7e);
+    box-shadow:0 4px 15px rgba(37,211,102,.25);
+}
+
+.add-button:hover,
+.buy-button:hover{
+    transform:translateY(-1px);
+}
+
+.add-button:disabled,
+.buy-button:disabled{
     background:#252532;
     color:#66667a;
     border:0;
@@ -478,14 +526,86 @@ header{
     cursor:not-allowed;
 }
 
-/* ================= PAYMENT DISPLAY SECTION ================= */
+/* TRUST BAR */
+
+.trust-bar{
+    max-width:1200px;
+    margin:0 auto 30px;
+    padding:0 18px;
+}
+
+.trust-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.trust-item{
+    text-align:center;
+    padding:15px 8px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:rgba(255,255,255,.025);
+}
+
+.trust-item strong{
+    display:block;
+    font-size:12px;
+    margin-bottom:3px;
+}
+
+.trust-item span{
+    color:#77778f;
+    font-size:9px;
+}
+
+/* HOW IT WORKS */
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.step{
+    position:relative;
+    padding:22px;
+    border:1px solid var(--border);
+    border-radius:17px;
+    background:rgba(255,255,255,.025);
+}
+
+.step-number{
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    font-size:11px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.step h3{
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.step p{
+    color:#77778f;
+    font-size:10px;
+    line-height:1.7;
+}
+
+/* PAYMENT */
 
 .payment-banner{
     background:rgba(255,179,0,.04);
     border:1px solid rgba(255,179,0,.2);
     border-radius:20px;
     padding:25px;
-    margin:20px 0 40px;
 }
 
 .payment-banner h2{
@@ -498,7 +618,7 @@ header{
 
 .payment-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
 
@@ -510,11 +630,12 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:10px;
 }
 
 .payment-card-info h4{
     color:var(--gold);
-    font-size:13px;
+    font-size:12px;
     margin-bottom:4px;
 }
 
@@ -522,107 +643,33 @@ header{
     color:white;
     font-size:12px;
     font-weight:700;
+    word-break:break-word;
 }
 
-/* ================= TESTIMONIALS & RATING SYSTEM ================= */
-
-.testimonials-container{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    align-items:start;
-}
-
-@media(max-width:768px){
-    .testimonials-container{
-        grid-template-columns:1fr;
-    }
-}
-
-.testimonials-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.testimonial-card{
-    background:rgba(255,255,255,.025);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:16px;
-}
-
-.testimonial-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:6px;
-}
-
-.testimonial-name{
-    font-size:12px;
-    font-weight:800;
-}
-
-.stars{
+.copy-btn{
+    flex-shrink:0;
+    background:rgba(255,179,0,.15);
+    border:1px solid rgba(255,179,0,.3);
     color:var(--gold);
-    font-size:12px;
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:8px;
+    font-weight:700;
 }
 
-.testimonial-text{
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.6;
+.payment-note{
+    text-align:center;
+    color:#85859c;
+    font-size:10px;
+    line-height:1.7;
+    margin-top:12px;
 }
 
-.review-form-box{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(102,126,234,.2);
-    border-radius:18px;
-    padding:20px;
-}
-
-.review-form-box h3{
-    font-size:15px;
-    font-weight:800;
-    margin-bottom:12px;
-    color:var(--text);
-}
-
-.star-rating-input{
-    display:flex;
-    gap:6px;
-    font-size:22px;
-    cursor:pointer;
-    margin-bottom:12px;
-}
-
-.star-rating-input span{
-    color:#444;
-    transition:0.2s;
-}
-
-.star-rating-input span.active{
-    color:var(--gold);
-}
-
-.review-submit-btn{
-    width:100%;
-    border:0;
-    border-radius:10px;
-    padding:10px;
-    color:white;
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    font-size:11px;
-    font-weight:800;
-    margin-top:10px;
-}
-
-/* ================= FEATURES ================= */
+/* FEATURES */
 
 .features{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    grid-template-columns:repeat(4,1fr);
     gap:14px;
 }
 
@@ -650,14 +697,155 @@ header{
     line-height:1.6;
 }
 
-/* ================= MODAL ================= */
+/* REVIEWS */
+
+.testimonials-container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    align-items:start;
+}
+
+.testimonials-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.testimonial-card{
+    background:rgba(255,255,255,.025);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px;
+}
+
+.testimonial-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+}
+
+.testimonial-name{
+    font-size:12px;
+    font-weight:800;
+}
+
+.verified{
+    color:var(--success);
+    font-size:8px;
+    margin-left:5px;
+}
+
+.stars{
+    color:var(--gold);
+    font-size:12px;
+    white-space:nowrap;
+}
+
+.testimonial-text{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+}
+
+.review-form-box{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(102,126,234,.2);
+    border-radius:18px;
+    padding:20px;
+}
+
+.review-form-box h3{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.star-rating-input{
+    display:flex;
+    gap:6px;
+    font-size:22px;
+    cursor:pointer;
+    margin-bottom:12px;
+}
+
+.star-rating-input span{
+    color:#444;
+    transition:.2s;
+}
+
+.star-rating-input span.active{
+    color:var(--gold);
+}
+
+.review-submit-btn{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:10px;
+    color:white;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    font-size:11px;
+    font-weight:800;
+    margin-top:10px;
+}
+
+/* FAQ */
+
+.faq{
+    max-width:850px;
+    margin:auto;
+}
+
+.faq-item{
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:rgba(255,255,255,.025);
+    margin-bottom:9px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    padding:15px;
+    background:transparent;
+    color:white;
+    border:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    text-align:left;
+    font-size:11px;
+    font-weight:800;
+}
+
+body.urdu .faq-question{
+    text-align:right;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 15px 15px;
+    color:#85859c;
+    font-size:10px;
+    line-height:1.8;
+}
+
+.faq-item.open .faq-answer{
+    display:block;
+}
+
+/* MODAL */
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
     z-index:2000;
-    background:rgba(0,0,0,.78);
+    background:rgba(0,0,0,.8);
     backdrop-filter:blur(12px);
     padding:18px;
     overflow-y:auto;
@@ -668,7 +856,7 @@ header{
 }
 
 .modal-box{
-    max-width:520px;
+    max-width:530px;
     margin:30px auto;
     background:linear-gradient(180deg,#111126,#080812);
     border:1px solid rgba(102,126,234,.3);
@@ -699,9 +887,55 @@ body.urdu .close{
     font-size:20px;
     font-weight:900;
     margin-bottom:18px;
+    padding-right:35px;
 }
 
-/* ================= CART ================= */
+body.urdu .modal-title{
+    padding-right:0;
+    padding-left:35px;
+}
+
+.product-detail{
+    text-align:center;
+}
+
+.detail-icon{
+    font-size:70px;
+    margin:10px 0;
+}
+
+.detail-price{
+    font-size:25px;
+    font-weight:900;
+    color:#b8c0ff;
+    margin:10px 0;
+}
+
+.detail-desc{
+    color:#9292aa;
+    font-size:11px;
+    line-height:1.8;
+}
+
+.detail-list{
+    text-align:left;
+    margin:18px 0;
+    padding:15px 20px;
+    background:rgba(255,255,255,.035);
+    border-radius:13px;
+}
+
+body.urdu .detail-list{
+    text-align:right;
+}
+
+.detail-list li{
+    color:#aaaabe;
+    font-size:10px;
+    margin:8px 0;
+}
+
+/* CART */
 
 .cart-item{
     display:flex;
@@ -725,7 +959,7 @@ body.urdu .close{
 }
 
 .cart-info p{
-    font-size:11px;
+    font-size:10px;
     color:#aeb8ff;
     margin-top:3px;
 }
@@ -777,8 +1011,6 @@ body.urdu .close{
     color:#b7c0ff;
 }
 
-/* ================= FORM ================= */
-
 .form-title{
     font-size:17px;
     font-weight:800;
@@ -795,7 +1027,6 @@ body.urdu .close{
     font-size:10px;
     font-weight:700;
     margin-bottom:6px;
-    text-transform:uppercase;
 }
 
 .form-group input,
@@ -821,8 +1052,6 @@ body.urdu .close{
     box-shadow:0 0 0 3px rgba(102,126,234,.12);
 }
 
-/* ================= PAYMENT IN MODAL ================= */
-
 .payment{
     margin:18px 0;
     padding:15px;
@@ -843,29 +1072,12 @@ body.urdu .close{
     align-items:center;
     gap:10px;
     padding:6px 0;
-    font-size:11px;
+    font-size:10px;
     color:#c9c9d7;
 }
 
 .payment-row strong{
     color:var(--gold);
-}
-
-.copy-btn{
-    background:rgba(255,179,0,0.15);
-    border:1px solid rgba(255,179,0,0.3);
-    color:var(--gold);
-    padding:3px 8px;
-    border-radius:6px;
-    font-size:9px;
-    font-weight:700;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.copy-btn:hover{
-    background:var(--gold);
-    color:#111;
 }
 
 .payment-note{
@@ -889,7 +1101,7 @@ body.urdu .close{
     box-shadow:0 8px 25px rgba(37,211,102,.25);
 }
 
-/* ================= EMPTY ================= */
+/* EMPTY */
 
 .empty{
     text-align:center;
@@ -898,7 +1110,7 @@ body.urdu .close{
     font-size:13px;
 }
 
-/* ================= WHATSAPP ================= */
+/* WHATSAPP */
 
 .whatsapp{
     position:fixed;
@@ -922,7 +1134,7 @@ body.urdu .whatsapp{
     left:20px;
 }
 
-/* ================= TOAST ================= */
+/* TOAST */
 
 .toast{
     position:fixed;
@@ -939,6 +1151,7 @@ body.urdu .whatsapp{
     pointer-events:none;
     z-index:3000;
     transition:.3s;
+    text-align:center;
 }
 
 .toast.show{
@@ -946,12 +1159,12 @@ body.urdu .whatsapp{
     transform:translate(-50%,0);
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 footer{
     text-align:center;
     border-top:1px solid rgba(255,255,255,.06);
-    padding:35px 20px 80px;
+    padding:40px 20px 80px;
     color:#55556b;
     font-size:10px;
 }
@@ -965,7 +1178,47 @@ footer{
     -webkit-text-fill-color:transparent;
 }
 
-/* ================= RESPONSIVE ================= */
+.footer-links{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:15px 0;
+    flex-wrap:wrap;
+}
+
+.footer-links button{
+    background:none;
+    border:0;
+    color:#77778f;
+    font-size:10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+    .nav-links{
+        display:none;
+    }
+
+    .trust-grid,
+    .features{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:768px){
+    .testimonials-container{
+        grid-template-columns:1fr;
+    }
+
+    .payment-grid{
+        grid-template-columns:1fr;
+    }
+}
 
 @media(max-width:650px){
 
@@ -986,11 +1239,15 @@ footer{
     }
 
     .hero{
-        padding:50px 18px 35px;
+        padding:52px 18px 38px;
     }
 
     .hero h1{
         font-size:34px;
+    }
+
+    .hero p{
+        font-size:12px;
     }
 
     .stats{
@@ -1044,9 +1301,18 @@ footer{
         font-size:8px;
     }
 
-    .add-button, .buy-button{
+    .add-button,
+    .buy-button{
         padding:8px 3px;
         font-size:9px;
+    }
+
+    .trust-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr 1fr;
     }
 }
 
@@ -1069,34 +1335,27 @@ footer{
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
-
     <div class="logo">◆ Sami AI Tools</div>
 
     <div class="header-right">
 
-        <div class="language">
-            <button id="enBtn" class="active" onclick="setLanguage('en')">
-                EN
-            </button>
+        <nav class="nav-links">
+            <a href="#productsSection" data-en="Products" data-ur="پروڈکٹس">Products</a>
+            <a href="#howItWorks" data-en="How It Works" data-ur="طریقہ">How It Works</a>
+            <a href="#faq" data-en="FAQ" data-ur="سوالات">FAQ</a>
+        </nav>
 
-            <button id="urBtn" onclick="setLanguage('ur')">
-                اردو
-            </button>
+        <div class="language">
+            <button id="enBtn" class="active" onclick="setLanguage('en')">EN</button>
+            <button id="urBtn" onclick="setLanguage('ur')">اردو</button>
         </div>
 
         <button class="cart-button" onclick="openCart()">
             🛒 <span id="cartCount">0</span>
         </button>
-
     </div>
-
 </header>
-
-
-<!-- ================= HERO ================= -->
 
 <section class="hero">
 
@@ -1119,53 +1378,69 @@ footer{
         Premium AI tools, creative software and productivity subscriptions at affordable prices.
     </p>
 
-    <div class="stats">
+    <div class="hero-actions">
+        <a href="#productsSection" class="primary-btn"
+           data-en="🚀 Browse Products"
+           data-ur="🚀 پروڈکٹس دیکھیں">
+            🚀 Browse Products
+        </a>
 
+        <a href="#howItWorks" class="secondary-btn"
+           data-en="How It Works"
+           data-ur="طریقہ کار">
+            How It Works
+        </a>
+    </div>
+
+    <div class="stats">
         <div class="stat">
             <div class="stat-number">6+</div>
-            <div class="stat-label"
-                 data-en="Products"
-                 data-ur="پروڈکٹس">
-                Products
-            </div>
+            <div class="stat-label" data-en="Products" data-ur="پروڈکٹس">Products</div>
         </div>
 
         <div class="stat">
             <div class="stat-number">24/7</div>
-            <div class="stat-label"
-                 data-en="Support"
-                 data-ur="سپورٹ">
-                Support
-            </div>
+            <div class="stat-label" data-en="Support" data-ur="سپورٹ">Support</div>
         </div>
 
         <div class="stat">
             <div class="stat-number">⚡</div>
-            <div class="stat-label"
-                 data-en="Fast Service"
-                 data-ur="تیز سروس">
-                Fast Service
-            </div>
+            <div class="stat-label" data-en="Fast Service" data-ur="تیز سروس">Fast Service</div>
         </div>
-
     </div>
-
 </section>
 
+<div class="trust-bar">
+    <div class="trust-grid">
+        <div class="trust-item">
+            <strong>⚡ <span data-en="Fast Delivery" data-ur="فوری ڈیلیوری">Fast Delivery</span></strong>
+            <span data-en="After payment verification" data-ur="پیمنٹ تصدیق کے بعد">After payment verification</span>
+        </div>
 
-<!-- ================= PRODUCTS SECTION ================= -->
+        <div class="trust-item">
+            <strong>💬 <span data-en="WhatsApp Support" data-ur="واٹس ایپ سپورٹ">WhatsApp Support</span></strong>
+            <span data-en="Direct customer support" data-ur="براہ راست کسٹمر سپورٹ">Direct customer support</span>
+        </div>
 
-<section class="section">
+        <div class="trust-item">
+            <strong>🔒 <span data-en="Secure Ordering" data-ur="محفوظ آرڈر">Secure Ordering</span></strong>
+            <span data-en="Simple checkout process" data-ur="آسان چیک آؤٹ">Simple checkout process</span>
+        </div>
+
+        <div class="trust-item">
+            <strong>📦 <span data-en="Stock Tracking" data-ur="اسٹاک ٹریکنگ">Stock Tracking</span></strong>
+            <span data-en="Current availability shown" data-ur="موجودہ اسٹاک دکھایا جاتا ہے">Current availability shown</span>
+        </div>
+    </div>
+</div>
+
+<section class="section" id="productsSection">
 
     <div class="section-heading">
 
         <h2 class="section-title">
-            <span data-en="Trending" data-ur="مقبول">
-                Trending
-            </span>
-            <span data-en=" AI Tools" data-ur=" اے آئی ٹولز">
-                AI Tools
-            </span>
+            <span data-en="Trending" data-ur="مقبول">Trending</span>
+            <span data-en=" AI Tools" data-ur=" اے آئی ٹولز"> AI Tools</span>
         </h2>
 
         <div class="search-box">
@@ -1180,83 +1455,189 @@ footer{
 
     </div>
 
-    <!-- Category Filter Tabs -->
     <div class="categories">
-        <button class="cat-btn active" onclick="filterCategory('all', this)" data-en="All Products" data-ur="تمام پروڈکٹس">All Products</button>
-        <button class="cat-btn" onclick="filterCategory('ai', this)" data-en="AI Tools" data-ur="اے آئی ٹولز">AI Tools</button>
-        <button class="cat-btn" onclick="filterCategory('editing', this)" data-en="Editing Software" data-ur="ایڈیٹنگ سافٹ ویئر">Editing Software</button>
-        <button class="cat-btn" onclick="filterCategory('productivity', this)" data-en="Productivity" data-ur="پروڈکٹیوٹی">Productivity</button>
+        <button class="cat-btn active" onclick="filterCategory('all',this)"
+                data-en="All Products" data-ur="تمام پروڈکٹس">All Products</button>
+
+        <button class="cat-btn" onclick="filterCategory('ai',this)"
+                data-en="AI Tools" data-ur="اے آئی ٹولز">AI Tools</button>
+
+        <button class="cat-btn" onclick="filterCategory('editing',this)"
+                data-en="Editing Software" data-ur="ایڈیٹنگ سافٹ ویئر">Editing Software</button>
+
+        <button class="cat-btn" onclick="filterCategory('productivity',this)"
+                data-en="Productivity" data-ur="پروڈکٹیوٹی">Productivity</button>
     </div>
 
     <div class="products" id="products"></div>
-
 </section>
 
+<section class="section" id="howItWorks">
 
-<!-- ================= PAYMENT METHODS BANNER ================= -->
+    <h2 class="section-title" style="text-align:center;margin-bottom:22px;">
+        <span data-en="How It" data-ur="یہ کیسے">How It</span>
+        <span data-en=" Works" data-ur=" کام کرتا ہے"> Works</span>
+    </h2>
+
+    <div class="steps">
+
+        <div class="step">
+            <div class="step-number">01</div>
+            <h3 data-en="Choose Your Product" data-ur="اپنی پروڈکٹ منتخب کریں">
+                Choose Your Product
+            </h3>
+            <p data-en="Select the AI or software subscription you need and add it to your cart."
+               data-ur="اپنی مطلوبہ اے آئی یا سافٹ ویئر سبسکرپشن منتخب کریں اور کارٹ میں شامل کریں۔">
+                Select the AI or software subscription you need and add it to your cart.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">02</div>
+            <h3 data-en="Make Payment" data-ur="پیمنٹ کریں">
+                Make Payment
+            </h3>
+            <p data-en="Pay using JazzCash, EasyPaisa or Binance Pay and keep your transaction ID."
+               data-ur="جاز کیش، ایزی پیسہ یا بائنانس پے سے پیمنٹ کریں اور اپنا ٹرانزیکشن آئی ڈی محفوظ رکھیں۔">
+                Pay using JazzCash, EasyPaisa or Binance Pay and keep your transaction ID.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">03</div>
+            <h3 data-en="Receive Your Order" data-ur="اپنا آرڈر حاصل کریں">
+                Receive Your Order
+            </h3>
+            <p data-en="Submit your order through WhatsApp. Your order is processed after payment verification."
+               data-ur="واٹس ایپ کے ذریعے اپنا آرڈر بھیجیں۔ پیمنٹ کی تصدیق کے بعد آرڈر پروسیس کیا جاتا ہے۔">
+                Submit your order through WhatsApp. Your order is processed after payment verification.
+            </p>
+        </div>
+
+    </div>
+</section>
 
 <section class="section">
+
     <div class="payment-banner">
-        <h2 data-en="💳 Easy Payment Methods" data-ur="💳 آسان پیمنٹ کے طریقے">💳 Easy Payment Methods</h2>
+
+        <h2 data-en="💳 Easy Payment Methods" data-ur="💳 آسان پیمنٹ کے طریقے">
+            💳 Easy Payment Methods
+        </h2>
+
         <div class="payment-grid">
-            
+
             <div class="payment-card">
                 <div class="payment-card-info">
-                    <h4 data-en="JazzCash / EasyPaisa" data-ur="جاز کیش / ایزی پیسہ">JazzCash / EasyPaisa</h4>
+                    <h4 data-en="JazzCash / EasyPaisa" data-ur="جاز کیش / ایزی پیسہ">
+                        JazzCash / EasyPaisa
+                    </h4>
                     <p>0302-7292497</p>
                 </div>
-                <button class="copy-btn" onclick="copyText('0302-7292497')">Copy</button>
+
+                <button class="copy-btn" onclick="copyText('0302-7292497')">
+                    Copy
+                </button>
             </div>
 
             <div class="payment-card">
                 <div class="payment-card-info">
-                    <h4 data-en="Binance Pay ID" data-ur="بائنانس پے آئی ڈی">Binance Pay ID</h4>
-                    <p style="font-size:11px;">742793058 (sunny_497)</p>
+                    <h4 data-en="Binance Pay ID" data-ur="بائنانس پے آئی ڈی">
+                        Binance Pay ID
+                    </h4>
+                    <p>742793058 (sunny_497)</p>
                 </div>
-                <button class="copy-btn" onclick="copyText('742793058')">Copy ID</button>
-            </div>
 
-            <div class="payment-card">
-                <div class="payment-card-info">
-                    <h4 data-en="Allied Bank IBAN" data-ur="آئی بی اے این (بینک)">Allied Bank IBAN</h4>
-                    <p style="font-size:10px;">PK10ABPA0010081815620010</p>
-                </div>
-                <button class="copy-btn" onclick="copyText('PK10ABPA0010081815620010')">Copy</button>
+                <button class="copy-btn" onclick="copyText('742793058')">
+                    Copy ID
+                </button>
             </div>
 
         </div>
-        <p style="text-align:center; color:#85859c; font-size:11px; margin-top:12px;"
-           data-en="Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID along with screenshot on WhatsApp."
-           data-ur="اکاؤنٹ ٹائتل: سمیع اللہ — پیمنٹ کرنے کے بعد واٹس ایپ پر TID / بائنانس آرڈر آئی ڈی اور اسکرین شاٹ ضرور شیئر کریں۔">
-           Account Title: Sami ul Allah — Send payment and share TID / Binance Order ID along with screenshot on WhatsApp.
+
+        <p class="payment-note"
+           data-en="After payment, share your Transaction ID / Binance Order ID and payment screenshot on WhatsApp."
+           data-ur="پیمنٹ کے بعد اپنا ٹرانزیکشن آئی ڈی / بائنانس آرڈر آئی ڈی اور پیمنٹ کا اسکرین شاٹ واٹس ایپ پر ضرور شیئر کریں۔">
+            After payment, share your Transaction ID / Binance Order ID and payment screenshot on WhatsApp.
         </p>
     </div>
 </section>
 
+<section class="section">
 
-<!-- ================= CUSTOMER REVIEWS & RATING SECTION ================= -->
+    <h2 class="section-title" style="text-align:center;margin-bottom:22px;">
+        <span data-en="Why Choose" data-ur="ہمیں کیوں">Why Choose</span>
+        <span data-en=" Us?" data-ur=" منتخب کریں؟"> Us?</span>
+    </h2>
+
+    <div class="features">
+
+        <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <h3 data-en="Fast Delivery" data-ur="فوری ڈیلیوری">Fast Delivery</h3>
+            <p data-en="Orders are processed after payment verification."
+               data-ur="پیمنٹ کی تصدیق کے بعد آرڈر پروسیس کیا جاتا ہے۔">
+                Orders are processed after payment verification.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3 data-en="Secure Ordering" data-ur="محفوظ آرڈر">Secure Ordering</h3>
+            <p data-en="Your order details are prepared directly for WhatsApp."
+               data-ur="آپ کے آرڈر کی تفصیلات براہ راست واٹس ایپ کے لیے تیار کی جاتی ہیں۔">
+                Your order details are prepared directly for WhatsApp.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📦</div>
+            <h3 data-en="Stock Tracking" data-ur="اسٹاک ٹریکنگ">Stock Tracking</h3>
+            <p data-en="Available quantities are displayed for every product."
+               data-ur="ہر پروڈکٹ کی دستیاب مقدار دکھائی جاتی ہے۔">
+                Available quantities are displayed for every product.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">💬</div>
+            <h3 data-en="WhatsApp Support" data-ur="واٹس ایپ سپورٹ">WhatsApp Support</h3>
+            <p data-en="Contact us directly for help and order questions."
+               data-ur="مدد اور آرڈر سے متعلق سوالات کے لیے براہ راست رابطہ کریں۔">
+                Contact us directly for help and order questions.
+            </p>
+        </div>
+
+    </div>
+</section>
 
 <section class="section">
-    <h2 class="section-title" style="text-align:center; margin-bottom:20px;">
+
+    <h2 class="section-title" style="text-align:center;margin-bottom:20px;">
         <span data-en="Customer" data-ur="صارفین کی">Customer</span>
-        <span data-en=" Reviews & Rating" data-ur=" آراء اور ریٹنگ"> Reviews & Rating</span>
+        <span data-en=" Reviews" data-ur=" آراء"> Reviews</span>
     </h2>
 
     <div class="testimonials-container">
-        <!-- Display Reviews -->
+
         <div class="testimonials-list" id="testimonialsList"></div>
 
-        <!-- Add Review Form -->
         <div class="review-form-box">
-            <h3 data-en="Leave Your Review" data-ur="اپنا ریویو درج کریں">Leave Your Review</h3>
-            
+
+            <h3 data-en="Leave Your Review" data-ur="اپنا ریویو درج کریں">
+                Leave Your Review
+            </h3>
+
             <div class="form-group">
                 <label data-en="Your Name" data-ur="آپ کا نام">Your Name</label>
-                <input id="reviewName" type="text" placeholder="Enter your name">
+                <input id="reviewName" type="text" maxlength="50"
+                       placeholder="Enter your name">
             </div>
 
             <div class="form-group">
-                <label data-en="Rating" data-ur="ریٹنگ (ستارے)">Rating</label>
+
+                <label data-en="Rating" data-ur="ریٹنگ">Rating</label>
+
                 <div class="star-rating-input" id="starInput">
                     <span onclick="setRating(1)">★</span>
                     <span onclick="setRating(2)">★</span>
@@ -1264,88 +1645,138 @@ footer{
                     <span onclick="setRating(4)">★</span>
                     <span onclick="setRating(5)">★</span>
                 </div>
+
             </div>
 
             <div class="form-group">
-                <label data-en="Your Feedback" data-ur="آپ کا تبصرہ">Your Feedback</label>
-                <textarea id="reviewText" placeholder="Write your experience..."></textarea>
+
+                <label data-en="Your Feedback" data-ur="آپ کا تبصرہ">
+                    Your Feedback
+                </label>
+
+                <textarea id="reviewText"
+                          maxlength="500"
+                          placeholder="Write your experience..."></textarea>
+
             </div>
 
-            <button class="review-submit-btn" onclick="submitReview()" data-en="Submit Review" data-ur="ریویو جمع کریں">Submit Review</button>
+            <button class="review-submit-btn"
+                    onclick="submitReview()"
+                    data-en="Submit Review"
+                    data-ur="ریویو جمع کریں">
+                Submit Review
+            </button>
+
         </div>
     </div>
 </section>
 
-
-<!-- ================= FEATURES ================= -->
-
-<section class="section">
+<section class="section" id="faq">
 
     <h2 class="section-title" style="text-align:center;margin-bottom:22px;">
-        <span data-en="Why Choose" data-ur="ہمیں کیوں">
-            Why Choose
-        </span>
-        <span data-en=" Us?" data-ur=" منتخب کریں؟">
-             Us?
-        </span>
+        <span data-en="Frequently Asked" data-ur="اکثر پوچھے جانے والے">Frequently Asked</span>
+        <span data-en=" Questions" data-ur=" سوالات"> Questions</span>
     </h2>
 
-    <div class="features">
+    <div class="faq">
 
-        <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <h3 data-en="Fast Delivery" data-ur="فوری ڈیلیوری">
-                Fast Delivery
-            </h3>
-            <p
-                data-en="Orders are processed after payment verification."
-                data-ur="پیمنٹ کی تصدیق کے بعد آرڈر پروسیس کیا جاتا ہے۔">
-                Orders are processed after payment verification.
-            </p>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-en="How do I place an order?"
+                      data-ur="میں آرڈر کیسے کروں؟">
+                    How do I place an order?
+                </span>
+                <span>＋</span>
+            </button>
+
+            <div class="faq-answer"
+                 data-en="Choose a product, add it to your cart, enter your details and confirm the order through WhatsApp."
+                 data-ur="پروڈکٹ منتخب کریں، کارٹ میں شامل کریں، اپنی تفصیلات درج کریں اور واٹس ایپ کے ذریعے آرڈر کنفرم کریں۔">
+                Choose a product, add it to your cart, enter your details and confirm the order through WhatsApp.
+            </div>
         </div>
 
-        <div class="feature">
-            <div class="feature-icon">🔒</div>
-            <h3 data-en="Secure Ordering" data-ur="محفوظ آرڈر">
-                Secure Ordering
-            </h3>
-            <p
-                data-en="Your order information is sent directly to WhatsApp."
-                data-ur="آپ کے آرڈر کی معلومات براہ راست واٹس ایپ پر بھیجی جاتی ہیں۔">
-                Your order information is sent directly to WhatsApp.
-            </p>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-en="Which payment methods are available?"
+                      data-ur="کون سے پیمنٹ طریقے دستیاب ہیں؟">
+                    Which payment methods are available?
+                </span>
+                <span>＋</span>
+            </button>
+
+            <div class="faq-answer"
+                 data-en="Currently JazzCash, EasyPaisa and Binance Pay are available."
+                 data-ur="فی الحال جاز کیش، ایزی پیسہ اور بائنانس پے دستیاب ہیں۔">
+                Currently JazzCash, EasyPaisa and Binance Pay are available.
+            </div>
         </div>
 
-        <div class="feature">
-            <div class="feature-icon">📦</div>
-            <h3 data-en="Stock Tracking" data-ur="اسٹاک ٹریکنگ">
-                Stock Tracking
-            </h3>
-            <p
-                data-en="Available and sold quantities are displayed for products."
-                data-ur="پروڈکٹس کی دستیاب اور فروخت شدہ مقدار دکھائی جاتی ہے۔">
-                Available and sold quantities are displayed for products.
-            </p>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-en="What should I do after payment?"
+                      data-ur="پیمنٹ کے بعد کیا کرنا ہے؟">
+                    What should I do after payment?
+                </span>
+                <span>＋</span>
+            </button>
+
+            <div class="faq-answer"
+                 data-en="Keep your transaction ID and send the payment screenshot on WhatsApp along with your order."
+                 data-ur="اپنا ٹرانزیکشن آئی ڈی محفوظ رکھیں اور پیمنٹ کا اسکرین شاٹ آرڈر کے ساتھ واٹس ایپ پر بھیجیں۔">
+                Keep your transaction ID and send the payment screenshot on WhatsApp along with your order.
+            </div>
         </div>
 
-        <div class="feature">
-            <div class="feature-icon">💬</div>
-            <h3 data-en="WhatsApp Support" data-ur="واٹس ایپ سپورٹ">
-                WhatsApp Support
-            </h3>
-            <p
-                data-en="Contact us directly for help and order questions."
-                data-ur="مدد اور آرڈر سے متعلق سوالات کے لیے براہ راست رابطہ کریں۔">
-                Contact us directly for help and order questions.
-            </p>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-en="When will my order be delivered?"
+                      data-ur="میرا آرڈر کب ملے گا؟">
+                    When will my order be delivered?
+                </span>
+                <span>＋</span>
+            </button>
+
+            <div class="faq-answer"
+                 data-en="Orders are processed after payment verification. Delivery time can vary depending on the product."
+                 data-ur="پیمنٹ کی تصدیق کے بعد آرڈر پروسیس کیا جاتا ہے۔ ڈیلیوری کا وقت پروڈکٹ کے حساب سے مختلف ہو سکتا ہے۔">
+                Orders are processed after payment verification. Delivery time can vary depending on the product.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span data-en="How can I contact support?"
+                      data-ur="سپورٹ سے کیسے رابطہ کروں؟">
+                    How can I contact support?
+                </span>
+                <span>＋</span>
+            </button>
+
+            <div class="faq-answer"
+                 data-en="Use the WhatsApp button on the website to contact Sami AI Tools directly."
+                 data-ur="سامی اے آئی ٹولز سے براہ راست رابطے کے لیے ویب سائٹ پر واٹس ایپ بٹن استعمال کریں۔">
+                Use the WhatsApp button on the website to contact Sami AI Tools directly.
+            </div>
         </div>
 
     </div>
-
 </section>
 
+<!-- PRODUCT DETAIL MODAL -->
 
-<!-- ================= CART MODAL ================= -->
+<div class="modal" id="productModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeProductModal()">✕</button>
+
+        <div id="productDetail"></div>
+
+    </div>
+</div>
+
+<!-- CART MODAL -->
 
 <div class="modal" id="cartModal">
 
@@ -1372,169 +1803,172 @@ footer{
             </h3>
 
             <div class="form-group">
-                <label
-                    data-en="Full Name *"
-                    data-ur="پورا نام *">
+                <label data-en="Full Name *" data-ur="پورا نام *">
                     Full Name *
                 </label>
 
-                <input
-                    id="customerName"
-                    type="text"
-                    placeholder="Your name">
+                <input id="customerName"
+                       type="text"
+                       maxlength="80"
+                       placeholder="Your name">
             </div>
 
-
             <div class="form-group">
-                <label
-                    data-en="WhatsApp Number *"
-                    data-ur="واٹس ایپ نمبر *">
+                <label data-en="WhatsApp Number *" data-ur="واٹس ایپ نمبر *">
                     WhatsApp Number *
                 </label>
 
-                <input
-                    id="customerPhone"
-                    type="tel"
-                    placeholder="03XX-XXXXXXX">
+                <input id="customerPhone"
+                       type="tel"
+                       maxlength="25"
+                       placeholder="03XX-XXXXXXX">
             </div>
 
-
             <div class="form-group">
-                <label
-                    data-en="Email (Optional)"
-                    data-ur="ای میل (اختیاری)">
+                <label data-en="Email (Optional)" data-ur="ای میل (اختیاری)">
                     Email (Optional)
                 </label>
 
-                <input
-                    id="customerEmail"
-                    type="email"
-                    placeholder="you@example.com">
+                <input id="customerEmail"
+                       type="email"
+                       maxlength="120"
+                       placeholder="you@example.com">
             </div>
 
-
             <div class="form-group">
-                <label
-                    data-en="Notes / Address"
-                    data-ur="نوٹس / پتہ">
+                <label data-en="Notes / Address" data-ur="نوٹس / پتہ">
                     Notes / Address
                 </label>
 
-                <textarea
-                    id="customerNotes"
-                    placeholder="Any special instructions..."></textarea>
+                <textarea id="customerNotes"
+                          maxlength="500"
+                          placeholder="Any special instructions..."></textarea>
             </div>
-
-
-            <!-- PAYMENT -->
 
             <div class="payment">
 
-                <h3
-                    data-en="💳 Payment Details"
+                <h3 data-en="💳 Payment Details"
                     data-ur="💳 پیمنٹ کی تفصیلات">
                     💳 Payment Details
                 </h3>
 
                 <div class="payment-row">
                     <div>
-                        <strong>JazzCash / EasyPaisa:</strong> <span>0302-7292497</span>
+                        <strong>JazzCash / EasyPaisa:</strong>
+                        <span>0302-7292497</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText('0302-7292497')">Copy</button>
+
+                    <button class="copy-btn"
+                            onclick="copyText('0302-7292497')">
+                        Copy
+                    </button>
                 </div>
 
                 <div class="payment-row">
                     <div>
-                        <strong>Binance Pay ID:</strong> <span>742793058 (sunny_497)</span>
+                        <strong>Binance Pay:</strong>
+                        <span>742793058 (sunny_497)</span>
                     </div>
-                    <button class="copy-btn" onclick="copyText('742793058')">Copy ID</button>
+
+                    <button class="copy-btn"
+                            onclick="copyText('742793058')">
+                        Copy ID
+                    </button>
                 </div>
 
                 <div class="payment-row">
-                    <div>
-                        <strong>Allied Bank IBAN:</strong> <span>PK10ABPA0010081815620010</span>
-                    </div>
-                    <button class="copy-btn" onclick="copyText('PK10ABPA0010081815620010')">Copy</button>
-                </div>
-
-                <div class="payment-row" style="border-top:1px solid rgba(255,179,0,0.1); margin-top:5px; padding-top:6px;">
-                    <strong>Account Title</strong>
-                    <span>Sami ul Allah</span>
-                </div>
-
-                <div class="payment-row">
-                    <strong>WhatsApp</strong>
+                    <strong>WhatsApp:</strong>
                     <span>+966 59 507 3180</span>
                 </div>
 
                 <div class="payment-note"
-                     data-en="After payment, enter your Transaction ID or Binance Order ID below. Also share screenshot on WhatsApp."
-                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی یا بائنانس آرڈر آئی ڈی درج کریں اور اسکرین شاٹ واٹس ایپ پر بھیجیں۔">
-                    After payment, enter your Transaction ID or Binance Order ID below. Also share screenshot on WhatsApp.
+                     data-en="After payment, enter your Transaction ID / Binance Order ID below and send the payment screenshot on WhatsApp."
+                     data-ur="پیمنٹ کے بعد نیچے اپنا ٹرانزیکشن آئی ڈی / بائنانس آرڈر آئی ڈی درج کریں اور پیمنٹ کا اسکرین شاٹ واٹس ایپ پر بھیجیں۔">
+                    After payment, enter your Transaction ID / Binance Order ID below and send the payment screenshot on WhatsApp.
                 </div>
 
             </div>
 
-
             <div class="form-group">
 
-                <label
-                    data-en="Transaction ID / Binance ID *"
-                    data-ur="ٹرانزیکشن آئی ڈی / بائنانس آئی ڈی *">
+                <label data-en="Transaction ID / Binance ID *"
+                       data-ur="ٹرانزیکشن آئی ڈی / بائنانس آئی ڈی *">
                     Transaction ID / Binance ID *
                 </label>
 
-                <input
-                    id="transactionId"
-                    type="text"
-                    placeholder="Enter TID / Binance Order ID">
+                <input id="transactionId"
+                       type="text"
+                       maxlength="100"
+                       placeholder="Enter TID / Binance Order ID">
 
             </div>
 
-
-            <button
-                class="checkout"
-                onclick="placeOrder()"
-                data-en="✅ Confirm Order on WhatsApp"
-                data-ur="✅ واٹس ایپ پر آرڈر کی تصدیق کریں">
+            <button class="checkout"
+                    onclick="placeOrder()"
+                    data-en="✅ Confirm Order on WhatsApp"
+                    data-ur="✅ واٹس ایپ پر آرڈر کی تصدیق کریں">
                 ✅ Confirm Order on WhatsApp
             </button>
 
         </div>
-
     </div>
-
 </div>
 
+<!-- POLICY MODAL -->
 
-<!-- ================= WHATSAPP ================= -->
+<div class="modal" id="policyModal">
 
-<a
-    id="whatsappButton"
-    class="whatsapp"
-    target="_blank"
-    rel="noopener"
-    aria-label="WhatsApp">
+    <div class="modal-box">
+
+        <button class="close" onclick="closePolicy()">✕</button>
+
+        <h2 class="modal-title" id="policyTitle"></h2>
+
+        <div id="policyContent"
+             style="color:#9292aa;font-size:11px;line-height:1.9;">
+        </div>
+
+    </div>
+</div>
+
+<a id="whatsappButton"
+   class="whatsapp"
+   target="_blank"
+   rel="noopener"
+   aria-label="WhatsApp">
     💬
 </a>
 
-
-<!-- ================= TOAST ================= -->
-
 <div id="toast" class="toast"></div>
-
-
-<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    <div class="footer-brand">
-        ◆ Sami AI Tools
+    <div class="footer-brand">◆ Sami AI Tools</div>
+
+    <div class="footer-links">
+
+        <button onclick="openPolicy('privacy')"
+                data-en="Privacy Policy"
+                data-ur="پرائیویسی پالیسی">
+            Privacy Policy
+        </button>
+
+        <button onclick="openPolicy('terms')"
+                data-en="Terms & Conditions"
+                data-ur="شرائط و ضوابط">
+            Terms & Conditions
+        </button>
+
+        <button onclick="openPolicy('refund')"
+                data-en="Refund / Replacement"
+                data-ur="ریفنڈ / ریپلیسمنٹ">
+            Refund / Replacement
+        </button>
+
     </div>
 
-    <p
-        data-en="© 2026 Sami AI Tools · All rights reserved."
-        data-ur="© 2026 Sami AI Tools · جملہ حقوق محفوظ ہیں۔">
+    <p data-en="© 2026 Sami AI Tools · All rights reserved."
+       data-ur="© 2026 Sami AI Tools · جملہ حقوق محفوظ ہیں۔">
         © 2026 Sami AI Tools · All rights reserved.
     </p>
 
@@ -1544,206 +1978,1400 @@ footer{
 
 </footer>
 
-
 <script>
 
 /* =========================================================
-   PRODUCTS DATABASE
-   ========================================================= */
+   SETTINGS
+========================================================= */
+
+const WHATSAPP_NUMBER = "966595073180";
+
+const WHATSAPP_GREETING =
+    "Salam! Mujhe Sami AI Tools ke baare mein maloomat chahiye.";
+
+let language = localStorage.getItem("sami_language") || "en";
+let currentCategory = "all";
+let selectedRating = 5;
+let temporaryBuyNow = false;
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
 
 const products = [
 
     {
-        id: 1,
-        name: "Google Gemini — 18 Months",
-        urdu: "گوگل جیمنائی — 18 ماہ",
-        category: "ai",
-        desc: "2TB Storage + Private Gmail Account",
-        descUrdu: "2 ٹی بی اسٹوریج + پرائیویٹ جی میل اکاؤنٹ",
-        price: 270,
-        oldPrice: 350,
-        stock: 180,
-        sold: 120,
-        icon: "✨",
-        badge: "HOT DEAL"
+        id:1,
+        name:"Google Gemini — 18 Months",
+        urdu:"گوگل جیمنائی — 18 ماہ",
+        category:"ai",
+        desc:"2TB Storage + Private Gmail Account",
+        descUrdu:"2 ٹی بی اسٹوریج + پرائیویٹ جی میل اکاؤنٹ",
+        price:270,
+        oldPrice:350,
+        stock:180,
+        sold:120,
+        icon:"✨",
+        badge:"HOT DEAL"
     },
 
     {
-        id: 2,
-        name: "CapCut Pro — 6 Months",
-        urdu: "کیپ کٹ پرو — 6 ماہ",
-        category: "editing",
-        desc: "6 Months Subscription + Pro Features",
-        descUrdu: "6 ماہ سبسکرپشن + تمام پرو فیچرز",
-        price: 3000,
-        oldPrice: 0,
-        stock: 43,
-        sold: 7,
-        icon: "🎬",
-        badge: "PREMIUM"
+        id:2,
+        name:"CapCut Pro — 6 Months",
+        urdu:"کیپ کٹ پرو — 6 ماہ",
+        category:"editing",
+        desc:"6 Months Subscription + Pro Features",
+        descUrdu:"6 ماہ سبسکرپشن + تمام پرو فیچرز",
+        price:3000,
+        oldPrice:0,
+        stock:43,
+        sold:7,
+        icon:"🎬",
+        badge:"PREMIUM"
     },
 
     {
-        id: 3,
-        name: "CapCut Pro — 1 Month",
-        urdu: "کیپ کٹ پرو — 1 ماہ",
-        category: "editing",
-        desc: "1 Month Subscription + Pro Features",
-        descUrdu: "1 ماہ سبسکرپشن + تمام پرو فیچرز",
-        price: 650,
-        oldPrice: 0,
-        stock: 70,
-        sold: 30,
-        icon: "🎞️️",
-        badge: ""
+        id:3,
+        name:"CapCut Pro — 1 Month",
+        urdu:"کیپ کٹ پرو — 1 ماہ",
+        category:"editing",
+        desc:"1 Month Subscription + Pro Features",
+        descUrdu:"1 ماہ سبسکرپشن + تمام پرو فیچرز",
+        price:650,
+        oldPrice:0,
+        stock:70,
+        sold:30,
+        icon:"🎞️",
+        badge:""
     },
 
     {
-        id: 4,
-        name: "Canva Pro — 1 Month",
-        urdu: "کینوا پرو — 1 ماہ",
-        category: "editing",
-        desc: "1 Month Subscription + Premium Features",
-        descUrdu: "1 ماہ سبسکرپشن + پریمیم فیچرز",
-        price: 90,
-        oldPrice: 300,
-        stock: 56,
-        sold: 0,
-        icon: "🎨",
-        badge: "SALE"
+        id:4,
+        name:"Canva Pro — 1 Month",
+        urdu:"کینوا پرو — 1 ماہ",
+        category:"editing",
+        desc:"1 Month Subscription + Premium Features",
+        descUrdu:"1 ماہ سبسکرپشن + پریمیم فیچرز",
+        price:90,
+        oldPrice:300,
+        stock:56,
+        sold:0,
+        icon:"🎨",
+        badge:"SALE"
     },
 
     {
-        id: 5,
-        name: "Canva Pro — 2 Years",
-        urdu: "کینوا پرو — 2 سال",
-        category: "editing",
-        desc: "2 Years Subscription + Premium Features",
-        descUrdu: "2 سال سبسکرپشن + پریمیم فیچرز",
-        price: 500,
-        oldPrice: 0,
-        stock: 17,
-        sold: 13,
-        icon: "🖌️",
-        badge: "BEST VALUE"
+        id:5,
+        name:"Canva Pro — 2 Years",
+        urdu:"کینوا پرو — 2 سال",
+        category:"editing",
+        desc:"2 Years Subscription + Premium Features",
+        descUrdu:"2 سال سبسکرپشن + پریمیم فیچرز",
+        price:500,
+        oldPrice:0,
+        stock:17,
+        sold:13,
+        icon:"🖌️",
+        badge:"BEST VALUE"
     },
 
     {
-        id: 6,
-        name: "Microsoft Office 365",
-        urdu: "مائیکروسافٹ آفس 365",
-        category: "productivity",
-        desc: "Office Apps + Word, Excel & PowerPoint",
-        descUrdu: "آفس ایپس + ورڈ، ایکسل اور پاورپوائنٹ",
-        price: 250,
-        oldPrice: 0,
-        stock: 13,
-        sold: 2,
-        icon: "📊",
-        badge: ""
+        id:6,
+        name:"Microsoft Office 365",
+        urdu:"مائیکروسافٹ آفس 365",
+        category:"productivity",
+        desc:"Office Apps + Word, Excel & PowerPoint",
+        descUrdu:"آفس ایپس + ورڈ، ایکسل اور پاورپوائنٹ",
+        price:250,
+        oldPrice:0,
+        stock:13,
+        sold:2,
+        icon:"📊",
+        badge:""
     }
-
 ];
-
 
 /* =========================================================
-   REVIEWS STORAGE SYSTEM
-   ========================================================= */
+   REVIEWS
+========================================================= */
 
 let reviews = [
-    { name: "Usman Ali", rating: 5, text: "Very fast service! Got my Canva Pro account within 5 minutes after sending payment." },
-    { name: "Hamza Khan", rating: 5, text: "Gemini 18 months subscription is working perfectly. Highly trusted seller!" },
-    { name: "Bilal Ahmed", rating: 5, text: "Amazing prices and reliable support on WhatsApp. Will buy again!" }
+    {
+        name:"Usman Ali",
+        rating:5,
+        text:"Very fast service! Got my Canva Pro account after payment verification.",
+        verified:true
+    },
+    {
+        name:"Hamza Khan",
+        rating:5,
+        text:"Gemini subscription is working perfectly. Support was helpful on WhatsApp.",
+        verified:true
+    },
+    {
+        name:"Bilal Ahmed",
+        rating:5,
+        text:"Good prices and reliable WhatsApp support. Will buy again.",
+        verified:true
+    }
 ];
 
-try {
+try{
     const savedReviews = localStorage.getItem("sami_reviews");
-    if(savedReviews) reviews = JSON.parse(savedReviews);
-} catch {
-    // fallback
-}
 
-let selectedRating = 5;
+    if(savedReviews){
+        const parsed = JSON.parse(savedReviews);
+
+        if(Array.isArray(parsed)){
+            reviews = parsed;
+        }
+    }
+}catch(e){}
 
 function setRating(stars){
+
     selectedRating = stars;
-    const starSpans = document.querySelectorAll("#starInput span");
-    starSpans.forEach((span, index) => {
-        if(index < stars) {
-            span.classList.add("active");
-        } else {
-            span.classList.remove("active");
-        }
+
+    document.querySelectorAll("#starInput span").forEach((span,index)=>{
+        span.classList.toggle("active",index < stars);
     });
 }
 
 function submitReview(){
+
     const name = document.getElementById("reviewName").value.trim();
     const text = document.getElementById("reviewText").value.trim();
 
-    if(!name || !text){
-        showToast(language === "ur" ? "⚠️ نام اور تبصرہ لکھنا لازمی ہے" : "⚠️ Name and feedback are required");
+    if(name.length < 2 || text.length < 5){
+        showToast(
+            language === "ur"
+            ? "⚠️ درست نام اور تبصرہ درج کریں"
+            : "⚠️ Please enter a valid name and feedback"
+        );
         return;
     }
 
     reviews.unshift({
-        name: name,
-        rating: selectedRating,
-        text: text
+        name:name.substring(0,50),
+        rating:selectedRating,
+        text:text.substring(0,500),
+        verified:false
     });
 
-    localStorage.setItem("sami_reviews", JSON.stringify(reviews));
+    localStorage.setItem(
+        "sami_reviews",
+        JSON.stringify(reviews)
+    );
 
-    document.getElementById("reviewName").value = "";
-    document.getElementById("reviewText").value = "";
+    document.getElementById("reviewName").value="";
+    document.getElementById("reviewText").value="";
+
     setRating(5);
-
     renderReviews();
-    showToast(language === "ur" ? "✓ شکریہ! ریویو شامل ہو گیا" : "✓ Thank you! Review submitted");
+
+    showToast(
+        language === "ur"
+        ? "✓ شکریہ! ریویو شامل ہوگیا"
+        : "✓ Thank you! Review submitted"
+    );
 }
 
 function renderReviews(){
-    const container = document.getElementById("testimonialsList");
+
+    const container =
+        document.getElementById("testimonialsList");
+
     if(!container) return;
 
-    container.innerHTML = reviews.map(r => {
-        const starsStr = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+    container.innerHTML = reviews.map(review=>{
+
+        const stars =
+            "★".repeat(Math.max(0,Math.min(5,review.rating))) +
+            "☆".repeat(5-Math.max(0,Math.min(5,review.rating)));
+
         return `
             <div class="testimonial-card">
+
                 <div class="testimonial-header">
-                    <span class="testimonial-name">${escapeHTML(r.name)}</span>
-                    <span class="stars">${starsStr}</span>
+
+                    <span class="testimonial-name">
+                        ${escapeHTML(review.name)}
+
+                        ${
+                            review.verified
+                            ? `<span class="verified">✓ VERIFIED</span>`
+                            : ""
+                        }
+                    </span>
+
+                    <span class="stars">${stars}</span>
+
                 </div>
-                <p class="testimonial-text">${escapeHTML(r.text)}</p>
+
+                <p class="testimonial-text">
+                    ${escapeHTML(review.text)}
+                </p>
+
             </div>
         `;
+
     }).join("");
 }
 
-
 /* =========================================================
-   SETTINGS & STATE
-   ========================================================= */
+   CART
+========================================================= */
 
-const WHATSAPP_NUMBER = "966595073180";
-const WHATSAPP_GREETING = "Salam! Mujhe Sami AI Tools ke baare mein maloomat chahiye.";
-
-let language = localStorage.getItem("sami_language") || "en";
-let currentCategory = "all";
 let cart = [];
 
-try {
-    cart = JSON.parse(localStorage.getItem("sami_cart") || "[]");
-} catch {
-    cart = [];
+try{
+    const savedCart =
+        JSON.parse(localStorage.getItem("sami_cart") || "[]");
+
+    if(Array.isArray(savedCart)){
+        cart = savedCart;
+    }
+}catch(e){
+    cart=[];
 }
 
+function saveCart(){
+    localStorage.setItem(
+        "sami_cart",
+        JSON.stringify(cart)
+    );
+}
+
+function addToCart(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product || product.stock <= 0){
+        showToast(
+            language === "ur"
+            ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے"
+            : "❌ Product is out of stock"
+        );
+        return;
+    }
+
+    const existing =
+        cart.find(item=>item.id===id);
+
+    if(existing){
+
+        if(existing.qty >= product.stock){
+            showToast(
+                language === "ur"
+                ? "⚠️ اتنا اسٹاک دستیاب نہیں"
+                : "⚠️ Not enough stock available"
+            );
+            return;
+        }
+
+        existing.qty++;
+
+    }else{
+
+        cart.push({
+            id:id,
+            qty:1
+        });
+    }
+
+    saveCart();
+    renderCart();
+
+    showToast(
+        language === "ur"
+        ? "✓ کارٹ میں شامل ہوگیا"
+        : "✓ Added to cart"
+    );
+}
+
+function buyNow(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product || product.stock <= 0){
+        showToast(
+            language === "ur"
+            ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے"
+            : "❌ Product is out of stock"
+        );
+        return;
+    }
+
+    cart = [{
+        id:id,
+        qty:1
+    }];
+
+    temporaryBuyNow = true;
+
+    saveCart();
+    openCart();
+}
+
+function removeFromCart(id){
+
+    cart = cart.filter(item=>item.id!==id);
+
+    saveCart();
+    renderCart();
+}
+
+function changeQuantity(id,change){
+
+    const item =
+        cart.find(i=>i.id===id);
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!item || !product) return;
+
+    item.qty += change;
+
+    if(item.qty <= 0){
+        removeFromCart(id);
+        return;
+    }
+
+    if(item.qty > product.stock){
+
+        item.qty = product.stock;
+
+        showToast(
+            language === "ur"
+            ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں"
+            : "⚠️ Cannot exceed available stock"
+        );
+    }
+
+    saveCart();
+    renderCart();
+}
+
+/* =========================================================
+   PRODUCT RENDER
+========================================================= */
+
+function renderProducts(){
+
+    const container =
+        document.getElementById("products");
+
+    const search =
+        document.getElementById("search").value
+        .trim()
+        .toLowerCase();
+
+    const filtered =
+        products.filter(product=>{
+
+            const matchesCategory =
+                currentCategory==="all" ||
+                product.category===currentCategory;
+
+            const text =
+                (
+                    product.name +
+                    " " +
+                    product.urdu +
+                    " " +
+                    product.desc +
+                    " " +
+                    product.descUrdu
+                ).toLowerCase();
+
+            return matchesCategory &&
+                   text.includes(search);
+        });
+
+    if(!filtered.length){
+
+        container.innerHTML = `
+            <div class="empty" style="grid-column:1/-1;">
+                ${
+                    language==="ur"
+                    ? "کوئی پروڈکٹ نہیں ملی۔"
+                    : "No products found."
+                }
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        filtered.map(product=>{
+
+            const available =
+                product.stock > 0;
+
+            const total =
+                product.stock + product.sold;
+
+            const soldPercent =
+                total > 0
+                ? Math.min(
+                    100,
+                    Math.round(
+                        product.sold / total * 100
+                    )
+                )
+                : 0;
+
+            let stockClass="stock-ok";
+
+            if(product.stock<=10 &&
+               product.stock>0){
+                stockClass="stock-low";
+            }
+
+            if(product.stock<=0){
+                stockClass="stock-out";
+            }
+
+            const stockText =
+                product.stock<=0
+                ? (
+                    language==="ur"
+                    ? "❌ ختم ہو گیا"
+                    : "❌ SOLD OUT"
+                )
+                : (
+                    language==="ur"
+                    ? `✓ ${product.stock} دستیاب`
+                    : `✓ ${product.stock} Available`
+                );
+
+            const title =
+                language==="ur"
+                ? product.urdu
+                : product.name;
+
+            const description =
+                language==="ur"
+                ? product.descUrdu
+                : product.desc;
+
+            return `
+                <article class="product">
+
+                    <div class="product-top">
+
+                        ${
+                            product.badge
+                            ? `<div class="hot-badge">
+                                ${escapeHTML(product.badge)}
+                              </div>`
+                            : ""
+                        }
+
+                        <div class="stock-badge ${stockClass}">
+                            ${stockText}
+                        </div>
+
+                        <div class="product-icon">
+                            ${product.icon}
+                        </div>
+
+                    </div>
+
+                    <div class="product-body">
+
+                        <h3 class="product-title">
+                            ${escapeHTML(title)}
+                        </h3>
+
+                        <p class="product-desc">
+                            ${escapeHTML(description)}
+                        </p>
+
+                        <div class="price">
+
+                            ${
+                                product.oldPrice>0
+                                ? `<span class="old-price">
+                                    ${money(product.oldPrice)}
+                                   </span>`
+                                : ""
+                            }
+
+                            <span class="new-price">
+                                ${money(product.price)}
+                            </span>
+
+                        </div>
+
+                        <div class="stock-info">
+
+                            <div class="stock-text">
+                                <span>
+                                    ${
+                                        language==="ur"
+                                        ? "فروخت شدہ"
+                                        : "Sold"
+                                    }: ${product.sold}
+                                </span>
+
+                                <span>
+                                    ${
+                                        language==="ur"
+                                        ? "اسٹاک"
+                                        : "Stock"
+                                    }: ${product.stock}
+                                </span>
+                            </div>
+
+                            <div class="progress">
+                                <div class="progress-bar"
+                                     style="width:${soldPercent}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="product-actions">
+
+                            <button
+                                class="add-button"
+                                ${available ? "" : "disabled"}
+                                onclick="addToCart(${product.id})">
+
+                                ${
+                                    available
+                                    ? (
+                                        language==="ur"
+                                        ? "+ کارٹ"
+                                        : "+ Cart"
+                                      )
+                                    : "Out"
+                                }
+
+                            </button>
+
+                            <button
+                                class="buy-button"
+                                ${available ? "" : "disabled"}
+                                onclick="buyNow(${product.id})">
+
+                                ${
+                                    available
+                                    ? (
+                                        language==="ur"
+                                        ? "⚡ آرڈر"
+                                        : "⚡ Order"
+                                      )
+                                    : "Sold Out"
+                                }
+
+                            </button>
+
+                        </div>
+
+                        <button
+                            onclick="openProductModal(${product.id})"
+                            style="
+                                margin-top:8px;
+                                width:100%;
+                                border:0;
+                                background:transparent;
+                                color:#9292aa;
+                                font-size:9px;
+                                padding:5px;
+                            "
+                            data-en="View details →"
+                            data-ur="تفصیلات دیکھیں ←">
+                            ${
+                                language==="ur"
+                                ? "تفصیلات دیکھیں ←"
+                                : "View details →"
+                            }
+                        </button>
+
+                    </div>
+                </article>
+            `;
+
+        }).join("");
+}
+
+/* =========================================================
+   PRODUCT DETAIL
+========================================================= */
+
+function openProductModal(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    const title =
+        language==="ur"
+        ? product.urdu
+        : product.name;
+
+    const desc =
+        language==="ur"
+        ? product.descUrdu
+        : product.desc;
+
+    const content =
+        document.getElementById("productDetail");
+
+    content.innerHTML = `
+        <div class="product-detail">
+
+            <div class="detail-icon">
+                ${product.icon}
+            </div>
+
+            <h2 class="modal-title">
+                ${escapeHTML(title)}
+            </h2>
+
+            <div class="detail-price">
+                ${money(product.price)}
+            </div>
+
+            <p class="detail-desc">
+                ${escapeHTML(desc)}
+            </p>
+
+            <ul class="detail-list">
+
+                <li>
+                    ✓ ${
+                        language==="ur"
+                        ? "پیمنٹ تصدیق کے بعد پروسیسنگ"
+                        : "Processing after payment verification"
+                    }
+                </li>
+
+                <li>
+                    ✓ ${
+                        language==="ur"
+                        ? "واٹس ایپ سپورٹ"
+                        : "WhatsApp support"
+                    }
+                </li>
+
+                <li>
+                    ✓ ${
+                        language==="ur"
+                        ? `${product.stock} یونٹس دستیاب`
+                        : `${product.stock} units currently available`
+                    }
+                </li>
+
+                <li>
+                    ✓ ${
+                        language==="ur"
+                        ? "آسان آرڈر پروسیس"
+                        : "Simple ordering process"
+                    }
+                </li>
+
+            </ul>
+
+            <div style="display:flex;gap:8px;">
+
+                <button
+                    class="add-button"
+                    onclick="addToCart(${product.id});closeProductModal();"
+                    style="padding:12px;">
+
+                    ${
+                        language==="ur"
+                        ? "+ کارٹ میں شامل کریں"
+                        : "+ Add to Cart"
+                    }
+
+                </button>
+
+                <button
+                    class="buy-button"
+                    onclick="closeProductModal();buyNow(${product.id});"
+                    style="padding:12px;">
+
+                    ${
+                        language==="ur"
+                        ? "⚡ ابھی آرڈر"
+                        : "⚡ Buy Now"
+                    }
+
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    document
+        .getElementById("productModal")
+        .classList.add("active");
+
+    document.body.style.overflow="hidden";
+}
+
+function closeProductModal(){
+
+    document
+        .getElementById("productModal")
+        .classList.remove("active");
+
+    document.body.style.overflow="";
+}
+
+/* =========================================================
+   CART RENDER
+========================================================= */
+
+function renderCart(){
+
+    const items =
+        document.getElementById("cartItems");
+
+    const totalElement =
+        document.getElementById("cartTotal");
+
+    const checkout =
+        document.getElementById("checkoutArea");
+
+    const count =
+        cart.reduce(
+            (sum,item)=>sum+item.qty,
+            0
+        );
+
+    document.getElementById("cartCount")
+        .textContent=count;
+
+    if(cart.length===0){
+
+        items.innerHTML=`
+            <div class="empty">
+                ${
+                    language==="ur"
+                    ? "🛒 کارٹ خالی ہے"
+                    : "🛒 Your cart is empty"
+                }
+            </div>
+        `;
+
+        totalElement.innerHTML="";
+        checkout.style.display="none";
+
+        return;
+    }
+
+    let total=0;
+
+    items.innerHTML =
+        cart.map(item=>{
+
+            const product =
+                products.find(p=>p.id===item.id);
+
+            if(!product) return "";
+
+            const subtotal =
+                product.price * item.qty;
+
+            total += subtotal;
+
+            const title =
+                language==="ur"
+                ? product.urdu
+                : product.name;
+
+            return `
+                <div class="cart-item">
+
+                    <div class="cart-info">
+
+                        <h4>
+                            ${product.icon}
+                            ${escapeHTML(title)}
+                        </h4>
+
+                        <p>
+                            ${item.qty}
+                            ×
+                            ${money(product.price)}
+                            =
+                            ${money(subtotal)}
+                        </p>
+
+                    </div>
+
+                    <div class="qty">
+
+                        <button
+                            onclick="changeQuantity(${item.id},-1)">
+                            −
+                        </button>
+
+                        <span>${item.qty}</span>
+
+                        <button
+                            onclick="changeQuantity(${item.id},1)">
+                            +
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="remove"
+                        onclick="removeFromCart(${item.id})">
+                        ✕
+                    </button>
+
+                </div>
+            `;
+
+        }).join("");
+
+    totalElement.innerHTML=`
+        <span>
+            ${
+                language==="ur"
+                ? "کل رقم"
+                : "Total"
+            }
+        </span>
+
+        <span class="total-value">
+            ${money(total)}
+        </span>
+    `;
+
+    checkout.style.display="block";
+}
+
+/* =========================================================
+   CART MODAL
+========================================================= */
+
+function openCart(){
+
+    document
+        .getElementById("cartModal")
+        .classList.add("active");
+
+    document.body.style.overflow="hidden";
+
+    renderCart();
+}
+
+function closeCart(){
+
+    document
+        .getElementById("cartModal")
+        .classList.remove("active");
+
+    document.body.style.overflow="";
+}
+
+document
+    .getElementById("cartModal")
+    .addEventListener("click",event=>{
+        if(event.target===event.currentTarget){
+            closeCart();
+        }
+    });
+
+document
+    .getElementById("productModal")
+    .addEventListener("click",event=>{
+        if(event.target===event.currentTarget){
+            closeProductModal();
+        }
+    });
+
+document
+    .getElementById("policyModal")
+    .addEventListener("click",event=>{
+        if(event.target===event.currentTarget){
+            closePolicy();
+        }
+    });
+
+document.addEventListener("keydown",event=>{
+    if(event.key==="Escape"){
+        closeCart();
+        closeProductModal();
+        closePolicy();
+    }
+});
+
+/* =========================================================
+   ORDER
+========================================================= */
+
+function generateOrderId(){
+
+    const random =
+        Math.random()
+        .toString(36)
+        .substring(2,7)
+        .toUpperCase();
+
+    return "SAM-" + random;
+}
+
+function validPhone(phone){
+
+    const cleaned =
+        phone.replace(/[\s\-()]/g,"");
+
+    return /^[+0-9]{8,16}$/.test(cleaned);
+}
+
+function placeOrder(){
+
+    const name =
+        document.getElementById("customerName")
+        .value.trim();
+
+    const phone =
+        document.getElementById("customerPhone")
+        .value.trim();
+
+    const email =
+        document.getElementById("customerEmail")
+        .value.trim();
+
+    const notes =
+        document.getElementById("customerNotes")
+        .value.trim();
+
+    const tid =
+        document.getElementById("transactionId")
+        .value.trim();
+
+    if(name.length<2){
+
+        showToast(
+            language==="ur"
+            ? "⚠️ درست نام درج کریں"
+            : "⚠️ Please enter your name"
+        );
+
+        return;
+    }
+
+    if(!validPhone(phone)){
+
+        showToast(
+            language==="ur"
+            ? "⚠️ درست واٹس ایپ نمبر درج کریں"
+            : "⚠️ Please enter a valid WhatsApp number"
+        );
+
+        return;
+    }
+
+    if(email &&
+       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+
+        showToast(
+            language==="ur"
+            ? "⚠️ درست ای میل درج کریں"
+            : "⚠️ Please enter a valid email"
+        );
+
+        return;
+    }
+
+    if(tid.length<3){
+
+        showToast(
+            language==="ur"
+            ? "⚠️ Transaction ID ضروری ہے"
+            : "⚠️ Transaction ID is required"
+        );
+
+        return;
+    }
+
+    if(cart.length===0){
+
+        showToast(
+            language==="ur"
+            ? "⚠️ کارٹ خالی ہے"
+            : "⚠️ Cart is empty"
+        );
+
+        return;
+    }
+
+    const orderId =
+        generateOrderId();
+
+    const now =
+        new Date();
+
+    const dateText =
+        now.toLocaleString("en-GB");
+
+    let message =
+        "🛒 *NEW ORDER — SAMI AI TOOLS*\n\n";
+
+    message +=
+        `🆔 *Order ID:* ${orderId}\n`;
+
+    message +=
+        `📅 *Date:* ${dateText}\n\n`;
+
+    message +=
+        `👤 *Name:* ${name}\n`;
+
+    message +=
+        `📱 *WhatsApp:* ${phone}\n`;
+
+    if(email){
+        message +=
+            `📧 *Email:* ${email}\n`;
+    }
+
+    if(notes){
+        message +=
+            `📍 *Notes:* ${notes}\n`;
+    }
+
+    message +=
+        "\n📦 *ORDER DETAILS:*\n";
+
+    message +=
+        "────────────────\n";
+
+    let total=0;
+
+    cart.forEach((item,index)=>{
+
+        const product =
+            products.find(
+                p=>p.id===item.id
+            );
+
+        if(!product) return;
+
+        const subtotal =
+            product.price * item.qty;
+
+        total += subtotal;
+
+        message +=
+            `${index+1}. ${product.name}\n`;
+
+        message +=
+            `   ${item.qty} × ${money(product.price)} = *${money(subtotal)}*\n`;
+
+    });
+
+    message +=
+        "────────────────\n";
+
+    message +=
+        `💰 *TOTAL: ${money(total)}*\n\n`;
+
+    message +=
+        `💳 *Payment ID:* ${tid}\n\n`;
+
+    message +=
+        "✅ Payment verification ke baad order process hoga.\n";
+
+    message +=
+        "📸 Payment screenshot WhatsApp par zaroor bhejiye ga.";
+
+    const url =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+    /*
+      Save a lightweight local order record.
+      Real database will be added in Option 2.
+    */
+
+    const localOrder = {
+        id:orderId,
+        date:now.toISOString(),
+        customer:{
+            name:name,
+            phone:phone,
+            email:email
+        },
+        total:total,
+        status:"payment_pending"
+    };
+
+    let orders=[];
+
+    try{
+        orders =
+            JSON.parse(
+                localStorage.getItem("sami_orders") || "[]"
+            );
+
+        if(!Array.isArray(orders)){
+            orders=[];
+        }
+    }catch(e){
+        orders=[];
+    }
+
+    orders.unshift(localOrder);
+
+    localStorage.setItem(
+        "sami_orders",
+        JSON.stringify(orders.slice(0,50))
+    );
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    showToast(
+        language==="ur"
+        ? `✓ آرڈر تیار ہے — ${orderId}`
+        : `✓ Order ready — ${orderId}`
+    );
+}
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+function filterCategory(cat,btn){
+
+    currentCategory=cat;
+
+    document
+        .querySelectorAll(".cat-btn")
+        .forEach(button=>{
+            button.classList.remove("active");
+        });
+
+    btn.classList.add("active");
+
+    renderProducts();
+}
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function setLanguage(lang){
+
+    language=lang;
+
+    localStorage.setItem(
+        "sami_language",
+        lang
+    );
+
+    document.body.classList.toggle(
+        "urdu",
+        lang==="ur"
+    );
+
+    document.documentElement.lang=lang;
+
+    document.documentElement.dir =
+        lang==="ur" ? "rtl" : "ltr";
+
+    document
+        .getElementById("enBtn")
+        .classList.toggle(
+            "active",
+            lang==="en"
+        );
+
+    document
+        .getElementById("urBtn")
+        .classList.toggle(
+            "active",
+            lang==="ur"
+        );
+
+    document
+        .querySelectorAll("[data-en]")
+        .forEach(element=>{
+
+            element.innerHTML =
+                lang==="ur"
+                ? element.dataset.ur
+                : element.dataset.en;
+        });
+
+    const search =
+        document.getElementById("search");
+
+    search.placeholder =
+        lang==="ur"
+        ? search.dataset.placeholderUr
+        : search.dataset.placeholderEn;
+
+    renderProducts();
+    renderCart();
+    renderReviews();
+}
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+function toggleFaq(button){
+
+    const item =
+        button.parentElement;
+
+    const isOpen =
+        item.classList.contains("open");
+
+    document
+        .querySelectorAll(".faq-item")
+        .forEach(faq=>{
+            faq.classList.remove("open");
+
+            const icon =
+                faq.querySelector(".faq-question span:last-child");
+
+            if(icon){
+                icon.textContent="＋";
+            }
+        });
+
+    if(!isOpen){
+
+        item.classList.add("open");
+
+        const icon =
+            button.querySelector("span:last-child");
+
+        if(icon){
+            icon.textContent="−";
+        }
+    }
+}
+
+/* =========================================================
+   POLICY
+========================================================= */
+
+const policies = {
+
+    privacy:{
+        enTitle:"Privacy Policy",
+        urTitle:"پرائیویسی پالیسی",
+
+        en:`
+            We respect your privacy. Information entered during checkout
+            is used for order communication and customer support.
+            This GitHub Pages version does not contain a server-side customer
+            database. Local browser storage may be used for cart, reviews and
+            locally created order information.
+        `,
+
+        ur:`
+            ہم آپ کی پرائیویسی کا احترام کرتے ہیں۔ چیک آؤٹ کے دوران درج کی گئی
+            معلومات آرڈر سے متعلق رابطے اور کسٹمر سپورٹ کے لیے استعمال ہوتی ہیں۔
+            اس GitHub Pages ورژن میں سرور سائیڈ کسٹمر ڈیٹا بیس موجود نہیں ہے۔
+            کارٹ، ریویوز اور مقامی آرڈر معلومات براؤزر کی لوکل اسٹوریج میں محفوظ
+            ہو سکتی ہیں۔
+        `
+    },
+
+    terms:{
+        enTitle:"Terms & Conditions",
+        urTitle:"شرائط و ضوابط",
+
+        en:`
+            Customers should verify the selected product, duration and price
+            before making payment. Orders are processed after payment
+            verification. Product availability can change. Customers should
+            keep their transaction information and communicate through the
+            official WhatsApp contact shown on this website.
+        `,
+
+        ur:`
+            پیمنٹ کرنے سے پہلے کسٹمر پروڈکٹ، مدت اور قیمت کی تصدیق کرے۔
+            آرڈر پیمنٹ کی تصدیق کے بعد پروسیس کیا جاتا ہے۔ پروڈکٹ کی دستیابی
+            تبدیل ہو سکتی ہے۔ کسٹمر اپنا ٹرانزیکشن ریکارڈ محفوظ رکھے اور ویب
+            سائٹ پر دیے گئے آفیشل واٹس ایپ رابطے کے ذریعے رابطہ کرے۔
+        `
+    },
+
+    refund:{
+        enTitle:"Refund / Replacement",
+        urTitle:"ریفنڈ / ریپلیسمنٹ",
+
+        en:`
+            Refund or replacement requests are handled according to the
+            product and order circumstances. Please contact support on
+            WhatsApp with your Order ID and payment information if you have
+            an issue with a delivered product.
+        `,
+
+        ur:`
+            ریفنڈ یا ریپلیسمنٹ کی درخواست پروڈکٹ اور آرڈر کی صورتحال کے مطابق
+            دیکھی جاتی ہے۔ اگر ڈیلیور شدہ پروڈکٹ میں مسئلہ ہو تو اپنا آرڈر آئی ڈی
+            اور پیمنٹ کی معلومات کے ساتھ واٹس ایپ پر سپورٹ سے رابطہ کریں۔
+        `
+    }
+};
+
+function openPolicy(type){
+
+    const policy=policies[type];
+
+    if(!policy) return;
+
+    document.getElementById("policyTitle")
+        .textContent =
+        language==="ur"
+        ? policy.urTitle
+        : policy.enTitle;
+
+    document.getElementById("policyContent")
+        .innerHTML =
+        language==="ur"
+        ? policy.ur
+        : policy.en;
+
+    document
+        .getElementById("policyModal")
+        .classList.add("active");
+
+    document.body.style.overflow="hidden";
+}
+
+function closePolicy(){
+
+    document
+        .getElementById("policyModal")
+        .classList.remove("active");
+
+    document.body.style.overflow="";
+}
 
 /* =========================================================
    HELPERS
-   ========================================================= */
+========================================================= */
 
 function escapeHTML(value){
+
     return String(value)
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
@@ -1753,361 +3381,106 @@ function escapeHTML(value){
 }
 
 function money(number){
-    return "Rs. " + Number(number).toLocaleString("en-PK");
+
+    return "Rs. " +
+        Number(number).toLocaleString("en-PK");
 }
 
 function showToast(message){
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent=message;
+
     toast.classList.add("show");
+
     clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2200);
+
+    window.toastTimer =
+        setTimeout(()=>{
+            toast.classList.remove("show");
+        },2400);
 }
 
 function copyText(text){
-    navigator.clipboard.writeText(text).then(() => {
-        showToast(language === "ur" ? "✓ کاپی ہوگیا!" : "✓ Copied to clipboard!");
-    }).catch(() => {
-        showToast("❌ Copy failed");
-    });
-}
 
+    if(
+        navigator.clipboard &&
+        window.isSecureContext
+    ){
 
-/* =========================================================
-   LANGUAGE
-   ========================================================= */
+        navigator.clipboard
+            .writeText(text)
+            .then(()=>{
+                showToast(
+                    language==="ur"
+                    ? "✓ کاپی ہوگیا!"
+                    : "✓ Copied!"
+                );
+            })
+            .catch(()=>{
+                fallbackCopy(text);
+            });
 
-function setLanguage(lang){
-    language = lang;
-    localStorage.setItem("sami_language", lang);
-
-    document.body.classList.toggle("urdu", lang === "ur");
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
-
-    document.getElementById("enBtn").classList.toggle("active", lang === "en");
-    document.getElementById("urBtn").classList.toggle("active", lang === "ur");
-
-    document.querySelectorAll("[data-en]").forEach(element => {
-        element.innerHTML = lang === "ur" ? element.dataset.ur : element.dataset.en;
-    });
-
-    const search = document.getElementById("search");
-    search.placeholder = lang === "ur" ? search.dataset.placeholderUr : search.dataset.placeholderEn;
-
-    renderProducts();
-    renderCart();
-}
-
-
-/* =========================================================
-   FILTER CATEGORY
-   ========================================================= */
-
-function filterCategory(cat, btn){
-    currentCategory = cat;
-    document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    renderProducts();
-}
-
-
-/* =========================================================
-   PRODUCT RENDER
-   ========================================================= */
-
-function renderProducts(){
-    const container = document.getElementById("products");
-    const search = document.getElementById("search").value.trim().toLowerCase();
-
-    const filtered = products.filter(product => {
-        const matchesCategory = currentCategory === "all" || product.category === currentCategory;
-        const text = (product.name + " " + product.urdu + " " + product.desc).toLowerCase();
-        const matchesSearch = text.includes(search);
-        return matchesCategory && matchesSearch;
-    });
-
-    if(!filtered.length){
-        container.innerHTML = `
-            <div class="empty" style="grid-column:1/-1;">
-                ${language === "ur" ? "کوئی پروڈکٹ نہیں ملی۔" : "No products found."}
-            </div>
-        `;
-        return;
+    }else{
+        fallbackCopy(text);
     }
-
-    container.innerHTML = filtered.map(product => {
-        const available = product.stock > 0;
-        const total = product.stock + product.sold;
-        const soldPercent = total > 0 ? Math.min(100, Math.round((product.sold / total) * 100)) : 0;
-
-        let stockClass = "stock-ok";
-        if(product.stock <= 10 && product.stock > 0) stockClass = "stock-low";
-        if(product.stock <= 0) stockClass = "stock-out";
-
-        let stockText = product.stock <= 0 
-            ? (language === "ur" ? "❌ ختم ہو گیا" : "❌ SOLD OUT")
-            : (language === "ur" ? `✓ ${product.stock} دستیاب` : `✓ ${product.stock} Available`);
-
-        const title = language === "ur" ? product.urdu : product.name;
-        const description = language === "ur" ? product.descUrdu : product.desc;
-
-        return `
-            <article class="product">
-                <div class="product-top">
-                    ${product.badge ? `<div class="hot-badge">${escapeHTML(product.badge)}</div>` : ""}
-                    <div class="stock-badge ${stockClass}">${stockText}</div>
-                    <div class="product-icon">${product.icon}</div>
-                </div>
-
-                <div class="product-body">
-                    <h3 class="product-title">${escapeHTML(title)}</h3>
-                    <p class="product-desc">${escapeHTML(description)}</p>
-
-                    <div class="price">
-                        ${product.oldPrice > 0 ? `<span class="old-price">${money(product.oldPrice)}</span>` : ""}
-                        <span class="new-price">${money(product.price)}</span>
-                    </div>
-
-                    <div class="stock-info">
-                        <div class="stock-text">
-                            <span>${language === "ur" ? "فروخت شدہ" : "Sold"}: ${product.sold}</span>
-                            <span>${language === "ur" ? "اسٹاک" : "Stock"}: ${product.stock}</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width:${soldPercent}%"></div>
-                        </div>
-                    </div>
-
-                    <div class="product-actions">
-                        <button class="add-button" ${available ? "" : "disabled"} onclick="addToCart(${product.id})">
-                            ${available ? (language === "ur" ? "+ کارٹ" : "+ Cart") : "Out"}
-                        </button>
-                        <button class="buy-button" ${available ? "" : "disabled"} onclick="buyNow(${product.id})">
-                            ${available ? (language === "ur" ? "⚡ آرڈر کریں" : "⚡ Order Now") : "Sold Out"}
-                        </button>
-                    </div>
-                </div>
-            </article>
-        `;
-    }).join("");
 }
 
+function fallbackCopy(text){
 
-/* =========================================================
-   CART & DIRECT BUY MANAGEMENT
-   ========================================================= */
+    const textarea =
+        document.createElement("textarea");
 
-function saveCart(){
-    localStorage.setItem("sami_cart", JSON.stringify(cart));
-}
+    textarea.value=text;
 
-function addToCart(id){
-    const product = products.find(p => p.id === id);
-    if(!product || product.stock <= 0){
-        showToast(language === "ur" ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے" : "❌ Product is out of stock");
-        return;
-    }
+    document.body.appendChild(textarea);
 
-    const existing = cart.find(item => item.id === id);
-    if(existing){
-        if(existing.qty >= product.stock){
-            showToast(language === "ur" ? "⚠️ اتنا اسٹاک دستیاب نہیں" : "⚠️ Not enough stock available");
-            return;
-        }
-        existing.qty++;
-    } else {
-        cart.push({ id: id, qty: 1 });
-    }
+    textarea.select();
 
-    saveCart();
-    renderCart();
-    showToast(language === "ur" ? "✓ کارٹ میں شامل ہوگیا" : "✓ Added to cart");
-}
+    try{
+        document.execCommand("copy");
 
-function buyNow(id){
-    const product = products.find(p => p.id === id);
-    if(!product || product.stock <= 0){
-        showToast(language === "ur" ? "❌ یہ پروڈکٹ اسٹاک میں نہیں ہے" : "❌ Product is out of stock");
-        return;
-    }
-
-    // Clear cart or add single item for instant checkout
-    cart = [{ id: id, qty: 1 }];
-    saveCart();
-    openCart();
-}
-
-function removeFromCart(id){
-    cart = cart.filter(item => item.id !== id);
-    saveCart();
-    renderCart();
-}
-
-function changeQuantity(id, change){
-    const item = cart.find(i => i.id === id);
-    const product = products.find(p => p.id === id);
-    if(!item || !product) return;
-
-    item.qty += change;
-    if(item.qty <= 0){
-        removeFromCart(id);
-        return;
-    }
-    if(item.qty > product.stock){
-        item.qty = product.stock;
-        showToast(language === "ur" ? "⚠️ دستیاب اسٹاک سے زیادہ نہیں" : "⚠️️ Cannot exceed available stock");
-    }
-
-    saveCart();
-    renderCart();
-}
-
-
-/* =========================================================
-   RENDER CART
-   ========================================================= */
-
-function renderCart(){
-    const items = document.getElementById("cartItems");
-    const totalElement = document.getElementById("cartTotal");
-    const checkout = document.getElementById("checkoutArea");
-
-    const count = cart.reduce((sum, item) => sum + item.qty, 0);
-    document.getElementById("cartCount").textContent = count;
-
-    if(cart.length === 0){
-        items.innerHTML = `<div class="empty">${language === "ur" ? "🛒 کارٹ خالی ہے" : "🛒 Your cart is empty"}</div>`;
-        totalElement.innerHTML = "";
-        checkout.style.display = "none";
-        return;
-    }
-
-    let total = 0;
-    items.innerHTML = cart.map(item => {
-        const product = products.find(p => p.id === item.id);
-        if(!product) return "";
-
-        const subtotal = product.price * item.qty;
-        total += subtotal;
-        const title = language === "ur" ? product.urdu : product.name;
-
-        return `
-            <div class="cart-item">
-                <div class="cart-info">
-                    <h4>${product.icon} ${escapeHTML(title)}</h4>
-                    <p>${item.qty} × ${money(product.price)} = ${money(subtotal)}</p>
-                </div>
-                <div class="qty">
-                    <button onclick="changeQuantity(${item.id},-1)">−</button>
-                    <span>${item.qty}</span>
-                    <button onclick="changeQuantity(${item.id},1)">+</button>
-                </div>
-                <button class="remove" onclick="removeFromCart(${item.id})">✕</button>
-            </div>
-        `;
-    }).join("");
-
-    totalElement.innerHTML = `
-        <span>${language === "ur" ? "کل رقم" : "Total"}</span>
-        <span class="total-value">${money(total)}</span>
-    `;
-
-    checkout.style.display = "block";
-}
-
-
-/* =========================================================
-   MODAL CONTROLS
-   ========================================================= */
-
-function openCart(){
-    document.getElementById("cartModal").classList.add("active");
-    document.body.style.overflow = "hidden";
-    renderCart();
-}
-
-function closeCart(){
-    document.getElementById("cartModal").classList.remove("active");
-    document.body.style.overflow = "";
-}
-
-document.getElementById("cartModal").addEventListener("click", function(event){
-    if(event.target === this) closeCart();
-});
-
-document.addEventListener("keydown", function(event){
-    if(event.key === "Escape") closeCart();
-});
-
-
-/* =========================================================
-   WHATSAPP ORDER
-   ========================================================= */
-
-function placeOrder(){
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
-    const email = document.getElementById("customerEmail").value.trim();
-    const notes = document.getElementById("customerNotes").value.trim();
-    const tid = document.getElementById("transactionId").value.trim();
-
-    if(!name || !phone || !tid){
         showToast(
-            language === "ur" ? "⚠️ نام، واٹس ایپ نمبر اور TID ضروری ہیں" : "⚠️ Name, WhatsApp and TID are required"
+            language==="ur"
+            ? "✓ کاپی ہوگیا!"
+            : "✓ Copied!"
         );
-        return;
+
+    }catch(e){
+
+        showToast(
+            language==="ur"
+            ? "❌ کاپی نہیں ہوسکا"
+            : "❌ Copy failed"
+        );
     }
 
-    if(cart.length === 0){
-        showToast(language === "ur" ? "⚠️ کارٹ خالی ہے" : "⚠️ Cart is empty");
-        return;
-    }
-
-    let message = "🛒 *NEW ORDER — Sami AI Tools*\n\n";
-    message += `👤 *Name:* ${name}\n`;
-    message += `📱 *WhatsApp:* ${phone}\n`;
-
-    if(email) message += `📧 *Email:* ${email}\n`;
-    if(notes) message += `📍 *Notes:* ${notes}\n`;
-
-    message += "\n📦 *ORDER DETAILS:*\n";
-    message += "────────────────\n";
-
-    let total = 0;
-    cart.forEach((item, index) => {
-        const product = products.find(p => p.id === item.id);
-        if(!product) return;
-
-        const subtotal = product.price * item.qty;
-        total += subtotal;
-
-        message += `${index + 1}. ${product.name}\n`;
-        message += `   ${item.qty} × ${money(product.price)} = *${money(subtotal)}*\n`;
-    });
-
-    message += "────────────────\n";
-    message += `💰 *TOTAL: ${money(total)}*\n\n`;
-    message += `💳 *Payment Proof / ID:* ${tid}\n\n`;
-    message += "✅ Payment verification ke baad order process hoga aur screenshot zaroor bhejiye ga.";
-
-    const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-    window.open(url, "_blank", "noopener,noreferrer");
+    textarea.remove();
 }
 
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+document.getElementById("whatsappButton").href =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(
+        WHATSAPP_GREETING
+    );
 
 /* =========================================================
    INITIALIZE
-   ========================================================= */
-
-document.getElementById("whatsappButton").href = 
-    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_GREETING);
+========================================================= */
 
 setLanguage(language);
 setRating(5);
 renderReviews();
+renderProducts();
+renderCart();
 
 </script>
 
