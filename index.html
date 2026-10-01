@@ -87,7 +87,7 @@ header{
 .cat-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;font-size:10px;font-weight:700;transition:.2s;}
 .cat-btn.active,.cat-btn:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border-color:transparent;}
 
-/* Yahan grid layout ko 2 products per line set kar diya gaya hai */
+/* 2 products per line layout */
 .products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
 @media(min-width:768px){
     .products{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:17px;}
@@ -321,14 +321,14 @@ let products = [
     { id: 4, name: 'Gemini Pro — 18 Months (Link)', urdu: 'جیمنائی پرو — 18 ماہ (لنک)', category: 'ai', desc: '117 in stock with link access', desc_urdu: 'لنک ایکسیس کے ساتھ دستیاب', price: 280, stock: 117, icon: '✨', badge: 'BEST' },
     { id: 5, name: 'CapCut Pro — 6 Months', urdu: 'کیپ کٹ پرو — 6 ماہ', category: 'editing', desc: '18 in stock', desc_urdu: '18 اسٹاک میں موجود', price: 3000, stock: 18, icon: '🎞️', badge: '' },
     { id: 6, name: 'CapCut Pro — 1 Month FW', urdu: 'کیپ کٹ پرو — 1 ماہ فل وارنٹی', category: 'editing', desc: '219 in stock with Full Warranty', desc_urdu: 'فل وارنٹی کے ساتھ 219 دستیاب', price: 600, stock: 219, icon: '🎥', badge: 'HOT' },
-    { id: 7, name: 'CapCut Pro — 7D FW', urdu: 'کیپ کٹ پرو — 7 دن فل وارنٹی', category: 'editing', desc: '74 in stock', desc_urdu: '74 اسٹاک میں موجود', price: 150, stock: 74, icon: '⚡', badge: '' },
+    { id: 7, name: 'CapCut Pro — 7D FW', urdu: 'کیپ کٹ پرو — 7 دن فل وارنٹی', category: 'editing', desc: '74 in stock', desc_urdu: '74 اسٹاک میں موجود', price: 170, stock: 74, icon: '⚡', badge: '' },
     { id: 8, name: 'Figma Pro Edu — 2 Years', urdu: 'فگما پرو ایجو — 2 سال', category: 'productivity', desc: 'Out of stock educational plan', desc_urdu: 'آؤٹ آف اسٹاک ایجوکیشنل پلان', price: 1700, stock: 0, icon: '🎨', badge: 'OUT' },
     { id: 9, name: 'Miro Lifetime Panel 100 Invite', urdu: 'مائرو لائف ٹائم پینل — 100 انوائٹ', category: 'productivity', desc: '3 in stock', desc_urdu: '3 اسٹاک میں موجود', price: 3000, stock: 3, icon: '📊', badge: '' },
     { id: 10, name: 'iLovePdf Premium — 1 Year', urdu: 'آئی لو پی ڈی ایف پریمیم — 1 سال', category: 'productivity', desc: '25 in stock', desc_urdu: '25 اسٹاک میں موجود', price: 400, stock: 25, icon: '📄', badge: '' },
     { id: 11, name: 'Gmails Accounts', urdu: 'جی میل اکاؤنٹس', category: 'productivity', desc: '32 in stock', desc_urdu: '32 اسٹاک میں موجود', price: 200, stock: 32, icon: '📧', badge: '' },
-    { id: 12, name: 'Adobe Express — 12 Months', urdu: 'اڈوبی ایکسپریس — 12 ماہ', category: 'editing', desc: '112 in stock', desc_urdu: '112 اسٹاک میں موجود', price: 350, stock: 112, icon: '✨', badge: '' },
+    { id: 12, name: 'Adobe Express — 12 Months', urdu: 'اڈوبی ایکسپریس — 12 ماہ', category: 'editing', desc: '112 in stock', desc_urdu: '112 اسٹاک میں موجود', price: 300, stock: 112, icon: '✨', badge: '' },
     { id: 13, name: 'Notion Plus — 12 Months', urdu: 'نوشن پلس — 1 ماہ', category: 'productivity', desc: '14 in stock', desc_urdu: '14 اسٹاک میں موجود', price: 800, stock: 14, icon: '📝', badge: '' },
-    { id: 14, name: 'Prime Video — 6 Months', urdu: 'پرائم ویڈیو — 6 ماہ', category: 'ai', desc: 'Out of stock', desc_urdu: 'آؤٹ آف اسٹاک', price: 800, stock: 0, icon: '🎬', badge: 'OUT' },
+    { id: 14, name: 'Prime Video — 6 Months', urdu: 'پرائم ویڈیو — 6 ماہ', category: 'ai', desc: 'Out of stock', desc_urdu: 'آؤٹ آف اسٹاک', price: 700, stock: 0, icon: '🎬', badge: 'OUT' },
     { id: 15, name: 'Canva Pro — 2 yrs FW', urdu: 'کینوا پرو — 2 سال فل وارنٹی', category: 'editing', desc: 'Full Warranty', desc_urdu: 'فل وارنٹی کے ساتھ', price: 500, stock: 7, icon: '🖌️', badge: 'SALE' },
     { id: 16, name: 'Microsoft Office 365 Plus — 1 Year', urdu: 'مائیکروسافٹ آفس 365 — 1 سال', category: 'productivity', desc: '262 in stock', desc_urdu: '262 اسٹاک میں موجود', price: 300, stock: 262, icon: '💻', badge: 'BEST' }
 ];
