@@ -19,7 +19,7 @@
 <div class="modal" id="productModal"><div class="box"><button class="close" onclick="closeProduct()">✕</button><h2 id="modalTitle">Add Product</h2><input type="hidden" id="pid"><div class="formgrid"><div class="full"><label class="label">Product Name</label><input id="pname" class="input"></div><div><label class="label">Price (PKR)</label><input id="pprice" class="input" type="number" min="0"></div><div><label class="label">Stock</label><input id="pstock" class="input" type="number" min="0"></div><div><label class="label">Category</label><select id="pcat" class="select"><option value="ai">AI Tools</option><option value="editing">Editing Software</option><option value="productivity">Productivity</option></select></div><div><label class="label">Icon</label><input id="picon" class="input" placeholder="🤖"></div><div><label class="label">Badge</label><input id="pbadge" class="input" placeholder="HOT / SALE"></div><div class="full"><label class="label">Description</label><textarea id="pdesc" class="textarea"></textarea></div><div><label class="label">Active</label><select id="pactive" class="select"><option value="true">Yes</option><option value="false">No</option></select></div></div><button class="btn" onclick="saveProduct()">Save Product</button><div id="productMsg" class="error"></div></div></div>
 <script>
 const SUPABASE_URL="https://ovktqkltatyfbzmwlwla.supabase.co";
-const SUPABASE_KEY="sb_publishable_xYKjjm0YywNfblgeZuCNtA_X7fOhrwi";
+const SUPABASE_KEY="sb_publishable_axbkv3ctGPXG2GP-O4-J5A_ML98SdJ6";
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let products=[],orders=[];
 async function boot(){const {data:{session}}=await sb.auth.getSession();if(session){const ok=await checkAdmin(session.user.id);if(ok)showApp();}}
