@@ -12,9 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
 
-<!-- Supabase JS Client SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLMHG38G8P"></script>
 <script>
@@ -304,20 +301,42 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 </footer>
 
 <script>
-const SUPABASE_URL = "https://ovktqkltatyfbzmwlwla.supabase.co";
-const SUPABASE_KEY = "sb_publishable_xYKjjm0YywNfblgeZuCNtA_X7fOhrwi";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 const WHATSAPP_NUMBER = "966595073180";
 let language = "en";
 let currentCategory = "all";
 let selectedRating = 5;
 
-// ProdSeller API Configuration
-const API_BASE_URL = "https://prodseller.com";[span_1](start_span)[span_1](end_span)
-const API_KEY = "psk_8e8199c13254af98b5b8b3c7d1e5f21890488632de20cba1";
+// Raw products with base prices (Profit automatically added: 35% for 12 months/years, 25% for others)
+const rawProducts = [
+    { id: 1, name: 'ChatGPT Plus K12 Edu — 2 Years', urdu: 'چیٹ جی پی ٹی پلس کے 12 ایجو — 2 سال', category: 'ai', desc: '50 Accounts Added with Full Warranty', basePrice: 1200, stock: 50, icon: '🤖' },
+    { id: 2, name: 'Duolingo Super — 12 Months', urdu: 'ڈولنگو سپر — 12 ماہ', category: 'productivity', desc: '101 Accounts Added - Premium Language Learning', basePrice: 300, stock: 101, icon: '🦉' },
+    { id: 3, name: 'CapCut Pro — 1 Month FW', urdu: 'کیپ کٹ پرو — 1 ماہ فل وارنٹی', category: 'editing', desc: 'Full Warranty Key', basePrice: 480, stock: 39, icon: '🎬' },
+    { id: 4, name: 'Gemini Pro — 18 Months', urdu: 'جیمنائی پرو — 18 ماہ', category: 'ai', desc: 'Link access available', basePrice: 260, stock: 117, icon: '✨' },
+    { id: 5, name: 'Canva Pro — 2 yrs FW', urdu: 'کینوا پرو — 2 سال فل وارنٹی', category: 'editing', desc: 'Full Warranty', basePrice: 400, stock: 7, icon: '🖌️' },
+    { id: 6, name: 'CapCut Pro — 6 Months', urdu: 'کیپ کٹ پرو — 6 ماہ', category: 'editing', desc: 'Stock available', basePrice: 2400, stock: 18, icon: '🎞️' },
+    { id: 7, name: 'iLovePdf Premium — 1 Year', urdu: 'آئی لو پی ڈی ایف پریمیم — 1 سال', category: 'productivity', desc: '25 in stock', basePrice: 300, stock: 25, icon: '📄' },
+    { id: 8, name: 'Microsoft Office 365 Plus — 1 Year', urdu: 'مائیکروسافٹ آفس 365 — 1 سال', category: 'productivity', desc: '262 in stock', basePrice: 220, stock: 262, icon: '💻' }
+];
 
-let products = [];
+// Process products with profit margins
+let products = rawProducts.map(p => {
+    let titleDesc = (p.name + " " + p.desc).toLowerCase();
+    let isYearly = titleDesc.includes("12 month") || titleDesc.includes("1 year") || titleDesc.includes("2 years") || titleDesc.includes("18 months");
+    let profitMargin = isYearly ? 1.35 : 1.25; // 35% for yearly, 25% for others
+    let finalPrice = Math.round(p.basePrice * profitMargin);
+
+    return {
+        id: p.id,
+        name: p.name,
+        urdu: p.urdu,
+        category: p.category,
+        desc: p.desc,
+        price: finalPrice,
+        stock: p.stock,
+        icon: p.icon,
+        badge: p.stock > 0 ? (isYearly ? '35% OFF' : 'HOT') : 'OUT'
+    };
+});
 
 let reviews = [
     { name: "Usman Ali", rating: 5, text: "Very fast service! Got my account after payment verification.", verified: true },
@@ -325,52 +344,6 @@ let reviews = [
 ];
 
 let cart = JSON.parse(localStorage.getItem("sami_cart") || "[]");
-
-async function fetchProductsFromApi() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/v1/products`, {
-            method: 'GET',
-            headers: {
-                'X-API-Key': API_KEY
-            }
-        });
-        const data = await response.json();
-        if (data && data.products) {
-            products = data.products.map(p => {
-                let basePrice = Number(p.price);
-                let titleDesc = (p.name + " " + (p.description || "")).toLowerCase();
-                
-                // Check if it's a 12-month / 1-year product for 35% profit, else 25%
-                let isYearly = titleDesc.includes("12 month") || titleDesc.includes("1 year") || titleDesc.includes("12 months");
-                let profitMargin = isYearly ? 1.35 : 1.25;
-                let finalPrice = Math.round(basePrice * profitMargin);
-
-                return {
-                    id: p.id,
-                    name: p.name,
-                    urdu: p.name,
-                    category: 'ai',
-                    desc: p.description,
-                    price: finalPrice,
-                    stock: p.inStock ? 10 : 0,
-                    icon: '🤖',
-                    badge: p.inStock ? (isYearly ? '35% OFF' : 'HOT') : 'OUT'
-                };
-            });
-        }
-    } catch (e) {
-        console.warn("API Fetch Error, using fallback products", e);
-    }
-    renderProducts();
-}
-
-async function fetchReviewsFromSupabase() {
-    try {
-        const { data, error } = await supabaseClient.from('reviews').select('*').order('created_at', { ascending: false });
-        if (!error && data && data.length > 0) reviews = data;
-    } catch (e) { console.warn("Fallback reviews used"); }
-    renderReviews();
-}
 
 function renderProducts() {
     const container = document.getElementById("products");
@@ -382,30 +355,29 @@ function renderProducts() {
     });
 
     if(filtered.length === 0) {
-        container.innerHTML = `<div style="grid-column: span 2; text-align:center; color:var(--muted); padding:30px;">Loading products from API...</div>`;
+        container.innerHTML = `<div style="grid-column: span 2; text-align:center; color:var(--muted); padding:30px;">No products found</div>`;
         return;
     }
 
     container.innerHTML = filtered.map(p => {
         const title = language === 'ur' && p.urdu ? p.urdu : p.name;
-        const desc = language === 'ur' && p.desc_urdu ? p.desc_urdu : (p.desc || '');
-        const available = p.stock > 0 || p.inStock;
+        const available = p.stock > 0;
         return `
             <article class="product">
                 <div class="product-top">
                     ${p.badge ? `<div class="hot-badge">${p.badge}</div>` : ''}
-                    <div class="stock-badge ${available ? 'stock-ok' : 'stock-out'}">${available ? '✓ In Stock' : '✕ Out'}</div>
-                    <div class="product-icon">${p.icon || '📦'}</div>
+                    <div class="stock-badge ${available ? 'stock-ok' : 'stock-out'}">${available ? '✓ ' + p.stock + ' Avail' : '✕ Out'}</div>
+                    <div class="product-icon">${p.icon}</div>
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">${title}</h3>
-                    <p class="product-desc">${desc}</p>
+                    <p class="product-desc">${p.desc}</p>
                     <div class="price">
                         <span class="new-price">Rs. ${Number(p.price).toLocaleString()}</span>
                     </div>
                     <div class="product-actions">
-                        <button class="add-button" ${!available ? 'disabled' : ''} onclick="addToCart('${p.id}')">+ Cart</button>
-                        <button class="buy-button" ${!available ? 'disabled' : ''} onclick="buyNow('${p.id}')">⚡ Order</button>
+                        <button class="add-button" ${!available ? 'disabled' : ''} onclick="addToCart(${p.id})">+ Cart</button>
+                        <button class="buy-button" ${!available ? 'disabled' : ''} onclick="buyNow(${p.id})">⚡ Order</button>
                     </div>
                 </div>
             </article>
@@ -432,14 +404,10 @@ function setRating(stars) {
     document.querySelectorAll("#starInput span").forEach((s, i) => s.classList.toggle("active", i < stars));
 }
 
-async function submitReview() {
+function submitReview() {
     const name = document.getElementById("reviewName").value.trim();
     const text = document.getElementById("reviewText").value.trim();
     if (name.length < 2 || text.length < 3) { showToast("⚠️ Enter name and feedback"); return; }
-    
-    try {
-        await supabaseClient.from('reviews').insert([{ name, rating: selectedRating, text }]);
-    } catch (e) {}
     
     reviews.unshift({ name, rating: selectedRating, text, verified: false });
     document.getElementById("reviewName").value = "";
@@ -481,13 +449,13 @@ function renderCart() {
 
     let total = 0;
     items.innerHTML = cart.map(item => {
-        const p = products.find(prod => prod.id == item.id);
+        const p = products.find(prod => prod.id === item.id);
         if (!p) return "";
         total += p.price * item.qty;
         return `
             <div class="cart-item">
-                <div class="cart-info"><h4>${p.icon || '📦'} ${p.name}</h4><p>${item.qty} × Rs. ${p.price}</p></div>
-                <button class="remove" onclick="removeFromCart('${p.id}')">✕</button>
+                <div class="cart-info"><h4>${p.icon} ${p.name}</h4><p>${item.qty} × Rs. ${p.price}</p></div>
+                <button class="remove" onclick="removeFromCart(${p.id})">✕</button>
             </div>
         `;
     }).join("");
@@ -497,7 +465,7 @@ function renderCart() {
 }
 
 function removeFromCart(id) {
-    cart = cart.filter(item => item.id != id);
+    cart = cart.filter(item => item.id !== id);
     localStorage.setItem("sami_cart", JSON.stringify(cart));
     renderCart();
 }
@@ -540,7 +508,7 @@ function placeOrder() {
     
     let msg = `🛒 *NEW ORDER — SAMI AI TOOLS*\n👤 *Name:* ${name}\n📱 *Phone:* ${phone}\n💳 *TID:* ${tid}\n\n`;
     cart.forEach(i => {
-        const p = products.find(prod => prod.id == i.id);
+        const p = products.find(prod => prod.id === i.id);
         if (p) msg += `- ${p.name} (${i.qty}x)\n`;
     });
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
@@ -548,9 +516,9 @@ function placeOrder() {
 
 document.getElementById("whatsappButton").href = "https://wa.me/" + WHATSAPP_NUMBER;
 
-// Function calls
-fetchProductsFromApi();
-fetchReviewsFromSupabase();
+// Initial renders
+renderProducts();
+renderReviews();
 renderCartCount();
 </script>
 
