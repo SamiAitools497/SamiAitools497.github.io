@@ -74,15 +74,8 @@ header{
 .badge{display:inline-block;padding:7px 17px;border:1px solid rgba(102,126,234,.35);background:rgba(102,126,234,.12);color:#b4beff;border-radius:30px;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:20px;}
 .hero h1{font-size:clamp(36px,7vw,68px);line-height:1.1;font-weight:900;background:linear-gradient(135deg,#fff,#b6c0ff,#c77dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;}
 .hero p{max-width:680px;margin:auto;color:var(--muted);font-size:14px;line-height:1.8;}
-.hero-actions{display:flex;justify-content:center;gap:10px;margin-top:27px;flex-wrap:wrap;}
-.primary-btn,.secondary-btn{border:0;border-radius:12px;padding:12px 19px;font-size:11px;font-weight:800;text-decoration:none;}
-.primary-btn{color:white;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 8px 25px rgba(102,126,234,.25);}
-.secondary-btn{color:white;background:rgba(255,255,255,.05);border:1px solid var(--border);}
-.stats{display:flex;justify-content:center;gap:50px;margin-top:38px;flex-wrap:wrap;}
-.stat-number{font-size:25px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-label{color:#68687f;font-size:9px;text-transform:uppercase;letter-spacing:1px;}
 
-.section{max-width:1200px;margin:auto;padding:25px 18px 50px;}
+.section{max-width:1200px;margin:auto;padding:25px 12px 50px;}
 .section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap;}
 .section-title{font-size:24px;font-weight:900;}
 .section-title span{color:var(--primary);}
@@ -94,26 +87,31 @@ header{
 .cat-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;font-size:10px;font-weight:700;transition:.2s;}
 .cat-btn.active,.cat-btn:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border-color:transparent;}
 
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:17px;}
-.product{position:relative;display:flex;flex-direction:column;overflow:hidden;background:var(--card);border:1px solid var(--border);border-radius:20px;transition:.3s ease;}
-.product:hover{transform:translateY(-6px);border-color:rgba(102,126,234,.45);box-shadow:0 20px 45px rgba(0,0,0,.35);}
-.product-top{height:145px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(102,126,234,.2),transparent 65%);position:relative;}
-.product-icon{font-size:58px;filter:drop-shadow(0 8px 20px rgba(102,126,234,.45));}
-.hot-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#ffb300,#ff7a00);color:#111;padding:4px 8px;border-radius:20px;font-size:8px;font-weight:900;}
-.stock-badge{position:absolute;top:12px;right:12px;padding:4px 8px;border-radius:20px;font-size:8px;font-weight:800;}
+/* Yahan grid layout ko 2 products per line set kar diya gaya hai */
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+@media(min-width:768px){
+    .products{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:17px;}
+}
+
+.product{position:relative;display:flex;flex-direction:column;overflow:hidden;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:.3s ease;}
+.product:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.45);box-shadow:0 15px 35px rgba(0,0,0,.35);}
+.product-top{height:120px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(102,126,234,.2),transparent 65%);position:relative;}
+.product-icon{font-size:45px;filter:drop-shadow(0 6px 15px rgba(102,126,234,.45));}
+.hot-badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#ffb300,#ff7a00);color:#111;padding:3px 6px;border-radius:15px;font-size:7px;font-weight:900;}
+.stock-badge{position:absolute;top:8px;right:8px;padding:3px 6px;border-radius:15px;font-size:7px;font-weight:800;}
 .stock-ok{color:#45e58a;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);}
 .stock-out{color:#ff6874;background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.25);}
 
-.product-body{padding:16px;display:flex;flex-direction:column;flex:1;}
-.product-title{font-size:15px;font-weight:800;margin-bottom:7px;}
-.product-desc{color:var(--muted);font-size:11px;line-height:1.65;flex:1;margin-bottom:13px;}
-.price{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.new-price{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.product-body{padding:12px;display:flex;flex-direction:column;flex:1;}
+.product-title{font-size:13px;font-weight:800;margin-bottom:5px;}
+.product-desc{color:var(--muted);font-size:10px;line-height:1.5;flex:1;margin-bottom:10px;}
+.price{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.new-price{font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-.product-actions{display:flex;gap:7px;}
-.add-button,.buy-button{flex:1;border:0;padding:10px 5px;border-radius:10px;font-size:10px;font-weight:800;transition:.2s;}
+.product-actions{display:flex;gap:5px;}
+.add-button,.buy-button{flex:1;border:0;padding:8px 4px;border-radius:8px;font-size:9px;font-weight:800;transition:.2s;}
 .add-button{color:white;background:rgba(255,255,255,.06);border:1px solid var(--border);}
-.buy-button{color:white;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 4px 15px rgba(37,211,102,.25);}
+.buy-button{color:white;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 3px 12px rgba(37,211,102,.25);}
 
 .trust-bar{max-width:1200px;margin:0 auto 30px;padding:0 18px;}
 .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
@@ -316,7 +314,6 @@ let language = "en";
 let currentCategory = "all";
 let selectedRating = 5;
 
-// Aapke naye products aur updated prices
 let products = [
     { id: 1, name: 'ChatGPT Plus K12 Edu — 2 Years', urdu: 'چیٹ جی پی ٹی پلس کے 12 ایجو — 2 سال', category: 'ai', desc: '50 Accounts Added with Full Warranty', desc_urdu: '50 اکاؤنٹس فل وارنٹی کے ساتھ', price: 1500, stock: 50, icon: '🤖', badge: 'HOT' },
     { id: 2, name: 'Duolingo Super — 12 Months', urdu: 'ڈولنگو سپر — 12 ماہ', category: 'productivity', desc: '101 Accounts Added - Premium Language Learning', desc_urdu: 'پریمیم لینگویج لرننگ اکاؤنٹ', price: 300, stock: 101, icon: '🦉', badge: 'POPULAR' },
@@ -376,7 +373,7 @@ function renderProducts() {
             <article class="product">
                 <div class="product-top">
                     ${p.badge ? `<div class="hot-badge">${p.badge}</div>` : ''}
-                    <div class="stock-badge ${available ? 'stock-ok' : 'stock-out'}">${available ? '✓ ' + p.stock + ' Available' : '✕ Out of Stock'}</div>
+                    <div class="stock-badge ${available ? 'stock-ok' : 'stock-out'}">${available ? '✓ ' + p.stock + ' Avail' : '✕ Out'}</div>
                     <div class="product-icon">${p.icon || '📦'}</div>
                 </div>
                 <div class="product-body">
