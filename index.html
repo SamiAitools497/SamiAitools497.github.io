@@ -204,6 +204,16 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 .refer-step p b{color:#fff;}
 @media(max-width:600px){.refer-steps{grid-template-columns:1fr;}.refer-link-box{flex-direction:column;}}
 
+/* Gift claim */
+.gift-modal-box{text-align:center;padding:35px 25px;}
+.gift-emoji{font-size:60px;margin-bottom:15px;animation:giftBounce 1s infinite;}
+@keyframes giftBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.gift-modal-box h2{font-size:22px;font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#f093fb,#ffb300);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.gift-modal-box p{color:#c9c9ea;font-size:13px;line-height:1.9;margin-bottom:18px;}
+.gift-code{display:inline-block;font-size:18px;font-weight:900;letter-spacing:2px;color:#fff;background:rgba(255,179,0,.12);border:1px dashed rgba(255,179,0,.5);border-radius:10px;padding:8px 18px;margin-bottom:20px;}
+.claim-btn{border:0;border-radius:12px;padding:14px 26px;font-size:13px;font-weight:900;color:white;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 5px 20px rgba(37,211,102,.35);cursor:pointer;font-family:inherit;}
+.claim-gold{background:linear-gradient(135deg,#ffb300,#ff7a00)!important;box-shadow:0 5px 20px rgba(255,179,0,.35)!important;}
+
 @media(max-width:850px){
     .nav-links{display:none;}
     .trust-grid{grid-template-columns:repeat(2,1fr);}
@@ -270,6 +280,7 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
         </div>
         <div class="refer-buttons">
             <button class="refer-btn refer-wa" onclick="shareReferWhatsApp()">💬 WhatsApp par Share karo</button>
+            <button class="refer-btn claim-gold" onclick="claimMyGift()">🎁 Claim Your Gift</button>
         </div>
         <div class="refer-steps">
             <div class="refer-step"><div class="rs-num">1️⃣</div><p><b>Link share karo</b><br>Apna code doston ko bhejo 📤</p></div>
@@ -354,6 +365,18 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
             <div class="form-group"><label>Transaction ID / Binance ID *</label><input id="transactionId" type="text" placeholder="Enter TID"></div>
             <button class="checkout" onclick="placeOrder()">✅ Confirm Order on WhatsApp</button>
         </div>
+    </div>
+</div>
+
+<!-- GIFT CLAIM MODAL -->
+<div class="modal" id="giftModal">
+    <div class="modal-box gift-modal-box">
+        <button class="close" onclick="closeGift()">✕</button>
+        <div class="gift-emoji">🎁</div>
+        <h2>Mubarak Ho! 🎉</h2>
+        <p>Tumhare <b style="color:white;">3 referrals pure</b> ho gaye hain!<br>Tumhara <b style="color:var(--gold);">FREE Canva Pro (1 Month)</b> taiyaar hai! 🖌️<br>Neeche button dabao aur WhatsApp par claim karo! 👇</p>
+        <div><div class="gift-code" id="giftCode">------</div></div>
+        <button class="claim-btn" onclick="claimGift()">🎁 WhatsApp par Claim karo</button>
     </div>
 </div>
 
@@ -578,12 +601,15 @@ function removeFromCart(id) {
 function openCart() { document.getElementById("cartModal").classList.add("active"); renderCart(); }
 function closeCart() { document.getElementById("cartModal").classList.remove("active"); }
 
-// FIX 5: close the cart modal by clicking the backdrop or pressing Escape
+// FIX 5: close modals by clicking the backdrop or pressing Escape
 document.getElementById("cartModal").addEventListener("click", function(e) {
     if (e.target === this) closeCart();
 });
+document.getElementById("giftModal").addEventListener("click", function(e) {
+    if (e.target === this) closeGift();
+});
 document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") closeCart();
+    if (e.key === "Escape") { closeCart(); closeGift(); }
 });
 
 function filterCategory(cat, btn) {
@@ -693,11 +719,38 @@ function shareReferWhatsApp() {
     window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
 }
 
+// ===== GIFT CLAIM =====
+let claimCode = "";
+function handleClaimParam(){
+    try{
+        const params = new URLSearchParams(window.location.search);
+        const c = (params.get("claim")||"").trim().toUpperCase().replace(/[^A-Z0-9-]/g,"").slice(0,12);
+        if(c){
+            claimCode = c;
+            document.getElementById("giftCode").textContent = c;
+            document.getElementById("giftModal").classList.add("active");
+            showToast("🎁 Tumhara gift taiyaar hai!");
+        }
+    }catch(e){}
+}
+function closeGift(){ document.getElementById("giftModal").classList.remove("active"); }
+function claimGift(){
+    const code = claimCode || getMyRefCode();
+    const msg = "🎁 *GIFT CLAIM — SAMI AI TOOLS*\nAssalam-o-Alaikum! Mera referral code " + code + " hai. Mere 3 referrals pure ho gaye hain — mera *FREE Canva Pro (1 Month)* claim karna hai! 🎁";
+    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
+    closeGift();
+}
+function claimMyGift(){
+    claimCode = getMyRefCode();
+    claimGift();
+}
+
 // Initial renders
 renderProducts();
 renderReviews();
 renderCartCount();
 initReferralUI();
+handleClaimParam();
 </script>
 
 </body>
