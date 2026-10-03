@@ -41,9 +41,14 @@ select option{background:#111126;}
 .hint{font-size:10px;color:var(--muted);line-height:1.7;margin-top:12px;}
 .row-flex{display:flex;gap:8px;align-items:center;}
 .badge{font-size:9px;background:rgba(102,126,234,.15);border:1px solid rgba(102,126,234,.35);color:#b4beff;padding:3px 9px;border-radius:15px;font-weight:700;}
+#adminToast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:11px 22px;border-radius:30px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;z-index:9999;transition:.3s;max-width:90%;text-align:center;}
+#adminToast.show{opacity:1;transform:translate(-50%,0);}
+.edit-form input,.edit-form select{margin-bottom:2px;}
 </style>
 </head>
 <body>
+
+<div id="adminToast"></div>
 
 <!-- LOGIN -->
 <div id="loginScreen">
@@ -83,18 +88,6 @@ select option{background:#111126;}
     </div>
 
     <div class="card">
-        <h2>🎁 Referral Tracker</h2>
-        <p class="hint">Google Analytics mein <b style="color:white;">?ref=</b> search karke har code ke visits dekho, phir yahan count update karo. <b style="color:white;">3 pure</b> hone par <b style="color:white;">Copy Claim Link</b> dabao aur referrer ko WhatsApp par bhejo — link kholte hi usay gift claim screen nazar aayegi! 🚀</p>
-        <div class="grid2">
-            <div><label>REFERRAL CODE (jaise SAMI-X7K2P9)</label><input id="refCodeInput" placeholder="SAMI-XXXXXX"></div>
-            <div><label>VISITS COUNT</label><input id="refCountInput" type="number" min="0" value="0"></div>
-        </div>
-        <button class="btn btn-primary btn-block" onclick="saveRefCount()">💾 Save Count</button>
-        <div class="ok" id="refMsg"></div>
-        <div id="refTrackList" style="margin-top:14px;"></div>
-    </div>
-
-    <div class="card">
         <h2>⚙️ Settings</h2>
         <label>WHATSAPP NUMBER (bina + ke, jaise 966595073180)</label>
         <input id="setWhatsapp" oninput="settings.whatsapp=this.value.trim()">
@@ -110,6 +103,31 @@ select option{background:#111126;}
         </div>
         <label>BINANCE NAME (bracket mein, jaise sunny_497)</label>
         <input id="setBinanceName" oninput="settings.binanceName=this.value.trim()">
+    </div>
+
+    <div class="card">
+        <h2>🎁 Referral Tracker</h2>
+        <p class="hint">Google Analytics mein <b style="color:white;">?ref=</b> search karke har code ke visits dekho, phir yahan count update karo. <b style="color:white;">3 pure</b> hone par <b style="color:white;">Copy Claim Link</b> dabao aur referrer ko WhatsApp par bhejo — link kholte hi usay gift claim screen nazar aayegi! 🚀</p>
+        <div class="grid2">
+            <div><label>REFERRAL CODE (jaise SAMI-X7K2P9)</label><input id="refCodeInput" placeholder="SAMI-XXXXXX"></div>
+            <div><label>VISITS COUNT</label><input id="refCountInput" type="number" min="0" value="0"></div>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="saveRefCount()">💾 Save Count</button>
+        <div class="ok" id="refMsg"></div>
+        <div id="refTrackList" style="margin-top:14px;"></div>
+    </div>
+
+    <div class="card" style="border-color:rgba(240,147,251,.4);">
+        <h2>🚀 Direct Publish — Seedha Website Par!</h2>
+        <p class="hint">Download/Upload ke baghair changes <b style="color:white;">seedha samiaitools.com</b> par live karo! Pehle GitHub ka <b style="color:white;">Personal Access Token</b> banao:<br>1️⃣ GitHub → Settings → Developer settings → <b style="color:white;">Personal access tokens → Fine-grained tokens</b><br>2️⃣ Generate new token → sirf <b style="color:white;">SamiAitools497.github.io</b> repo → <b style="color:white;">Contents: Read and Write</b><br>3️⃣ Token copy karke neeche paste karo — ye sirf <b style="color:white;">tumhare browser</b> mein rahega, kahin upload nahi hoga! 🔒</p>
+        <div class="grid2">
+            <div><label>REPO OWNER</label><input id="ghOwner" value="SamiAitools497"></div>
+            <div><label>REPO NAME</label><input id="ghRepo" value="SamiAitools497.github.io"></div>
+        </div>
+        <label>GITHUB TOKEN (kisi ko mat dikhao!)</label>
+        <input type="password" id="ghPat" placeholder="github_pat_..." autocomplete="off">
+        <button class="btn btn-block" style="background:linear-gradient(135deg,#f093fb,#764ba2);" onclick="publishToSite()">🚀 Website Par Publish Karo</button>
+        <div class="ok" id="pubMsg"></div>
     </div>
 
     <div class="card" style="border-color:rgba(37,211,102,.4);">
@@ -152,6 +170,7 @@ function showPanel(){
     document.getElementById("panel").style.display = "block";
     loadSite();
     renderRefTrack();
+    try{ document.getElementById("ghPat").value = localStorage.getItem("sami_gh_pat") || ""; }catch(e){}
 }
 
 // ===== REFERRAL TRACKER =====
@@ -249,64 +268,109 @@ function finalPrice(p){
     return Math.round(p.basePrice * (yearly?1.35:1.25));
 }
 
+// ===== PRODUCTS: pencil-edit style =====
+let editingIdx = -1;
+let editDraft = null;
+
+function toggleEdit(i){
+    if(editingIdx === i){ editingIdx = -1; editDraft = null; }
+    else{ editingIdx = i; editDraft = Object.assign({}, products[i]); }
+    renderProducts();
+    if(editingIdx !== -1){
+        const el = document.getElementById("edit-" + i);
+        if(el) el.scrollIntoView({behavior:"smooth", block:"nearest"});
+    }
+}
+
 function renderProducts(){
     const box = document.getElementById("productList");
     document.getElementById("pCount").textContent = products.length + " products";
-    box.innerHTML = products.map((p,i)=>`
+    box.innerHTML = products.map((p,i)=>{
+        const open = (i === editingIdx);
+        let form = "";
+        if(open){
+            const d = editDraft;
+            form = `
+            <div class="edit-form" id="edit-${i}" style="margin-top:10px;border-top:1px solid var(--border);padding-top:12px;">
+                <div class="grid2">
+                    <div><label>NAME</label><input value="${escapeAttr(d.name)}" data-ef="name"></div>
+                    <div><label>URDU NAME</label><input value="${escapeAttr(d.urdu||"")}" data-ef="urdu"></div>
+                </div>
+                <label>DESCRIPTION</label>
+                <input value="${escapeAttr(d.desc)}" data-ef="desc">
+                <div class="grid2">
+                    <div><label>CATEGORY</label>
+                        <select data-ef="category">
+                            ${["ai","editing","productivity"].map(c=>`<option value="${c}" ${d.category===c?"selected":""}>${c}</option>`).join("")}
+                        </select>
+                    </div>
+                    <div><label>ICON (emoji)</label><input value="${escapeAttr(d.icon)}" data-ef="icon"></div>
+                </div>
+                <div class="grid2">
+                    <div><label>BASE PRICE (Rs.)</label><input type="number" value="${d.basePrice}" data-ef="basePrice"></div>
+                    <div><label>STOCK</label><input type="number" value="${d.stock}" data-ef="stock"></div>
+                </div>
+                <div class="row-flex" style="margin-top:12px;justify-content:flex-end;flex-wrap:wrap;">
+                    <button class="btn-danger" onclick="deleteProduct(${i})">🗑️ Delete</button>
+                    <button class="link-btn" onclick="toggleEdit(${i})">❌ Cancel</button>
+                    <button class="btn btn-green" style="padding:9px 18px;font-size:12px;" onclick="saveProduct(${i})">💾 Save</button>
+                </div>
+            </div>`;
+        }
+        return `
         <div class="product-card" data-idx="${i}">
             <div class="product-head">
                 <strong>${p.icon||"📦"} ${escapeHtml(p.name)||"(naya product)"}</strong>
-                <span class="final-price">Final: Rs. ${finalPrice(p).toLocaleString()}</span>
+                <span class="row-flex" style="gap:8px;">
+                    <span class="final-price">Rs. ${finalPrice(p).toLocaleString()}</span>
+                    <button class="link-btn" onclick="toggleEdit(${i})">✏️ ${open ? "Close" : "Edit"}</button>
+                </span>
             </div>
-            <div class="grid2">
-                <div><label>NAME</label><input value="${escapeAttr(p.name)}" data-f="name"></div>
-                <div><label>URDU NAME</label><input value="${escapeAttr(p.urdu||"")}" data-f="urdu"></div>
-            </div>
-            <label>DESCRIPTION</label>
-            <input value="${escapeAttr(p.desc)}" data-f="desc">
-            <div class="grid2">
-                <div><label>CATEGORY</label>
-                    <select data-f="category">
-                        ${["ai","editing","productivity"].map(c=>`<option value="${c}" ${p.category===c?"selected":""}>${c}</option>`).join("")}
-                    </select>
-                </div>
-                <div><label>ICON (emoji)</label><input value="${escapeAttr(p.icon)}" data-f="icon"></div>
-            </div>
-            <div class="grid2">
-                <div><label>BASE PRICE (Rs.)</label><input type="number" value="${p.basePrice}" data-f="basePrice"></div>
-                <div><label>STOCK</label><input type="number" value="${p.stock}" data-f="stock"></div>
-            </div>
-            <div style="margin-top:10px;text-align:right;">
-                <button class="btn-danger" onclick="deleteProduct(${i})">🗑️ Delete</button>
-            </div>
-        </div>`).join("");
+            ${form}
+        </div>`;
+    }).join("");
 
-    box.querySelectorAll("input,select").forEach(el=>{
+    box.querySelectorAll("[data-ef]").forEach(el=>{
         el.addEventListener("input", ()=>{
-            const card = el.closest("[data-idx]");
-            const idx = +card.dataset.idx;
-            const f = el.dataset.f;
+            const f = el.dataset.ef;
             let v = el.value;
             if(f==="basePrice"||f==="stock") v = Math.max(0, parseInt(v)||0);
-            products[idx][f] = v;
-            if(f==="basePrice"||f==="name"||f==="desc"||f==="icon"){
-                card.querySelector(".final-price").textContent = "Final: Rs. "+finalPrice(products[idx]).toLocaleString();
-                if(f==="name"||f==="icon") card.querySelector("strong").textContent = (products[idx].icon||"📦")+" "+(products[idx].name||"(naya product)");
-            }
+            editDraft[f] = v;
         });
     });
 }
 
+function saveProduct(i){
+    if(!editDraft.name || !editDraft.name.trim()){ alert("Product ka naam likho!"); return; }
+    editDraft.basePrice = Math.max(0, parseInt(editDraft.basePrice)||0);
+    editDraft.stock = Math.max(0, parseInt(editDraft.stock)||0);
+    products[i] = Object.assign({}, editDraft);
+    editingIdx = -1; editDraft = null;
+    try{
+        localStorage.setItem("sami_admin_draft", JSON.stringify({products:products, settings:settings, savedAt:new Date().toISOString()}));
+    }catch(e){}
+    renderProducts();
+    adminToast("✅ Product save ho gaya!");
+}
+
 function addProduct(){
     const maxId = products.reduce((m,p)=>Math.max(m,p.id||0),0);
-    products.push({id:maxId+1,name:"",urdu:"",category:"ai",desc:"",basePrice:100,stock:10,icon:"✨"});
-    renderProducts();
-    window.scrollTo({top:document.getElementById("productList").scrollHeight,behavior:"smooth"});
+    products.push({id:maxId+1,name:"Naya Product",urdu:"",category:"ai",desc:"",basePrice:100,stock:10,icon:"✨"});
+    toggleEdit(products.length - 1);
 }
 function deleteProduct(i){
     if(!confirm("Pakka delete karna hai?")) return;
     products.splice(i,1);
+    editingIdx = -1; editDraft = null;
     renderProducts();
+}
+
+function adminToast(msg){
+    const t = document.getElementById("adminToast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(t._h);
+    t._h = setTimeout(()=>t.classList.remove("show"), 2200);
 }
 
 // ===== DRAFT SAVE / RESTORE =====
@@ -344,31 +408,29 @@ function clearDraft(){
 function escapeHtml(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function escapeAttr(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
 
-function exportHtml(){
-    if(!siteHtml){alert("Pehle site load hone do!");return;}
-    let html = siteHtml;
-
-    // 1. products replace
+// index.html mein products + settings patch karo
+function patchHtml(html){
     html = html.replace(/const rawProducts = \[[\s\S]*?\n\];/,
         "const rawProducts = " + JSON.stringify(products,null,2) + ";");
-
-    // 2. whatsapp number
     if(settings.whatsapp){
         html = html.replace(/const WHATSAPP_NUMBER = "[^"]*"/,
             'const WHATSAPP_NUMBER = "'+settings.whatsapp+'"');
     }
-    // 3. jazz/easypaisa number (har jagah)
     if(settings.jazz && oldVals.jazz && settings.jazz!==oldVals.jazz){
         html = html.split(oldVals.jazz).join(settings.jazz);
     }
-    // 4. binance id + name
     if(settings.binanceId && oldVals.binanceId && settings.binanceId!==oldVals.binanceId){
         html = html.split(oldVals.binanceId).join(settings.binanceId);
     }
     if(settings.binanceName && oldVals.binanceName && settings.binanceName!==oldVals.binanceName){
         html = html.split(oldVals.binanceName).join(settings.binanceName);
     }
+    return html;
+}
 
+function exportHtml(){
+    if(!siteHtml){alert("Pehle site load hone do!");return;}
+    const html = patchHtml(siteHtml);
     const blob = new Blob([html],{type:"text/html"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -377,6 +439,41 @@ function exportHtml(){
     a.click();
     a.remove();
     document.getElementById("exportMsg").textContent = "✅ Download ho gayi! Ab GitHub mein replace kar do! 🚀";
+}
+
+// ===== DIRECT PUBLISH TO GITHUB =====
+function ghHeaders(pat){
+    return {"Accept":"application/vnd.github+json","Authorization":"Bearer "+pat,"Content-Type":"application/json"};
+}
+function b64encodeUnicode(s){ return btoa(unescape(encodeURIComponent(s))); }
+function b64decodeUnicode(b){ return decodeURIComponent(escape(atob(b.replace(/\n/g,"")))); }
+
+async function publishToSite(){
+    const pat = (document.getElementById("ghPat").value||"").trim();
+    const owner = (document.getElementById("ghOwner").value||"").trim();
+    const repo = (document.getElementById("ghRepo").value||"").trim();
+    const msgEl = document.getElementById("pubMsg");
+    if(!pat || !owner || !repo){ msgEl.textContent = "⚠️ Pehle repo owner, repo name aur token poora karo!"; return; }
+    try{ localStorage.setItem("sami_gh_pat", pat); }catch(e){}
+    try{
+        msgEl.textContent = "⏳ GitHub se file le raha hoon...";
+        const getRes = await fetch("https://api.github.com/repos/"+owner+"/"+repo+"/contents/index.html", {headers: ghHeaders(pat)});
+        if(!getRes.ok) throw new Error("GitHub error " + getRes.status + " — token ya repo name check karo!");
+        const data = await getRes.json();
+        let html = b64decodeUnicode(data.content);
+        html = patchHtml(html);
+        msgEl.textContent = "⏳ Website par publish ho raha hai...";
+        const putRes = await fetch("https://api.github.com/repos/"+owner+"/"+repo+"/contents/index.html", {
+            method: "PUT",
+            headers: ghHeaders(pat),
+            body: JSON.stringify({message: "Update products via admin panel", content: b64encodeUnicode(html), sha: data.sha})
+        });
+        if(!putRes.ok) throw new Error("Publish fail (" + putRes.status + ") — dobara try karo!");
+        msgEl.textContent = "✅ Publish ho gaya! 1-3 minute mein samiaitools.com par live hoga! 🚀🎉";
+        adminToast("🚀 Website par publish ho gaya!");
+    }catch(e){
+        msgEl.textContent = "❌ " + e.message;
+    }
 }
 </script>
 </body>
