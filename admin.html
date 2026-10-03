@@ -75,6 +75,11 @@ select option{background:#111126;}
         <h2>🛍️ Products <span class="badge" id="pCount"></span></h2>
         <div id="productList"></div>
         <button class="btn btn-primary btn-block" onclick="addProduct()">➕ Naya Product Add karo</button>
+        <button class="btn btn-block" style="background:rgba(255,179,0,.12);border:1px solid rgba(255,179,0,.4);color:var(--gold);" onclick="saveDraft()">💾 Save Draft</button>
+        <div class="row-flex" style="margin-top:8px;justify-content:space-between;flex-wrap:wrap;">
+            <div class="ok" id="draftMsg" style="margin-top:0;"></div>
+            <button class="link-btn" onclick="clearDraft()">🗑️ Clear Draft</button>
+        </div>
     </div>
 
     <div class="card">
@@ -109,7 +114,7 @@ select option{background:#111126;}
 
     <div class="card" style="border-color:rgba(37,211,102,.4);">
         <h2>⬇️ Website Update karo</h2>
-        <p class="hint">Sab changes karne ke baad neeche wala button dabao — <b style="color:white;">nayi index.html download</b> hogi. Usay GitHub mein purani wali se <b style="color:white;">replace</b> kar do. Bas! 🚀</p>
+        <p class="hint">Sab changes karne ke baad <b style="color:white;">⬇️ Download</b> dabao — nayi index.html milegi, usay GitHub mein purani wali se <b style="color:white;">replace</b> kar do. Bas! 🚀<br>💡 Tip: pehle <b style="color:white;">💾 Save Draft</b> kar lo taake tumhare edits safe rahen!</p>
         <button class="btn btn-green btn-block" onclick="exportHtml()">⬇️ Download Updated index.html</button>
         <div class="ok" id="exportMsg"></div>
     </div>
@@ -231,6 +236,7 @@ async function loadSite(){
         document.getElementById("setBinanceName").value = settings.binanceName;
 
         renderProducts();
+        loadDraft(); // purana saved draft ho toh restore karo
     }catch(e){
         document.getElementById("productList").innerHTML =
             '<p class="hint">⚠️ index.html load nahi ho saki. Ye file ko <b style="color:white;">website ke saath hi host</b> karo (samiaitools.com/admin.html) — local file se kaam nahi karegi.</p>';
@@ -301,6 +307,38 @@ function deleteProduct(i){
     if(!confirm("Pakka delete karna hai?")) return;
     products.splice(i,1);
     renderProducts();
+}
+
+// ===== DRAFT SAVE / RESTORE =====
+function saveDraft(){
+    try{
+        localStorage.setItem("sami_admin_draft", JSON.stringify({
+            products: products,
+            settings: settings,
+            savedAt: new Date().toISOString()
+        }));
+        document.getElementById("draftMsg").textContent = "✅ Draft save ho gaya! (" + new Date().toLocaleString() + ")";
+    }catch(e){ alert("⚠️ Save nahi ho saka!"); }
+}
+function loadDraft(){
+    try{
+        const d = JSON.parse(localStorage.getItem("sami_admin_draft") || "null");
+        if(d && d.products && d.products.length){
+            products = d.products;
+            if(d.settings) settings = Object.assign(settings, d.settings);
+            document.getElementById("setWhatsapp").value = settings.whatsapp || "";
+            document.getElementById("setJazz").value = settings.jazz || "";
+            document.getElementById("setBinanceId").value = settings.binanceId || "";
+            document.getElementById("setBinanceName").value = settings.binanceName || "";
+            renderProducts();
+            const dt = d.savedAt ? new Date(d.savedAt).toLocaleString() : "";
+            document.getElementById("draftMsg").textContent = "📝 Purana draft restore ho gaya (" + dt + ")";
+        }
+    }catch(e){}
+}
+function clearDraft(){
+    try{ localStorage.removeItem("sami_admin_draft"); }catch(e){}
+    document.getElementById("draftMsg").textContent = "🗑️ Draft clear ho gaya!";
 }
 
 function escapeHtml(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
