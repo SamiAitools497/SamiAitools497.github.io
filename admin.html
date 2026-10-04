@@ -308,9 +308,7 @@ async function loadSite(){
 }
 
 function finalPrice(p){
-    const t = (p.name+" "+p.desc).toLowerCase();
-    const yearly = t.includes("12 month")||t.includes("1 year")||t.includes("2 years")||t.includes("18 months");
-    return Math.round(p.basePrice * (yearly?1.35:1.25));
+    return p.basePrice;
 }
 
 // ===== PRODUCTS: pencil-edit style =====
