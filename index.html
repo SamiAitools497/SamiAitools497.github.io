@@ -787,7 +787,15 @@ handleClaimParam();
 </script>
 
 <script>
-const FIREBASE_CONFIG = {};
+const FIREBASE_CONFIG = const firebaseConfig = {
+  apiKey: "AIzaSyCI5eClEWVaDyLb7XiY9UcS1Vt0ZOA3InI",
+  authDomain: "samiaitools-9f7e6.firebaseapp.com",
+  databaseURL: "https://samiaitools-9f7e6-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "samiaitools-9f7e6",
+  storageBucket: "samiaitools-9f7e6.firebasestorage.app",
+  messagingSenderId: "179780478166",
+  appId: "1:179780478166:web:7741d023685876e01d9577"
+};;
 let FB = null;
 try {
   if (window.firebase && FIREBASE_CONFIG.apiKey) {
