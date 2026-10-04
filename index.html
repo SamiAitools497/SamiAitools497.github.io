@@ -598,8 +598,7 @@ const rawProducts = [
 let products = rawProducts.map(p => {
     let titleDesc = (p.name + " " + p.desc).toLowerCase();
     let isYearly = titleDesc.includes("12 month") || titleDesc.includes("1 year") || titleDesc.includes("2 years") || titleDesc.includes("18 months");
-    let profitMargin = isYearly ? 1.35 : 1.25;
-    let finalPrice = Math.round(p.basePrice * profitMargin);
+        let finalPrice = p.basePrice;
 
     return {
         id: p.id,
@@ -608,10 +607,10 @@ let products = rawProducts.map(p => {
         category: p.category,
         desc: p.desc,
         price: finalPrice,
-        oldPrice: isYearly ? Math.round(finalPrice * 1.35) : null,
+              oldPrice: null,
         stock: p.stock,
         icon: p.icon,
-        badge: p.stock > 0 ? (isYearly ? '35% OFF' : 'HOT') : 'OUT'
+                badge: p.stock > 0 ? 'HOT' : 'OUT'
     };
 });
 
