@@ -945,19 +945,21 @@ function getRefLink(code) {
     } catch(e) {}
 })();
 
-    if (linkEl) linkEl.value = getRefLink(code);
-    updateShareUI();
+function initReferralUI() {
     const code = getMyRefCode();
     const codeEl = document.getElementById("myRefCode");
     const linkEl = document.getElementById("myRefLink");
     if (codeEl) codeEl.textContent = code;
     if (linkEl) linkEl.value = getRefLink(code);
+    updateShareUI();
     try {
         const by = localStorage.getItem("sami_referred_by");
         if (by && by !== code) {
             document.getElementById("refBannerCode").textContent = by;
             document.getElementById("refBanner").style.display = "block";
         }
+    } catch(e) {}
+}
     } catch(e) {}
 }
 
