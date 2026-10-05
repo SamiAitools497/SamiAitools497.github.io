@@ -729,7 +729,10 @@ function renderProducts() {
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">${title}</h3>
-                    <p class="product-desc">${p.desc}</p>
+                                        <details style="margin:6px 0 10px;">
+                        <summary style="cursor:pointer;color:#a78bfa;font-size:0.85rem;font-weight:600;">📝 Details</summary>
+                        <p class="product-desc" style="margin-top:8px;">${p.desc}</p>
+                    </details>
                     <div class="price">
                         ${p.oldPrice ? `<span class="old-price">Rs. ${p.oldPrice.toLocaleString()}</span>` : ''}
                         <span class="new-price">Rs. ${Number(p.price).toLocaleString()}</span>
