@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Sami AI Tools</title>
+<meta name="description" content="Sami AI Tools se rabta karein: WhatsApp 0302-7292497 par order ya support ke liye message karein. Pakistan mein AI subscriptions ka bharosemand store.">
+<link rel="canonical" href="https://samiaitools.com/contact.html">
+<meta property="og:title" content="Contact Us — Sami AI Tools">
+<meta property="og:description" content="Order ya support ke liye WhatsApp par rabta karein: 0302-7292497">
+<meta property="og:url" content="https://samiaitools.com/contact.html">
+<meta property="og:type" content="website">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',system-ui,-apple-system,sans-serif;background:#0d0d1a;color:#dcdcf5;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 60px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.logo{font-size:22px;font-weight:800;color:#fff;text-decoration:none}
+.logo span{color:#aeb8ff}
+.home{color:#aeb8ff;text-decoration:none;font-size:14px;border:1px solid #33334d;padding:8px 16px;border-radius:10px}
+h1{color:#fff;font-size:30px;margin-bottom:6px}
+p{font-size:15.5px;color:#c9c9ea}
+.card{background:#151528;border:1px solid #2a2a45;border-radius:14px;padding:20px;margin:18px 0}
+.card h2{color:#fff;font-size:18px;margin-bottom:8px}
+.big{font-size:26px;font-weight:800;color:#45e58a;text-decoration:none}
+.cta{display:inline-block;background:#25D366;color:#fff;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:12px;margin-top:14px}
+input,textarea{width:100%;background:#0d0d1a;border:1px solid #33334d;color:#fff;border-radius:10px;padding:12px;margin:8px 0;font-size:15px;font-family:inherit}
+button{background:#aeb8ff;color:#0d0d1a;font-weight:700;border:none;border-radius:10px;padding:14px 28px;font-size:16px;cursor:pointer;width:100%}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid #2a2a45;font-size:13.5px;color:#85859c}
+footer a{color:#aeb8ff;text-decoration:none;margin-right:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="logo" href="/">Sami <span>AI Tools</span></a>
+    <a class="home" href="/">← Home</a>
+  </div>
+
+  <h1>📞 Contact Us</h1>
+  <p>Order karna hai, qeemat poochni hai, ya subscription mein koi masla hai? Seedha hum se baat karein — hum jaldi jawab dete hain! 😊</p>
+
+  <div class="card">
+    <h2>💬 WhatsApp (sab se tez tareeqa)</h2>
+    <a class="big" href="https://wa.me/923027292497">0302-7292497</a>
+    <p style="margin-top:6px">🕘 Jawab ka waqt: subah se raat tak (aam tor par 1 ghantay ke andar)</p>
+    <a class="cta" href="https://wa.me/923027292497?text=Assalam-o-Alaikum!%20Mujhe%20order%20karna%20hai.">💬 Abhi Message Karein</a>
+  </div>
+
+  <div class="card">
+    <h2>✉️ Message Form</h2>
+    <p style="margin-bottom:8px">Form bharein — aapka message seedha hamare WhatsApp par aa jayega:</p>
+    <input id="cname" type="text" placeholder="Aapka naam">
+    <textarea id="cmsg" rows="4" placeholder="Aapka message... (masalan: mujhe ChatGPT Plus chahiye)"></textarea>
+    <button onclick="sendMsg()">📩 WhatsApp Par Bhejein</button>
+  </div>
+
+  <div class="card">
+    <h2>📍 Location</h2>
+    <p>🇵🇰 Pakistan — online store, poore mulk mein delivery (digital activation)</p>
+  </div>
+
+  <footer>
+    <a href="/">Home</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy Policy</a>
+    <br><br>© 2026 Sami AI Tools — samiaitools.com
+  </footer>
+</div>
+<script>
+function sendMsg(){
+  var n=document.getElementById('cname').value.trim()||'Naam nahi diya';
+  var m=document.getElementById('cmsg').value.trim()||'Koi message nahi';
+  var t='Assalam-o-Alaikum!%20Mera%20naam%20'+encodeURIComponent(n)+'%20hai.%0A%0AMessage:%20'+encodeURIComponent(m);
+  window.open('https://wa.me/923027292497?text='+t,'_blank');
+}
+</script>
+</body>
+</html>
