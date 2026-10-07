@@ -1014,7 +1014,7 @@ function getMyRefCode() {
     let code = localStorage.getItem("sami_ref");
     if (!code) {
         const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-        code = "SAMI-";
+        code = "-";
         for (let i = 0; i < 6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
         try { localStorage.setItem("sami_ref", code); } catch(e) {}
     }
