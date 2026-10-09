@@ -1068,7 +1068,7 @@ function shareRefer(where) {
     let n = parseInt(localStorage.getItem('sharecnt_'+code) || '0', 10) + 1;
     try { localStorage.setItem('sharecnt_'+code, String(n)); } catch(e){}
     updateShareUI();
-    showToast("✓ Share counted: " + Math.min(n,3) + "/3 🎉");
+        showToast("✓ Share counted: " + n + " 🎉");
     // Facebook: native share sheet - user picks FB / FB Lite / Groups / Messenger
     if (where === 'fb' && navigator.share) {
         navigator.share({ title: "Sami AI Tools 🎁", text: msg, url: link }).catch(function(){});
@@ -1079,13 +1079,13 @@ function shareRefer(where) {
         : "https://wa.me/?text=" + encodeURIComponent(msg);
     window.open(url, "_blank");
 }
-let fbVisits = 0;
+let fbVisits = 0, claimsDone = 0;;
 function updateShareUI() {
     const code = getMyRefCode();
     const n = parseInt(localStorage.getItem('sharecnt_'+code) || '0', 10);
     const sc = document.getElementById('shareCount');
-    if (sc) sc.textContent = Math.min(n, 3) + '/3';
-    const unlocked = fbVisits >= 1;
+    if (sc) sc.textContent = n + ' shares';
+        const unlocked = fbVisits > claimsDone;
     const cb = document.getElementById('claimBtn');
     if (cb) cb.style.display = unlocked ? '' : 'none';
     const hint = document.getElementById('claimLockHint');
@@ -1115,7 +1115,8 @@ function handleClaimParam(){
 function closeGift(){ document.getElementById("giftModal").classList.remove("active"); }
 function claimGift(){
     const code = claimCode || getMyRefCode();
-    const msg = "🎁 *GIFT CLAIM — SAMI AI TOOLS*\nAssalam-o-Alaikum! Mera referral code " + code + " hai. Mere 3 referrals pure ho gaye hain — mera *FREE Canva Pro (1 Month)* claim karna hai! 🎁";
+    if (FB) { try { FB.ref('referrals/'+code+'/CLAIM'+(claimsDone+1)).set({ t: Date.now(), claim: true, dup: true }); } catch(e){} }
+    const msg = "🎁 *GIFT CLAIM — SAMI AI TOOLS*\nAssalam-o-Alaikum! Mera referral code " + code + " hai. Meri claim #" + (claimsDone+1) + " hai — mera *FREE Canva Pro (1 Month)* claim karna hai! 🎁";
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
     closeGift();
 }
@@ -1158,17 +1159,17 @@ try {
   const claim = (p.get('claim')||'').trim().toUpperCase();
   const myCode = localStorage.getItem('sami_ref') || claim;
   const prog = document.getElementById('refProgress');
-  if (prog && myCode && FB) {
+    if (prog && myCode && FB) {
     FB.ref('referrals/'+myCode).on('value', snap => {
-      let n = 0;
-      snap.forEach(c => { const v = c.val() || {}; if (!v.dup) n++; });
-      fbVisits = n;
+      let n = 0, cl = 0;
+      snap.forEach(c => { const v = c.val() || {}; if (v.claim) cl++; else if (!v.dup) n++; });
+      fbVisits = n; claimsDone = cl;
       try { updateShareUI(); } catch(e) {}
-      document.getElementById('refProgText').textContent = n + ' / 1 visits';
-      document.getElementById('refProgFill').style.width = Math.min(100, n/1*100) + '%';
+      document.getElementById('refProgText').textContent = n + ' visits · ' + cl + ' claims done ✅';
+      document.getElementById('refProgFill').style.width = Math.min(100, (n-cl)*100) + '%';
       document.getElementById('refProgMsg').textContent =
-        n >= 1 ? '🎉 1 visits complete! Claim Your Gift dabao 👇' :
-        (1-n) + ' aur visit' + ((1-n)>1?'s':'') + ' baqi — apna link share karo! 🚀';
+        n > cl ? '🎉 Naya visit aaya! Claim Your Gift dabao 👇' :
+        'Agli claim ke liye 1 aur visit chahiye!';
     });
     prog.style.display = 'block';
   }
