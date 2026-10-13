@@ -1223,5 +1223,104 @@ try {
   }).catch(()=>{ try { FB.ref('referrals/'+ref+'/'+vid).set(baseVisit); startDwell(); } catch(e){} });
 })();
 </script>
+<!-- ═══════════════════════════════════════════════════════════
+  SAMI AI TOOLS — FAQ CHAT WIDGET 💬
+  Lagane ka tareeqa: is pooray block ko index.html me </body> se
+  PEHLE paste kar do. Bas! Koi server / backend nahi chahiye.
+═══════════════════════════════════════════════════════════ -->
+<style>
+#sami-chat-btn{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;
+background:linear-gradient(135deg,#25D366,#128C7E);border:none;font-size:28px;cursor:pointer;
+box-shadow:0 4px 15px rgba(0,0,0,.3);z-index:9999}
+#sami-chat-box{position:fixed;bottom:90px;right:20px;width:330px;max-width:calc(100vw - 40px);
+height:440px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;display:none;
+flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:9999;overflow:hidden;
+font-family:system-ui,-apple-system,sans-serif}
+#sami-chat-box.open{display:flex}
+#sami-chat-head{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:14px;font-weight:800}
+#sami-chat-head small{display:block;font-weight:400;opacity:.9;font-size:12px}
+#sami-chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f0f2f5}
+.sami-msg{max-width:85%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.45}
+.sami-bot{background:#fff;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.sami-user{background:#25D366;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+#sami-chips{display:flex;gap:6px;padding:8px 10px;overflow-x:auto;background:#fff;border-top:1px solid #eee}
+#sami-chips button{white-space:nowrap;border:1px solid #25D366;background:#e8f9ef;color:#128C7E;
+border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}
+#sami-input-row{display:flex;border-top:1px solid #eee;background:#fff}
+#sami-input{flex:1;border:none;padding:12px;font-size:14px;outline:none}
+#sami-send{border:none;background:#25D366;color:#fff;padding:0 18px;font-size:16px;cursor:pointer}
+</style>
+
+<button id="sami-chat-btn" onclick="samiChatToggle()">💬</button>
+<div id="sami-chat-box">
+  <div id="sami-chat-head">🤖 Sami AI Assistant<small>Online — foran jawab! ⚡</small></div>
+  <div id="sami-chat-msgs"></div>
+  <div id="sami-chips"></div>
+  <div id="sami-input-row">
+    <input id="sami-input" placeholder="Sawal likho..." onkeydown="if(event.key==='Enter')samiSend()">
+    <button id="sami-send" onclick="samiSend()">➤</button>
+  </div>
+</div>
+
+<script>
+const SAMI_KB = [
+ {k:["salam","hello","hi","assalam","aoa","hey"], r:"Walaikum Assalam! 😊 Main Sami AI Assistant hun — price, order, payment ya referral ke baare me poocho! 👇"},
+ {k:["price","rate","qeemat","paisa","kitne ka","cost","fees","charges"], r:"💰 <b>Price</b> har product card par likhi hai — upar scroll karo aur pasand ka tool dekho! Sab se saste deals ke liye WhatsApp par rabta karo: <b>0302-7292497</b> 📱"},
+ {k:["kharid","buy","order","lena","chahiye","shop"], r:"🛒 <b>Order ka tareeqa:</b><br>1️⃣ Product card par <b>Buy / Order</b> dabao<br>2️⃣ WhatsApp khul jayega<br>3️⃣ Payment karo (JazzCash / EasyPaisa / Binance Pay)<br>4️⃣ Key turant mil jayegi! 🔑"},
+ {k:["jazzcash","easypaisa","binance","payment","pay","pese"], r:"💳 <b>Payment methods:</b><br>✅ JazzCash<br>✅ EasyPaisa<br>✅ Binance Pay<br><br>Order ke baad WhatsApp par screenshot bhejo — key foran! ⚡"},
+ {k:["refer","share","canva pro free","free canva","earn","dost"], r:"⭐ <b>Refer & Earn:</b><br><b>3 shares = 1 FREE Canva Pro!</b> 🎁<br>Site ka link doston ko share karo, screenshot WhatsApp par bhejo: <b>0302-7292497</b> ✅"},
+ {k:["support","contact","help","madad","rabta","number","whatsapp"], r:"💬 <b>Support:</b> WhatsApp par message karo — <b>0302-7292497</b><br>Ya Telegram bot try karo: <b>@Sami_Aitools_bot</b> 🤖"},
+ {k:["blog","article","guide","trick","tips"], r:"📰 <b>Blog</b> par free guides hain — AI tools ke tricks aur tips!<br>👉 <a href='/blog.html'>Blog kholo</a> 🚀"},
+ {k:["delivery","kitni der","time","kab mile"], r:"⚡ <b>Delivery:</b> Payment confirm hote hi key mil jati hai — aam tor par <b>kuch minutes</b> me! 🔑"},
+ {k:["telegram","bot"], r:"🤖 Hamara <b>Telegram bot</b>: <b>@Sami_Aitools_bot</b><br>Wahan bhi order kar sakte ho — 24/7 online! 🟢"},
+ {k:["shukriya","thanks","thank"], r:"Khush aamdeed! 😊 Aur koi sawal ho to poocho — ya WhatsApp karo: <b>0302-7292497</b> 💚"},
+];
+const SAMI_FALLBACK = "Hmm, ye samajh nahi aaya! 😅 <b>WhatsApp</b> par poocho — <b>0302-7292497</b> — wahan insan jawab dega! 😄";
+const SAMI_CHIPS = ["💰 Price?","🛒 Kaise kharidu?","💳 Payment?","⭐ Referral?","💬 Support"];
+
+function samiChatToggle(){
+  const b=document.getElementById('sami-chat-box');
+  b.classList.toggle('open');
+  if(b.classList.contains('open') && !b.dataset.hi){
+    b.dataset.hi=1;
+    samiBot("Assalam-o-Alaikum! 👋 Main <b>Sami AI Assistant</b> hun!<br>Kya poochna chahte ho? 👇");
+  }
+}
+function samiBot(html){
+  const m=document.getElementById('sami-chat-msgs');
+  m.insertAdjacentHTML('beforeend','<div class="sami-msg sami-bot">'+html+'</div>');
+  m.scrollTop=m.scrollHeight;
+}
+function samiUser(t){
+  const m=document.getElementById('sami-chat-msgs');
+  const d=document.createElement('div'); d.className='sami-msg sami-user'; d.textContent=t;
+  m.appendChild(d); m.scrollTop=m.scrollHeight;
+}
+function samiAnswer(q){
+  q=q.toLowerCase();
+  let best=null,score=0;
+  for(const item of SAMI_KB){
+    let s=0;
+    for(const k of item.k){ if(q.includes(k)) s+=k.length; }
+    if(s>score){score=s;best=item;}
+  }
+  return best?best.r:SAMI_FALLBACK;
+}
+function samiSend(){
+  const i=document.getElementById('sami-input');
+  const t=i.value.trim(); if(!t) return;
+  samiUser(t); i.value='';
+  setTimeout(()=>samiBot(samiAnswer(t)),400);
+}
+(function(){
+  const c=document.getElementById('sami-chips');
+  SAMI_CHIPS.forEach(t=>{
+    const b=document.createElement('button'); b.textContent=t;
+    b.onclick=()=>{samiUser(t); setTimeout(()=>samiBot(samiAnswer(t)),400);};
+    c.appendChild(b);
+  });
+})();
+</script>
+<!-- ═══════ FAQ WIDGET KHATAM ═══════ -->
 </body>
 </html>
