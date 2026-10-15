@@ -270,8 +270,8 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
             <a href="blog.html">📝 Blog & Tricks</a>
         </nav>
         <div class="language">
-            <button id="enBtn" class="active" onclick="setLanguage('en')">EN</button>
-            <button id="urBtn" onclick="setLanguage('ur')">اردو</button>
+            <button id="enBtn" onclick="setLanguage('en')">🌐 EN</button>
+            <button id="urBtn" class="active" onclick="setLanguage('ur')">اردو</button>
         </div>
         <button class="cart-button" onclick="openCart()">🛒 <span id="cartCount">0</span></button>
     </div>
@@ -519,7 +519,7 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 
 <script>
 const WHATSAPP_NUMBER = "966595073180";
-let language = "en";
+let language = "ur";
 let currentCategory = "all";
 let selectedRating = 5;
 
@@ -821,7 +821,7 @@ function renderProducts() {
     }
 
     container.innerHTML = filtered.map(p => {
-        const title = language === 'ur' && p.urdu ? p.urdu : p.name;
+        const title = p.name;
         const available = p.stock > 0;
         return `
             <article class="product">
@@ -873,9 +873,9 @@ function submitReview() {
     const name = document.getElementById("reviewName").value.trim();
     const text = document.getElementById("reviewText").value.trim();
     if (name.length < 2 || text.length < 3) { showToast("⚠️ Enter name and feedback"); return; }
-    if (name.length > 50 || text.length > 500) { showToast("⚠️ Review bohat lamba hai!"); return; }
+    if (name.length > 50 || text.length > 500) { showToast(T("⚠️ Review bohat lamba hai!")); return; }
     const lastR = parseInt(localStorage.getItem("sami_last_review") || "0", 10);
-    if (Date.now() - lastR < 86400000) { showToast("⚠️ Sirf 1 review per day! 🙏"); return; }
+    if (Date.now() - lastR < 86400000) { showToast(T("⚠️ Sirf 1 review per day! 🙏")); return; }
 
     const nr = { name: name, rating: selectedRating, text: text, verified: false, t: Date.now() };
     reviews.unshift(nr);
@@ -980,9 +980,10 @@ function filterCategory(cat, btn) {
 
 function setLanguage(lang) {
     language = lang;
-    document.body.classList.toggle("urdu", lang === "ur");
+    document.body.classList.remove("urdu");
     document.getElementById("enBtn").classList.toggle("active", lang === "en");
     document.getElementById("urBtn").classList.toggle("active", lang === "ur");
+    if (typeof applyLang === "function") { applyLang(lang); return; }
     renderProducts();
 }
 
@@ -1074,10 +1075,11 @@ function copyReferLink() {
 function shareRefer(where) {
     const code = getMyRefCode();
     const link = getRefLink(code);
-    const msg = "🎁 Sami AI Tools par saste AI subscriptions mil rahe hain! Mera referral link use karo: " + link;
+    const msg = T("🎁 Sami AI Tools par saste AI subscriptions mil rahe hain! Mera referral link use karo:") + " " + link;
     let n = parseInt(localStorage.getItem('sharecnt_'+code) || '0', 10) + 1;
     try { localStorage.setItem('sharecnt_'+code, String(n)); } catch(e){}
     updateShareUI();
+    try { if (typeof walkAndTranslate === 'function') walkAndTranslate(); } catch(e) {}
         showToast("✓ Share counted: " + n + " 🎉");
     // Facebook: native share sheet - user picks FB / FB Lite / Groups / Messenger
     if (where === 'fb' && navigator.share) {
@@ -1118,7 +1120,7 @@ function handleClaimParam(){
             claimCode = c;
             document.getElementById("giftCode").textContent = c;
             document.getElementById("giftModal").classList.add("active");
-            showToast("🎁 Tumhara gift taiyaar hai!");
+            showToast(T("🎁 Tumhara gift taiyaar hai!"));
         }
     }catch(e){}
 }
@@ -1126,7 +1128,7 @@ function closeGift(){ document.getElementById("giftModal").classList.remove("act
 function claimGift(){
     const code = claimCode || getMyRefCode();
     const em = (localStorage.getItem('sami_claim_email') || '').trim();
-    if (!em) { try { closeGift(); } catch(e) {} showToast('⚠️ Pehle apna Gmail likho — Refer section mein! 📧'); const ce = document.getElementById('claimEmail'); if (ce) ce.focus(); return; }
+    if (!em) { try { closeGift(); } catch(e) {} showToast(T('⚠️ Pehle apna Gmail likho — Refer section mein! 📧')); const ce = document.getElementById('claimEmail'); if (ce) ce.focus(); return; }
     if (FB) { try { FB.ref('referrals/'+code+'/CLAIM'+(claimsDone+1)).set({ t: Date.now(), claim: true, dup: true, email: em }); } catch(e){} }
     const msg = "🎁 *GIFT CLAIM — SAMI AI TOOLS*\nAssalam-o-Alaikum! Mera referral code " + code + " hai. Meri claim #" + (claimsDone+1) + " hai — mera *FREE Canva Pro (1 Month)* claim karna hai!\n📧 Mera Gmail: " + em + "\nCanva Pro isi Gmail par bhej dein, shukriya! 🎁";
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
@@ -1135,7 +1137,7 @@ function claimGift(){
 function claimMyGift(){
     const inp = document.getElementById('claimEmail');
     const em = ((inp && inp.value) || '').trim();
-    if (!em || em.indexOf('@') < 0) { showToast('⚠️ Pehle apna Gmail likho! 📧'); if (inp) inp.focus(); return; }
+    if (!em || em.indexOf('@') < 0) { showToast(T('⚠️ Pehle apna Gmail likho! 📧')); if (inp) inp.focus(); return; }
     try { localStorage.setItem('sami_claim_email', em); } catch(e) {}
     claimCode = getMyRefCode();
     claimGift();
@@ -1188,8 +1190,8 @@ try {
       document.getElementById('refProgText').textContent = myShares + ' shares · ' + cl + ' claims done ✅';
       document.getElementById('refProgFill').style.width = Math.min(100, cycShares/3*100) + '%';
       document.getElementById('refProgMsg').textContent =
-        cycUnlocked ? '🎉 3 shares pure! Claim Your Gift dabao 👇' :
-        'Agli claim ke liye ' + (3 - cycShares) + ' aur shares chahiye! 📤';
+        cycUnlocked ? T('🎉 3 shares pure! Claim Your Gift dabao 👇') :
+        T('Agli claim ke liye {n} aur shares chahiye! 📤').replace('{n}', (3 - cycShares));
     });
     prog.style.display = 'block';
   }
@@ -1338,5 +1340,177 @@ function samiSend(){
 </script>
 <!-- ═══════ FAQ WIDGET KHATAM ═══════ -->
 
+<!-- ═══════════════════════════════════════════════════════════
+  SAMI AI TOOLS — BILINGUAL I18N BLOCK (Roman Urdu ⇄ English)
+  Same-page toggle: 🌐 EN | اردو button in header.
+  Default = Roman Urdu (page as-is). EN = walker translates via I18N_EN.
+  ═══════════════════════════════════════════════════════════ -->
+<script>
+/* Sami AI Tools — bilingual toggle (Roman Urdu ⇄ English).
+   Default mode is Roman Urdu: page behaves EXACTLY as before.
+   EN mode: text-node walker swaps via I18N_EN; originals cached for restore. */
+const I18N_EN = {
+ "🎉 Tumhe": "🎉",
+ "ne invite kiya hai! Unki referral visit count ho gayi hai. 💜": "invited you! Their referral visit has been counted. 💜",
+ "✨ Sasta, tez, qabil-e-aitmaad — yehi hai Sami AI Tools ka waada! ✨": "✨ Cheap, fast and trustworthy — that's the Sami AI Tools promise! ✨",
+ "📢 WhatsApp Channel Join Karo!": "📢 Join the WhatsApp Channel!",
+ "🔥 Sab se sasti": "🔥 The cheapest",
+ "sab se pehle yahin milengi! 🎁": "arrive here first! 🎁",
+ "Join karo — koi offer miss na ho! 👇": "Join now — don't miss any offer! 👇",
+ "🔥 Gen Z, Ye Tumhare Liye Hai! 🔥": "🔥 Gen Z, This Is For You! 🔥",
+ "Mehngay subscriptions ka zamana gaya, dosto! 🔥 Ab ChatGPT Plus, Canva Pro, Gemini Pro aur CapCut Pro — sab kuch tumhari jeb ke ain mutabiq. Na koi scam, na koi lamba intezar — bas order karo, payment bhejo, aur minton mein apna account pao. Assignment ho, YouTube video ho ya apna side hustle — apni creativity ko full boost do! Sami AI Tools hamesha tumhare saath hai. ⚡💜": "The era of expensive subscriptions is over, friends! 🔥 Now ChatGPT Plus, Canva Pro, Gemini Pro and CapCut Pro — everything at prices your pocket will love. No scams, no long waits — just order, send payment, and get your account within minutes. Assignments, YouTube videos or your side hustle — give your creativity a full boost! Sami AI Tools is always with you. ⚡💜",
+ "Apna referral link": "Your referral link",
+ "3 dafa share": "share 3 times",
+ "karo — WhatsApp ya Facebook par! 📤 3 shares pure hote hi tumhe": "on WhatsApp or Facebook! 📤 Once you hit 3 shares, you'll receive",
+ "Canva Pro 1 month bilkul FREE": "Canva Pro 1 month absolutely FREE",
+ "milega! 🎉 Koi limit nahi — har 3 shares par naya inaam! 😎": "! 🎉 No limit — a new gift every 3 shares! 😎",
+ "Claim ke waqt WhatsApp par apne": "When claiming, send your",
+ "3 shares ka screenshot": "3-share screenshot",
+ "bhejna lazmi hai — bina proof ke gift nahi milega! 📸": "on WhatsApp — no gift without proof! 📸",
+ "🏷️ TUMHARA REFERRAL CODE": "🏷️ YOUR REFERRAL CODE",
+ "💬 WhatsApp Share": "💬 Share on WhatsApp",
+ "📘 Facebook Share": "📘 Share on Facebook",
+ "🔄 Tumhare Shares:": "🔄 Your Shares:",
+ "🔒 3 shares pure hon — phir Claim unlock hoga!": "🔒 Complete 3 shares — then Claim unlocks!",
+ "🎁 Tumhara Referral Progress": "🎁 Your Referral Progress",
+ "Link share karo": "Share the link",
+ "Apna code doston ko bhejo 📤": "Send your code to friends 📤",
+ "3 dafa share karo": "Share 3 times",
+ "Share button dabao — WhatsApp/Facebook! 📤": "Tap the share buttons — WhatsApp/Facebook! 📤",
+ "🎁 Inaam pao": "🎁 Get rewarded",
+ "Har 3 shares par FREE Canva Pro (1 month)! 🖌️": "FREE Canva Pro (1 month) every 3 shares! 🖌️",
+ "Mubarak Ho! 🎉": "Congratulations! 🎉",
+ "Tumhare": "Your",
+ "3 shares pure": "3 shares complete",
+ "ho gaye hain!": "are complete!",
+ "Tumhara": "Your",
+ "taiyaar hai! 🖌️": "is ready! 🖌️",
+ "Neeche button dabao aur WhatsApp par claim karo! 👇": "Tap the button below and claim on WhatsApp! 👇",
+ "🎁 WhatsApp par Claim karo": "🎁 Claim on WhatsApp",
+ "💳 Bina credit card ke ChatGPT Plus Pakistan mein kaise khareedein?": "💳 How to buy ChatGPT Plus in Pakistan without a credit card?",
+ "Bohat aasan! Pakistan mein aksar bank cards international payments par kaam nahi karte. Bas": "Very easy! Pakistani bank cards often don't work for international payments. Just",
+ "par apna plan select karo,": ", select your plan,",
+ "ya": "or",
+ "se payment bhejo, aur": "to send payment, and",
+ "par apna ChatGPT Plus account hasil karo — 5 se 30 minute mein delivery! 🚀": "to receive your ChatGPT Plus account — delivered in 5 to 30 minutes! 🚀",
+ "💰 ChatGPT Plus ki Pakistan mein qeemat (price) kya hai?": "💰 What is the price of ChatGPT Plus in Pakistan?",
+ "Official qeemat $20/month (taqreeban Rs. 5,600) hai, aur Pakistani cards aksar decline ho jate hain.": "The official price is $20/month (around Rs. 5,600), and Pakistani cards are often declined.",
+ "par tumhe ChatGPT Plus": ", where you get ChatGPT Plus at",
+ "mein milta hai — official se sasta, JazzCash/EasyPaisa par payment, aur warranty ke saath! 💸": "— cheaper than official, pay with JazzCash/EasyPaisa, with warranty included! 💸",
+ "🛡️ Kya reseller se AI subscription lena safe hai?": "🛡️ Is it safe to buy an AI subscription from a reseller?",
+ "Haan, bilkul — jab reseller": "Yes, absolutely — if the reseller offers",
+ "de! Sami AI Tools par har order ke saath warranty milti hai: agar account mein koi masla ho toh": "! Every order on Sami AI Tools includes warranty: if there's any issue with your account,",
+ "warranty period mein FREE replacement": "FREE replacement during the warranty period",
+ "milti hai. Hazaaron khush customers hum par aitmaad karte hain! ⭐": ". Thousands of happy customers trust us! ⭐",
+ "📱 Kaunse payment methods accept karte ho?": "📱 Which payment methods do you accept?",
+ "Hum": "We accept",
+ "aur": "and",
+ "accept karte hain. Credit card ki": ". No credit card",
+ "koi zaroorat nahi": "needed",
+ "— apne mobile wallet se aasani se payment karo! 💸": "— pay easily from your mobile wallet! 💸",
+ "🚚 Order ke baad delivery kaise aur kitni der mein hogi?": "🚚 How does delivery work after ordering, and how long does it take?",
+ "Payment verify hone ke baad tumhare account ki details": "After payment verification, your account details are sent to you on",
+ "par bhej di jati hain — aam tor par": "— usually within",
+ "5 se 30 minute": "5 to 30 minutes",
+ "mein. Koi lamba intezar nahi! ⚡": ". No long waits! ⚡",
+ "⚠️ Agar mera account band ho jaye ya kaam na kare toh kya hoga?": "⚠️ What if my account gets closed or stops working?",
+ "Fikar na karo!": "Don't worry!",
+ "ke andar agar account mein koi masla aaye toh tumhe": "— if any issue comes up with the account, you'll get",
+ "muft replacement": "a free replacement",
+ "milegi. Bas WhatsApp par hum se rabta karo — hum foran hal nikaalein ge! 💬": ". Just contact us on WhatsApp — we'll sort it out right away! 💬",
+ "📲 Kya main ek subscription multiple devices par use kar sakta hun?": "📲 Can I use one subscription on multiple devices?",
+ "Haan! Tum apna subscription": "Yes! You can use your subscription on",
+ "phone, laptop aur tablet": "phones, laptops and tablets",
+ "par use kar sakte ho. Account ki details milte hi kahin se bhi login karo! 📱💻": "— just log in from anywhere once you get the account details! 📱💻",
+ "🤔 ChatGPT Plus vs Gemini Advanced — kaunsa behtar hai mere liye?": "🤔 ChatGPT Plus vs Gemini Advanced — which is better for me?",
+ "writing, coding aur creative kaam ke liye behtareen hai, jabke": "is perfect for writing, coding and creative work, while",
+ "Google apps (Gmail, Docs) ke saath gehra integration deta hai. Dono hi": "offers deep integration with Google apps (Gmail, Docs). Both are",
+ "par dastiyaab hain — apni zaroorat ke mutabiq chuno! 😎": "available here — pick what suits your needs! 😎",
+ "⚠️ Review bohat lamba hai!": "⚠️ Review is too long!",
+ "⚠️ Sirf 1 review per day! 🙏": "⚠️ Only 1 review per day! 🙏",
+ "🎁 Tumhara gift taiyaar hai!": "🎁 Your gift is ready!",
+ "⚠️ Pehle apna Gmail likho — Refer section mein! 📧": "⚠️ Enter your Gmail first — in the Refer section! 📧",
+ "⚠️ Pehle apna Gmail likho! 📧": "⚠️ Enter your Gmail first! 📧",
+ "🎉 3 shares pure! Claim Your Gift dabao 👇": "🎉 3 shares done! Tap Claim Your Gift 👇",
+ "Agli claim ke liye {n} aur shares chahiye! 📤": "You need {n} more shares for the next claim! 📤",
+ "🎁 Sami AI Tools par saste AI subscriptions mil rahe hain! Mera referral link use karo:": "🎁 Get cheap AI subscriptions at Sami AI Tools! Use my referral link:"
+};
+const I18N_PH = {
+ "Tumhara referral link...": "Your referral link...",
+ "📧 Apna Gmail likho — Canva Pro isi Gmail par milega!": "📧 Enter your Gmail — Canva Pro will be sent to this Gmail!"
+};
+let samiLang = "ur";
+function T(s) {
+  if (samiLang !== "en") return s;
+  if (Object.prototype.hasOwnProperty.call(I18N_EN, s)) return I18N_EN[s];
+  return s;
+}
+function walkAndTranslate() {
+  var en = (samiLang === "en");
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: function(node) {
+      var p = node.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      var tag = p.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "TEXTAREA") return NodeFilter.FILTER_REJECT;
+      var el = p;
+      while (el && el !== document.body) {
+        var id = el.id || "";
+        if (id.indexOf("sami-chat") === 0) return NodeFilter.FILTER_REJECT;
+        el = el.parentElement;
+      }
+      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  var nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    if (node._ur === undefined) node._ur = node.nodeValue;
+    if (en) {
+      var key = node._ur.trim();
+      if (Object.prototype.hasOwnProperty.call(I18N_EN, key)) {
+        var v = node._ur;
+        var lead = (v.match(/^\s*/) || [""])[0];
+        var trail = (v.match(/\s*$/) || [""])[0];
+        node.nodeValue = lead + I18N_EN[key] + trail;
+      }
+    } else {
+      node.nodeValue = node._ur;
+    }
+  }
+  if (typeof document._urTitle === "undefined") document._urTitle = document.title;
+  document.title = en ? (I18N_EN[document._urTitle] || document._urTitle) : document._urTitle;
+  var inputs = document.querySelectorAll("input[placeholder], textarea[placeholder]");
+  for (var j = 0; j < inputs.length; j++) {
+    var inp = inputs[j];
+    if (inp.id && inp.id.indexOf("sami-") === 0) continue;
+    if (inp._urPh === undefined) inp._urPh = inp.getAttribute("placeholder");
+    inp.setAttribute("placeholder", en ? (I18N_PH[inp._urPh] || inp._urPh) : inp._urPh);
+  }
+}
+function applyLang(lang) {
+  samiLang = (lang === "en") ? "en" : "ur";
+  try { localStorage.setItem("sami_lang", samiLang); } catch (e) {}
+  var enBtn = document.getElementById("enBtn"), urBtn = document.getElementById("urBtn");
+  if (enBtn) enBtn.classList.toggle("active", samiLang === "en");
+  if (urBtn) urBtn.classList.toggle("active", samiLang !== "en");
+  walkAndTranslate();
+  try { if (typeof renderProducts === "function") renderProducts(); } catch (e) {}
+  try { if (typeof renderReviews === "function") renderReviews(); } catch (e) {}
+  try { if (typeof renderCart === "function") renderCart(); } catch (e) {}
+  try { if (typeof updateShareUI === "function") updateShareUI(); } catch (e) {}
+  walkAndTranslate();
+}
+(function () {
+  var saved = "ur";
+  try { saved = localStorage.getItem("sami_lang") || "ur"; } catch (e) {}
+  if (saved !== "en") saved = "ur";
+  if (typeof setLanguage === "function") setLanguage(saved);
+  else applyLang(saved);
+})();
+</script>
+<!-- ═══════════ BILINGUAL I18N BLOCK KHATAM ═══════════ -->
 </body>
 </html>
