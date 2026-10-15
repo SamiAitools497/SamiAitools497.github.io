@@ -1224,9 +1224,14 @@ try {
 })();
 </script>
 <!-- ═══════════════════════════════════════════════════════════
-  SAMI AI TOOLS — FAQ CHAT WIDGET 💬
-  Lagane ka tareeqa: is pooray block ko index.html me </body> se
-  PEHLE paste kar do. Bas! Koi server / backend nahi chahiye.
+  SAMI AI TOOLS — FAQ CHAT WIDGET v2 💬 (FIXED)
+  Lagane ka tareeqa (GitHub par):
+  1. index.html kholo → pencil (Edit) dabao
+  2. Find karo: sami-chat-btn
+  3. Is comment se lekar "-- FAQ WIDGET KHATAM --" wale comment tak
+     POORA block delete karo
+  4. Ye poori file wahan paste kar do (</body> se PEHLE)
+  5. Commit changes ✅
 ═══════════════════════════════════════════════════════════ -->
 <style>
 #sami-chat-btn{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;
@@ -1249,6 +1254,7 @@ border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}
 #sami-input-row{display:flex;border-top:1px solid #eee;background:#fff}
 #sami-input{flex:1;border:none;padding:12px;font-size:14px;outline:none}
 #sami-send{border:none;background:#25D366;color:#fff;padding:0 18px;font-size:16px;cursor:pointer}
+.sami-bot a{color:#128C7E;font-weight:700}
 </style>
 
 <button id="sami-chat-btn" onclick="samiChatToggle()">💬</button>
@@ -1266,17 +1272,26 @@ border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}
 const SAMI_KB = [
  {k:["salam","hello","hi","assalam","aoa","hey"], r:"Walaikum Assalam! 😊 Main Sami AI Assistant hun — price, order, payment ya referral ke baare me poocho! 👇"},
  {k:["price","rate","qeemat","paisa","kitne ka","cost","fees","charges"], r:"💰 <b>Price</b> har product card par likhi hai — upar scroll karo aur pasand ka tool dekho! Sab se saste deals ke liye WhatsApp par rabta karo: <b>0302-7292497</b> 📱"},
- {k:["kharid","buy","order","lena","chahiye","shop"], r:"🛒 <b>Order ka tareeqa:</b><br>1️⃣ Product card par <b>Buy / Order</b> dabao<br>2️⃣ WhatsApp khul jayega<br>3️⃣ Payment karo (JazzCash / EasyPaisa / Binance Pay)<br>4️⃣ Key turant mil jayegi! 🔑"},
+ {k:["kharid","buy","order","lena","chahiye","shop"], r:"🛒 <b>Order ke 2 tareeqe:</b><br>1️⃣ Website se: product par <b>Buy</b> dabao → WhatsApp khul jayega<br>2️⃣ Telegram bot: <a href='https://t.me/Sami_Aitools_bot' target='_blank'>@Sami_Aitools_bot</a> — 24/7 automatic! 🤖<br><br>Payment: JazzCash / EasyPaisa / Binance Pay 💸"},
  {k:["jazzcash","easypaisa","binance","payment","pay","pese"], r:"💳 <b>Payment methods:</b><br>✅ JazzCash<br>✅ EasyPaisa<br>✅ Binance Pay<br><br>Order ke baad WhatsApp par screenshot bhejo — key foran! ⚡"},
  {k:["refer","share","canva pro free","free canva","earn","dost"], r:"⭐ <b>Refer & Earn:</b><br><b>3 shares = 1 FREE Canva Pro!</b> 🎁<br>Site ka link doston ko share karo, screenshot WhatsApp par bhejo: <b>0302-7292497</b> ✅"},
- {k:["support","contact","help","madad","rabta","number","whatsapp"], r:"💬 <b>Support:</b> WhatsApp par message karo — <b>0302-7292497</b><br>Ya Telegram bot try karo: <b>@Sami_Aitools_bot</b> 🤖"},
+ {k:["support","contact","help","madad","rabta","number","whatsapp"], r:"💬 <b>Support:</b> WhatsApp par message karo — <b>0302-7292497</b><br>Ya Telegram store bot try karo: <a href='https://t.me/Sami_Aitools_bot' target='_blank'>@Sami_Aitools_bot</a> 🤖"},
  {k:["blog","article","guide","trick","tips"], r:"📰 <b>Blog</b> par free guides hain — AI tools ke tricks aur tips!<br>👉 <a href='/blog.html'>Blog kholo</a> 🚀"},
- {k:["delivery","kitni der","time","kab mile"], r:"⚡ <b>Delivery:</b> Payment confirm hote hi key mil jati hai — aam tor par <b>kuch minutes</b> me! 🔑"},
- {{k:["warranty","guarantee","band ho","kaam na","replace","refund","kharaab"], r:"🛡️ <b>Warranty</b> ka sawal hai? <b>WhatsApp 0302-7292497</b> par rabta karo — wahan tumhara masla foran hal hoga! ✅"},, r:"🤖 Hamara <b>Telegram bot</b>: <b>@Sami_Aitools_bot</b><br>Wahan bhi order kar sakte ho — 24/7 online! 🟢"},
+ {k:["delivery","kitni der","time","kab mile"], r:"⚡ <b>Delivery:</b> Payment confirm hote hi key mil jati hai — aam tor par <b>kuch minutes</b> me! Telegram bot par to <b>instant</b>! 🔑"},
+ {k:["warranty","guarantee","band ho","kaam na","replace","refund","kharaab"], r:"🛡️ <b>Warranty</b> ka sawal hai? <b>WhatsApp 0302-7292497</b> par rabta karo — wahan tumhara masla foran hal hoga! ✅"},
+ {k:["telegram","bot","store bot"], r:"🤖 Hamara <b>Telegram store bot</b>: <a href='https://t.me/Sami_Aitools_bot' target='_blank'><b>@Sami_Aitools_bot</b></a><br>Wahan bhi order kar sakte ho — 24/7 online, automatic delivery! 🟢"},
  {k:["shukriya","thanks","thank"], r:"Khush aamdeed! 😊 Aur koi sawal ho to poocho — ya WhatsApp karo: <b>0302-7292497</b> 💚"},
+ {k:["original","crack","patched","asli","genuine"], r:"🔐 Hum <b>genuine accounts/keys</b> dete hain — crack ya patched apps nahi! Warranty ke saath! ✅"},
+ {k:["private","shared"], r:"👤 Product ke hisaab se — kuch <b>private</b>, kuch <b>shared</b>! Order se pehle WhatsApp par confirm kar lo: <b>0302-7292497</b> 📱"},
+ {k:["kitne device","device par"], r:"📱 Har product ka alag hisaab hai! Details ke liye WhatsApp karo: <b>0302-7292497</b> 📱"},
+ {k:["login","kaise use","sign in"], r:"🔑 Payment ke baad <b>key/login details WhatsApp</b> par milengi — saath me <b>mukammal guide</b> bhi! 📖"},
+ {k:["discount","sasta","offer","deal"], r:"💸 <b>Refer & Earn:</b> 3 shares = <b>1 FREE Canva Pro!</b> 🎁 Bulk order ho to WhatsApp par baat karo: <b>0302-7292497</b>"},
+ {k:["pakistan me"], r:"🇵🇰 Ji haan! Ye sab <b>Pakistan me kaam</b> karte hain — JazzCash/EasyPaisa se payment karo! 💚"},
+ {k:["kab order","raat ko","24/7"], r:"🟢 <b>Kabhi bhi!</b> 24/7 order karo — Telegram bot <a href='https://t.me/Sami_Aitools_bot' target='_blank'><b>@Sami_Aitools_bot</b></a> bhi hamesha online hai! 🤖"},
+ {k:["renew","dobara","extend","khatam"], r:"🔄 Period khatam hone se pehle <b>WhatsApp 0302-7292497</b> par rabta karo — renewal asaan hai! ✅"}
 ];
 const SAMI_FALLBACK = "Hmm, ye samajh nahi aaya! 😅 <b>WhatsApp</b> par poocho — <b>0302-7292497</b> — wahan insan jawab dega! 😄";
-const SAMI_CHIPS = ["💰 Price?","🛒 Kaise kharidu?","💳 Payment?","⭐ Referral?","💬 Support"];
+const SAMI_CHIPS = ["💰 Price?","🛒 Kaise kharidu?","💳 Payment?","🤖 Telegram Bot","⭐ Referral?"];
 
 function samiChatToggle(){
   const b=document.getElementById('sami-chat-box');
@@ -1322,5 +1337,6 @@ function samiSend(){
 })();
 </script>
 <!-- ═══════ FAQ WIDGET KHATAM ═══════ -->
+
 </body>
 </html>
