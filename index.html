@@ -255,6 +255,17 @@ footer{text-align:center;border-top:1px solid rgba(255,255,255,.06);padding:40px
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<!-- OneSignal Web Push -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "58dc2edf-0f5b-4493-98d4-6fb07e784770",
+    });
+  });
+</script>
+<!-- /OneSignal -->
 </head>
 
 <body>
