@@ -5,83 +5,390 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel — Sami AI Tools 🔐</title>
 <meta name="robots" content="noindex, nofollow">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <style>
-:root{--bg:#050510;--border:rgba(255,255,255,.09);--text:#f5f5ff;--muted:#9292aa;--primary:#667eea;--secondary:#764ba2;--green:#25d366;--danger:#ff4757;--gold:#ffb300;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:radial-gradient(circle at 15% 15%,rgba(102,126,234,.13),transparent 32%),var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min-height:100vh;padding:20px;}
-.wrap{max-width:900px;margin:auto;}
-h1{font-size:24px;font-weight:900;margin-bottom:5px;background:linear-gradient(135deg,#667eea,#f093fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.sub{color:var(--muted);font-size:12px;margin-bottom:20px;}
-.card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px;}
-.card h2{font-size:16px;font-weight:800;margin-bottom:14px;}
-label{display:block;color:var(--muted);font-size:10px;font-weight:700;margin:10px 0 5px;}
-input,select,textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;color:white;padding:10px 12px;font-size:12px;font-family:inherit;outline:none;}
-input:focus,select:focus{border-color:var(--primary);}
-select option{background:#111126;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
-.btn{border:0;border-radius:12px;padding:13px 20px;font-size:13px;font-weight:800;color:white;cursor:pointer;font-family:inherit;transition:.2s;}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 5px 20px rgba(102,126,234,.35);}
-.btn-green{background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 5px 20px rgba(37,211,102,.3);}
-.btn-danger{background:rgba(255,71,87,.15);border:1px solid rgba(255,71,87,.4);color:#ff6874;padding:8px 12px;font-size:11px;border-radius:8px;}
-.btn-block{width:100%;margin-top:10px;}
-.product-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;}
-.product-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.product-head strong{font-size:13px;}
-.final-price{font-size:11px;color:var(--gold);font-weight:700;}
-.topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
-.topbar .actions{display:flex;gap:8px;}
-.link-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);color:white;padding:9px 14px;border-radius:10px;font-size:11px;font-weight:700;text-decoration:none;font-family:inherit;cursor:pointer;}
-#loginScreen{max-width:380px;margin:80px auto;text-align:center;}
-#loginScreen .card{padding:30px 25px;}
-.lock{font-size:45px;margin-bottom:12px;}
-.err{color:#ff6874;font-size:11px;margin-top:10px;min-height:16px;}
-.ok{color:#45e58a;font-size:12px;margin-top:10px;font-weight:700;}
-.hint{font-size:10px;color:var(--muted);line-height:1.7;margin-top:12px;}
-.row-flex{display:flex;gap:8px;align-items:center;}
-.badge{font-size:9px;background:rgba(102,126,234,.15);border:1px solid rgba(102,126,234,.35);color:#b4beff;padding:3px 9px;border-radius:15px;font-weight:700;}
-#adminToast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:11px 22px;border-radius:30px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;z-index:9999;transition:.3s;max-width:90%;text-align:center;}
-#adminToast.show{opacity:1;transform:translate(-50%,0);}
-.edit-form input,.edit-form select{margin-bottom:2px;}
-
-/* ===== Collapsible sidebar (ProPanel style, dark theme) ===== */
-body{padding:0;}
-#panel{display:none;}
-#panel.open{display:flex;min-height:100vh;}
-.sidebar{width:260px;flex-shrink:0;background:#0d0d22;border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;transition:width .3s ease;overflow:hidden;}
-.sidebar.collapsed{width:76px;}
-.side-brand{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid var(--border);}
-.side-logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:grid;place-items:center;font-size:18px;flex-shrink:0;}
-.side-brand b{font-size:16px;white-space:nowrap;}
-.side-toggle{margin-left:auto;width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.06);color:white;cursor:pointer;flex-shrink:0;}
-.side-nav{list-style:none;padding:12px;display:flex;flex-direction:column;gap:4px;flex:1;}
-.side-nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;}
-.side-nav a:hover{background:rgba(102,126,234,.15);color:white;}
-.side-nav a.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;box-shadow:0 8px 20px rgba(102,126,234,.35);}
-.side-nav .ic{width:22px;text-align:center;font-size:17px;flex-shrink:0;}
-.side-nav .lb{flex:1;}
-.side-foot{padding:14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;}
-.side-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#764ba2);display:grid;place-items:center;font-weight:800;flex-shrink:0;}
-.main{flex:1;min-width:0;padding:20px;}
-.main .wrap{max-width:900px;margin:auto;}
-.sidebar.collapsed .side-brand b,.sidebar.collapsed .side-nav .lb,.sidebar.collapsed .side-foot div{display:none;}
-.sidebar.collapsed .side-toggle{transform:rotate(180deg);}
-.sidebar.collapsed .side-nav a{justify-content:center;}
-.sidebar.collapsed .side-foot{justify-content:center;}
-@media(max-width:700px){
-  .sidebar{position:fixed;z-index:200;height:100vh;left:0;top:0;width:100%;background:#0d0d22;}
-  .sidebar.collapsed{width:0;border-right:0;overflow:hidden;}
-  .main{padding:16px;}
+:root {
+  --bg: #03030b;
+  --panel-bg: rgba(13, 13, 29, 0.7);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(102, 126, 234, 0.4);
+  --text: #f8f9fc;
+  --muted: #8b8fa3;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary: #a855f7;
+  --accent: #ec4899;
+  --green: #10b981;
+  --danger: #ef4444;
+  --gold: #f59e0b;
 }
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 40%);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  padding: 0;
+  overflow-x: hidden;
+}
 
-/* ===== Tab pages: sirf ek section khula dikhe, baqi chhupe ===== */
-.main .card[id^="sec-"]{display:none;}
-.main .card[id^="sec-"].active-sec{display:block;}
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
+/* Login Screen */
+#loginScreen {
+  max-width: 420px;
+  margin: 100px auto;
+  padding: 20px;
+  text-align: center;
+}
+.login-card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+}
+.lock {
+  font-size: 50px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+h1 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+
+label {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 16px 0 6px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: white;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+select option { background: #0f1026; color: white; }
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6);
+}
+.btn-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+}
+.btn-green:hover { transform: translateY(-2px); }
+.btn-danger {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 10px;
+}
+.btn-danger:hover { background: rgba(239, 68, 68, 0.25); }
+.btn-block { width: 100%; margin-top: 14px; }
+
+/* Panel Layout */
+#panel { display: none; min-height: 100vh; }
+#panel.open { display: flex; }
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: rgba(10, 10, 22, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+}
+.sidebar.collapsed { width: 80px; }
+
+.side-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.side-logo {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+.side-brand b { font-size: 15px; white-space: nowrap; letter-spacing: -0.3px; }
+.side-toggle {
+  margin-left: auto;
+  width: 30px; height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: 0.2s;
+}
+.side-toggle:hover { background: rgba(255,255,255,0.08); color: white; }
+
+.side-nav {
+  list-style: none;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
+}
+.side-nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.side-nav a:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+}
+.side-nav a.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: white;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
+}
+.side-nav .ic { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
+.side-nav .lb { flex: 1; }
+
+.side-foot {
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.2);
+}
+.side-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Main Content */
+.main { flex: 1; min-width: 0; padding: 30px; overflow-y: auto; }
+.main .wrap { max-width: 960px; margin: auto; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  border-radius: 20px;
+}
+.topbar .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.link-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.link-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Cards & Sections */
+.card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: border-color 0.3s;
+}
+.card:hover { border-color: rgba(255,255,255,0.12); }
+.card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: -0.3px;
+}
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width: 768px) { .grid2 { grid-template-columns: 1fr; } }
+
+.product-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: 0.2s;
+}
+.product-card:hover { background: rgba(255, 255, 255, 0.04); border-color: var(--border-glow); }
+.product-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.product-head strong { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.final-price { font-size: 13px; color: var(--gold); font-weight: 700; }
+
+.badge {
+  font-size: 10px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.row-flex { display: flex; gap: 10px; align-items: center; }
+.hint { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 10px; }
+.ok { color: #34d399; font-size: 13px; margin-top: 10px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.err { color: #f87171; font-size: 12px; margin-top: 10px; }
+
+/* Toast Notification */
+#adminToast {
+  position: fixed;
+  left: 50%; bottom: 30px;
+  transform: translate(-50%, 30px);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
+#adminToast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Collapsed sidebar adjustments */
+.sidebar.collapsed .side-brand b,
+.sidebar.collapsed .side-nav .lb,
+.sidebar.collapsed .side-foot div { display: none; }
+.sidebar.collapsed .side-toggle { transform: rotate(180deg); }
+.sidebar.collapsed .side-nav a { justify-content: center; padding: 12px; }
+.sidebar.collapsed .side-foot { justify-content: center; padding: 16px 0; }
+
+@media(max-width: 768px) {
+  .sidebar { position: fixed; height: 100vh; left: -280px; }
+  .sidebar.open-mobile { left: 0; }
+  .main { padding: 16px; }
+}
+
+.main .card[id^="sec-"] { display: none; animation: fadeIn 0.3s ease; }
+.main .card[id^="sec-"].active-sec { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -90,13 +397,13 @@ body{padding:0;}
 
 <!-- LOGIN -->
 <div id="loginScreen">
-    <div class="card">
+    <div class="login-card">
         <div class="lock">🔐</div>
         <h1>Admin Panel</h1>
-        <p class="sub">Sami AI Tools — sirf admin ke liye 🤫</p>
-        <label style="text-align:left;">PASSWORD</label>
-        <input type="password" id="pw" placeholder="Password likho..." onkeydown="if(event.key==='Enter')doLogin()">
-        <button class="btn btn-primary btn-block" onclick="doLogin()">🔓 Login</button>
+        <p class="sub">Sami AI Tools — Secure Dashboard</p>
+        <label>PASSWORD</label>
+        <input type="password" id="pw" placeholder="Enter admin password..." onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="btn btn-primary btn-block" onclick="doLogin()">🔓 Login to Dashboard</button>
         <div class="err" id="loginErr"></div>
     </div>
 </div>
@@ -104,7 +411,11 @@ body{padding:0;}
 <!-- PANEL -->
 <div id="panel" style="display:none;">
     <aside class="sidebar" id="side">
-        <div class="side-brand"><div class="side-logo">🔐</div><b>Sami AI Tools</b><button class="side-toggle" onclick="toggleSidebar()" title="Sidebar band / kholo">‹</button></div>
+        <div class="side-brand">
+            <div class="side-logo">🔐</div>
+            <b>Sami AI Tools</b>
+            <button class="side-toggle" onclick="toggleSidebar()" title="Toggle Sidebar">‹</button>
+        </div>
         <ul class="side-nav">
             <li><a href="#" data-target="sec-welcome" onclick="return showSection('sec-welcome')" class="active"><span class="ic">🏠</span><span class="lb">Welcome</span></a></li>
             <li><a href="#" data-target="sec-dashboard" onclick="return showSection('sec-dashboard')"><span class="ic">📊</span><span class="lb">Dashboard</span></a></li>
@@ -115,103 +426,112 @@ body{padding:0;}
             <li><a href="#" data-target="sec-download" onclick="return showSection('sec-download')"><span class="ic">⬇️</span><span class="lb">Download</span></a></li>
             <li><a href="index.html" target="_blank"><span class="ic">🌐</span><span class="lb">View Site</span></a></li>
         </ul>
-        <div class="side-foot"><div class="side-avatar">S</div><div><b style="font-size:12px;">Admin</b><br><span style="font-size:11px;color:var(--muted);">Sami AI Tools</span></div></div>
+        <div class="side-foot">
+            <div class="side-avatar">S</div>
+            <div>
+                <b style="font-size:12px;">Admin</b><br>
+                <span style="font-size:11px;color:var(--muted);">Sami AI Tools</span>
+            </div>
+        </div>
     </aside>
-    <div class="main"><div class="wrap">
-    <div class="topbar">
-        <div>
-            <h1>🔐 Admin Panel</h1>
-            <p class="sub">Products, prices aur settings — sab kuch yahin se! ⚙️</p>
-        </div>
-        <div class="actions">
-            <button class="link-btn" onclick="toggleSidebar()">☰ Menu</button>
-            <a class="link-btn" href="index.html" target="_blank">🌐 View Site</a>
-            <button class="link-btn" onclick="doLogout()">🚪 Logout</button>
-        </div>
-    </div>
 
-    <div class="card active-sec" id="sec-welcome">
-        <h2>👋 Welcome back, Admin!</h2>
-        <p class="hint" style="font-size:13px;color:white;line-height:1.8;">Sami AI Tools ka admin panel — yahan se tum products, prices, settings aur website publish sab control kar sakte ho. Left side se jo chahiye wo kholo, sirf wohi page khulega.</p>
-        <div id="welcomeStats" style="margin-top:14px;"><p class="hint">⏳ Products load hone par stats yahan aayenge...</p></div>
-        <div class="row-flex" style="margin-top:14px;flex-wrap:wrap;">
-            <button class="btn btn-primary" style="padding:10px 16px;font-size:12px;" onclick="showSection('sec-products')">🛍️ Products kholo</button>
-            <button class="link-btn" onclick="showSection('sec-dashboard')">📊 Dashboard</button>
-            <button class="link-btn" onclick="showSection('sec-publish')">🚀 Publish</button>
-        </div>
-    </div>
-
-    <div class="card" id="sec-products">
-        <h2>🛍️ Products <span class="badge" id="pCount"></span> <button class="link-btn" style="padding:5px 10px;font-size:10px;" onclick="reloadProducts()">🔄 Reload</button></h2>
-        <div id="productList"></div>
-        <button class="btn btn-primary btn-block" onclick="addProduct()">➕ Naya Product Add karo</button>
-        <button class="btn btn-block" style="background:rgba(255,179,0,.12);border:1px solid rgba(255,179,0,.4);color:var(--gold);" onclick="saveDraft()">💾 Save Draft</button>
-        <div class="row-flex" style="margin-top:8px;justify-content:space-between;flex-wrap:wrap;">
-            <div class="ok" id="draftMsg" style="margin-top:0;"></div>
-            <button class="link-btn" onclick="clearDraft()">🗑️ Clear Draft</button>
-        </div>
-    </div>
-
-    <div class="card" id="sec-dashboard" style="border-color:rgba(255,179,0,.4);">
-        <h2>📊 Sales Dashboard</h2>
-        <div id="salesDash"><p class="hint">⏳ Products load hone ka intezar...</p></div>
-    </div>
-
-    <div class="card" id="sec-settings">
-        <h2>⚙️ Settings</h2>
-        <label>WHATSAPP NUMBER (bina + ke, jaise 966595073180)</label>
-        <input id="setWhatsapp" oninput="settings.whatsapp=this.value.trim()">
-        <div class="grid2">
-            <div>
-                <label>JAZZCASH / EASYPAISA NUMBER</label>
-                <input id="setJazz" oninput="settings.jazz=this.value.trim()">
+    <div class="main">
+        <div class="wrap">
+            <div class="topbar">
+                <div>
+                    <h1>🔐 Admin Panel Dashboard</h1>
+                    <p class="sub" style="margin-bottom:0;">Manage products, pricing, and live site settings effortlessly.</p>
+                </div>
+                <div class="actions">
+                    <button class="link-btn" onclick="toggleSidebar()">☰ Menu</button>
+                    <a class="link-btn" href="index.html" target="_blank">🌐 View Site</a>
+                    <button class="link-btn" onclick="doLogout()" style="border-color: rgba(239,68,68,0.3); color: #f87171;">🚪 Logout</button>
+                </div>
             </div>
-            <div>
-                <label>BINANCE PAY ID</label>
-                <input id="setBinanceId" oninput="settings.binanceId=this.value.trim()">
+
+            <!-- Sections -->
+            <div class="card active-sec" id="sec-welcome">
+                <h2>👋 Welcome back, Admin!</h2>
+                <p class="hint" style="font-size:13px; color:var(--text);">Sami AI Tools admin center mein khush amdeed. Yahan se aap products, pricing, aur live updates ko control kar sakte hain[span_1](start_span)[span_1](end_span).</p>
+                <div id="welcomeStats" style="margin-top:16px;"><p class="hint">⏳ Loading stats...</p></div>
+                <div class="row-flex" style="margin-top:18px; flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="showSection('sec-products')">🛍️ Manage Products</button>
+                    <button class="link-btn" onclick="showSection('sec-dashboard')">📊 Sales Dashboard</button>
+                    <button class="link-btn" onclick="showSection('sec-publish')">🚀 Publish Changes</button>
+                </div>
+            </div>
+
+            <div class="card" id="sec-products">
+                <h2>🛍️ Products Catalog <span class="badge" id="pCount"></span> <button class="link-btn" style="padding:5px 10px; font-size:11px;" onclick="reloadProducts()">🔄 Reload</button></h2>
+                <div id="productList" style="margin-top: 14px;"></div>
+                <button class="btn btn-primary btn-block" onclick="addProduct()">➕ Add New Product</button>
+                <button class="btn btn-block" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: var(--gold);" onclick="saveDraft()">💾 Save Draft</button>
+                <div class="row-flex" style="margin-top:10px; justify-content:space-between; flex-wrap:wrap;">
+                    <div class="ok" id="draftMsg" style="margin-top:0;"></div>
+                    <button class="link-btn" onclick="clearDraft()">🗑️ Clear Draft</button>
+                </div>
+            </div>
+
+            <div class="card" id="sec-dashboard">
+                <h2>📊 Sales Analytics</h2>
+                <div id="salesDash"><p class="hint">⏳ Waiting for products data...</p></div>
+            </div>
+
+            <div class="card" id="sec-settings">
+                <h2>⚙️ General Settings</h2>
+                <label>WHATSAPP NUMBER (without +, e.g. 966595073180)</label>
+                <input id="setWhatsapp" oninput="settings.whatsapp=this.value.trim()">
+                <div class="grid2">
+                    <div>
+                        <label>JAZZCASH / EASYPAISA NUMBER</label>
+                        <input id="setJazz" oninput="settings.jazz=this.value.trim()">
+                    </div>
+                    <div>
+                        <label>BINANCE PAY ID</label>
+                        <input id="setBinanceId" oninput="settings.binanceId=this.value.trim()">
+                    </div>
+                </div>
+                <label>BINANCE NAME (in brackets, e.g. sunny_497)</label>
+                <input id="setBinanceName" oninput="settings.binanceName=this.value.trim()">
+                <label>FIREBASE CONFIG (JSON)</label>
+                <textarea id="fbConfig" rows="4" style="font-size:11px; font-family:monospace;" placeholder='{"apiKey":"...","authDomain":"...","databaseURL":"...","projectId":"..."}' oninput="saveFbConfig()"></textarea>
+                <p class="hint">Paste your Firebase web config here to enable live referral tracking.</p>
+            </div>
+
+            <div class="card" id="sec-referral">
+                <h2>🎁 Referral Tracker <button class="link-btn" style="padding:5px 10px; font-size:11px;" onclick="loadRefLive()">🔄 Refresh</button></h2>
+                <p class="hint">Live data fetched directly from Firebase database.</p>
+                <div class="ok" id="refMsg"></div>
+                <div id="refTrackList" style="margin-top:14px;"><p class="hint">⏳ Configure Firebase above to load live stats...</p></div>
+            </div>
+
+            <div class="card" id="sec-publish">
+                <h2>🚀 Direct GitHub Publish</h2>
+                <p class="hint">Push changes directly to your live website repository using a fine-grained GitHub token.</p>
+                <div class="grid2">
+                    <div><label>REPO OWNER</label><input id="ghOwner" value="SamiAitools497"></div>
+                    <div><label>REPO NAME</label><input id="ghRepo" value="SamiAitools497.github.io"></div>
+                </div>
+                <label>GITHUB TOKEN</label>
+                <input type="password" id="ghPat" placeholder="github_pat_..." autocomplete="off">
+                <button class="btn btn-primary btn-block" style="background: linear-gradient(135deg, var(--secondary), var(--accent));" onclick="publishToSite()">🚀 Publish Live to Website</button>
+                <div class="ok" id="pubMsg"></div>
+            </div>
+
+            <div class="card" id="sec-download">
+                <h2>⬇️ Manual Download</h2>
+                <p class="hint">Download the updated index.html file locally if you prefer manual deployments.</p>
+                <button class="btn btn-green btn-block" onclick="exportHtml()">⬇️ Download Updated index.html</button>
+                <div class="ok" id="exportMsg"></div>
             </div>
         </div>
-        <label>BINANCE NAME (bracket mein, jaise sunny_497)</label>
-        <input id="setBinanceName" oninput="settings.binanceName=this.value.trim()">
-        <label>FIREBASE CONFIG (JSON)</label>
-        <textarea id="fbConfig" rows="4" style="font-size:10px;" placeholder='{"apiKey":"...","authDomain":"...","databaseURL":"...","projectId":"..."}' oninput="saveFbConfig()"></textarea>
-        <p class="hint">Firebase Console → ⚙️ Project settings → Your apps → Web app se <b style="color:white;">firebaseConfig</b> copy karke yahan paste karo. Ye config <b style="color:white;">public</b> hoti hai (secret nahi) — fikar na karo! 🚀 Publish dabane par ye website mein lag jayegi!</p>
     </div>
-
-    <div class="card" id="sec-referral">
-        <h2>🎁 Referral Tracker <button class="link-btn" style="padding:5px 10px;font-size:10px;" onclick="loadRefLive()">🔄 Refresh</button></h2>
-        <p class="hint">Ye list <b style="color:white;">Firebase</b> se <b style="color:white;">LIVE</b> aati hai — visits khud-ba-khud gini jati hain, manual entry ki zaroorat nahi! 🎉 <b style="color:white;">Last claim ke baad naya visit</b> aane par <b style="color:white;">Copy Claim Link</b> ready hoga — referrer ko WhatsApp par bhejo!</p>
-        <div class="ok" id="refMsg"></div>
-        <div id="refTrackList" style="margin-top:14px;"><p class="hint">⏳ Firebase Config upar lagao, phir Refresh dabao...</p></div>
-    </div>
-
-    <div class="card" id="sec-publish" style="border-color:rgba(240,147,251,.4);">
-        <h2>🚀 Direct Publish — Seedha Website Par!</h2>
-        <p class="hint">Download/Upload ke baghair changes <b style="color:white;">seedha samiaitools.com</b> par live karo! Pehle GitHub ka <b style="color:white;">Personal Access Token</b> banao:<br>1️⃣ GitHub → Settings → Developer settings → <b style="color:white;">Personal access tokens → Fine-grained tokens</b><br>2️⃣ Generate new token → sirf <b style="color:white;">SamiAitools497.github.io</b> repo → <b style="color:white;">Contents: Read and Write</b><br>3️⃣ Token copy karke neeche paste karo — ye sirf <b style="color:white;">tumhare browser</b> mein rahega, kahin upload nahi hoga! 🔒</p>
-        <div class="grid2">
-            <div><label>REPO OWNER</label><input id="ghOwner" value="SamiAitools497"></div>
-            <div><label>REPO NAME</label><input id="ghRepo" value="SamiAitools497.github.io"></div>
-        </div>
-        <label>GITHUB TOKEN (kisi ko mat dikhao!)</label>
-        <input type="password" id="ghPat" placeholder="github_pat_..." autocomplete="off">
-        <button class="btn btn-block" style="background:linear-gradient(135deg,#f093fb,#764ba2);" onclick="publishToSite()">🚀 Website Par Publish Karo</button>
-        <div class="ok" id="pubMsg"></div>
-    </div>
-
-    <div class="card" id="sec-download" style="border-color:rgba(37,211,102,.4);">
-        <h2>⬇️ Website Update karo</h2>
-        <p class="hint">Sab changes karne ke baad <b style="color:white;">⬇️ Download</b> dabao — nayi index.html milegi, usay GitHub mein purani wali se <b style="color:white;">replace</b> kar do. Bas! 🚀<br>💡 Tip: pehle <b style="color:white;">💾 Save Draft</b> kar lo taake tumhare edits safe rahen!</p>
-        <button class="btn btn-green btn-block" onclick="exportHtml()">⬇️ Download Updated index.html</button>
-        <div class="ok" id="exportMsg"></div>
-    </div>
-
-    <p class="hint" style="text-align:center;">💡 Orders WhatsApp par aate rahenge, visits Google Analytics mein dikhengi.<br>🔒 Ye page Google mein show nahi hoga (noindex lagaya hai).</p>
-    </div></div>
+</div>
 
 <script>
-// ====== APNA PASSWORD YAHAN BADLO ======
+// ====== ADMIN PASSWORD ======
 const ADMIN_PASSWORD = "sami123";
-// =======================================
+// ============================
 
 let siteHtml = "";
 let products = [];
@@ -268,15 +588,15 @@ function loadRefLive(){
     const box = document.getElementById("refTrackList");
     if(!box) return;
     if(!initFbAdmin()){
-        box.innerHTML = '<p class="hint">⚠️ Pehle upar <b style="color:white;">Firebase Config</b> paste karo, phir Refresh dabao!</p>';
+        box.innerHTML = '<p class="hint">⚠️ Please enter Firebase Config above and click Refresh.</p>';
         return;
     }
-    box.innerHTML = '<p class="hint">⏳ Firebase se live counts load ho rahi hain...</p>';
+    box.innerHTML = '<p class="hint">⏳ Loading live counts from Firebase...</p>';
     fbDbAdmin.ref("referrals").once("value").then((snap)=>{
         const data = snap.val() || {};
         const codes = Object.keys(data);
         if(!codes.length){
-            box.innerHTML = '<p class="hint">📝 Abhi tak koi referral visit nahi hui. Jaise hi koi tumhare ?ref= link se aayega, yahan count barhega! 👀</p>';
+            box.innerHTML = '<p class="hint">📝 No referral visits yet.</p>';
             return;
         }
         codes.sort((a,b)=>Object.keys(data[b]||{}).length - Object.keys(data[a]||{}).length);
@@ -290,14 +610,14 @@ function loadRefLive(){
             const ready = lastVisit > lastClaim;
             return '<div class="product-card"><div class="product-head"><strong>🏷️ '+escapeHtml(code)+
                 '</strong><span class="final-price">'+c+' visits · '+claims.length+' claims done ✅</span></div>'+
-                '<div class="row-flex" style="margin-top:8px;flex-wrap:wrap;">'+
+                '<div class="row-flex" style="margin-top:10px;flex-wrap:wrap;">'+
                 '<button class="link-btn" onclick="toggleRefDetail(\''+code+'\')">👁️ Details</button>'+
                 '<button class="btn-danger" onclick="delRefLive(\''+code+'\')">🗑️ Reset</button>'+
                 (ready
-                    ? '<button class="btn btn-green" style="padding:9px 14px;font-size:11px;" onclick="copyClaimLink(\''+code+'\')">📋 Copy Claim Link 🎁</button>'
-                    : '<span class="hint" style="margin:0;">Naya visit aane par claim khulega! 👀</span>')+
+                    ? '<button class="btn btn-green" style="padding:8px 14px;font-size:11px;" onclick="copyClaimLink(\''+code+'\')">📋 Copy Claim Link 🎁</button>'
+                    : '<span class="hint" style="margin:0;">Waiting for new visit...</span>')+
                 '</div>'+
-                (ready ? '<p class="ok">✅ Naya visit aa gaya hai! Claim link copy karke referrer ko WhatsApp par bhejo! 🎁</p>' : '')+
+                (ready ? '<p class="ok">✅ New visit detected! Copy claim link and send to referrer.</p>' : '')+
                 '<div id="refdet-'+code+'" style="display:none;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;"></div>'+
                 '</div>';
         }).join("");
@@ -306,7 +626,7 @@ function loadRefLive(){
     });
 }
 function delRefLive(code){
-    if(!confirm(code+" ka saara referral data reset karna hai?")) return;
+    if(!confirm("Reset referral data for "+code+"?")) return;
     if(!fbDbAdmin) return;
     fbDbAdmin.ref("referrals/"+code).remove().then(loadRefLive).catch(()=>{});
 }
@@ -315,11 +635,11 @@ function toggleRefDetail(code){
     if(!box || !fbDbAdmin) return;
     if(box.style.display !== "none" && box.dataset.loaded === "1"){ box.style.display = "none"; return; }
     box.style.display = "block";
-    box.innerHTML = '<p class="hint">⏳ Visits load ho rahi hain...</p>';
+    box.innerHTML = '<p class="hint">⏳ Loading details...</p>';
     fbDbAdmin.ref("referrals/"+code).once("value").then((snap)=>{
         const data = snap.val() || {};
         const vids = Object.keys(data);
-        if(!vids.length){ box.innerHTML = '<p class="hint">Koi visit nahi.</p>'; box.dataset.loaded = "1"; return; }
+        if(!vids.length){ box.innerHTML = '<p class="hint">No visits recorded.</p>'; box.dataset.loaded = "1"; return; }
         vids.sort((a,b)=>((data[b]||{}).t||0)-((data[a]||{}).t||0));
         box.innerHTML = vids.map(v=>{
             const e = data[v]||{};
@@ -327,15 +647,15 @@ function toggleRefDetail(code){
             const loc = (e.city||e.co) ? ("📍 "+escapeHtml([e.city,e.co].filter(Boolean).join(", "))) : "📍 ?";
             let dw = "";
             if(e.dwell!=null){ dw = e.dwell < 60 ? ("⏱️ "+e.dwell+"s") : ("⏱️ "+(Math.round(e.dwell/60*10)/10)+" min"); }
-            if(e.claim){ return '<p class="hint" style="margin:5px 0;">🎁 Claim — 🕐 '+escapeHtml(dt)+(e.email ? ' — 📧 '+escapeHtml(e.email) : '')+'</p>'; }
-            return '<p class="hint" style="margin:5px 0;">👀 Visit — 🕐 '+escapeHtml(dt)+' — '+loc+' '+dw+'</p>';
+            if(e.claim){ return '<p class="hint" style="margin:4px 0;">🎁 Claim — 🕐 '+escapeHtml(dt)+(e.email ? ' — 📧 '+escapeHtml(e.email) : '')+'</p>'; }
+            return '<p class="hint" style="margin:4px 0;">👀 Visit — 🕐 '+escapeHtml(dt)+' — '+loc+' '+dw+'</p>';
         }).join("");
         box.dataset.loaded = "1";
-    }).catch(()=>{ box.innerHTML = '<p class="hint">❌ Load nahi ho saka.</p>'; });
+    }).catch(()=>{ box.innerHTML = '<p class="hint">❌ Failed to load.</p>'; });
 }
 function copyClaimLink(code){
     const link = "https://samiaitools.com/?claim=" + encodeURIComponent(code);
-    const done = ()=>{ document.getElementById("refMsg").textContent = "✅ Claim link copied! Ab referrer ko WhatsApp par bhejo: " + link; };
+    const done = ()=>{ document.getElementById("refMsg").textContent = "✅ Claim link copied!"; };
     if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(link).then(done).catch(done); }
     else{ done(); }
 }
@@ -346,12 +666,10 @@ async function loadSite(){
         if(!res.ok) throw new Error("HTTP "+res.status);
         siteHtml = await res.text();
 
-        // products parse
         const m = siteHtml.match(/const rawProducts = (\[[\s\S]*?\n\]);/);
-        if(!m) throw new Error("products nahi mile");
+        if(!m) throw new Error("Products not found");
         products = (new Function("return " + m[1]))();
 
-        // settings parse
         const wm = siteHtml.match(/const WHATSAPP_NUMBER = "([^"]*)"/);
         oldVals.whatsapp = settings.whatsapp = wm ? wm[1] : "";
         const jm = siteHtml.match(/copyText\('([0-9-]+)'\)/);
@@ -366,21 +684,18 @@ async function loadSite(){
         document.getElementById("setBinanceName").value = settings.binanceName;
 
         renderProducts();
-        const restored = loadDraft(); // purana saved draft ho toh restore karo
+        const restored = loadDraft();
         if(!restored && products.length){
-            document.getElementById("draftMsg").textContent = "✅ " + products.length + " products website se load ho gaye!";
+            document.getElementById("draftMsg").textContent = "✅ " + products.length + " products loaded successfully!";
         }
     }catch(e){
         document.getElementById("productList").innerHTML =
-            '<p class="hint">⚠️ index.html load nahi ho saki. Ye file ko <b style="color:white;">website ke saath hi host</b> karo (samiaitools.com/admin.html) — local file se kaam nahi karegi.</p>';
+            '<p class="hint">⚠️ Could not load index.html. Ensure this file is hosted alongside your main website.</p>';
     }
 }
 
-function finalPrice(p){
-    return p.basePrice;
-}
+function finalPrice(p){ return p.basePrice; }
 
-// ===== PRODUCTS: pencil-edit style =====
 let editingIdx = -1;
 let editDraft = null;
 
@@ -388,22 +703,18 @@ function toggleEdit(i){
     if(editingIdx === i){ editingIdx = -1; editDraft = null; }
     else{ editingIdx = i; editDraft = Object.assign({}, products[i]); }
     renderProducts();
-    if(editingIdx !== -1){
-        const el = document.getElementById("edit-" + i);
-        if(el) el.scrollIntoView({behavior:"smooth", block:"nearest"});
-    }
 }
 
 function renderProducts(){
     const box = document.getElementById("productList");
-    document.getElementById("pCount").textContent = products.length + " products";
+    document.getElementById("pCount").textContent = products.length + " items";
     box.innerHTML = products.map((p,i)=>{
         const open = (i === editingIdx);
         let form = "";
         if(open){
             const d = editDraft;
             form = `
-            <div class="edit-form" id="edit-${i}" style="margin-top:10px;border-top:1px solid var(--border);padding-top:12px;">
+            <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
                 <div class="grid2">
                     <div><label>NAME</label><input value="${escapeAttr(d.name)}" data-ef="name"></div>
                     <div><label>URDU NAME</label><input value="${escapeAttr(d.urdu||"")}" data-ef="urdu"></div>
@@ -422,21 +733,21 @@ function renderProducts(){
                     <div><label>BASE PRICE (Rs.)</label><input type="number" value="${d.basePrice}" data-ef="basePrice"></div>
                     <div><label>STOCK</label><input type="number" value="${d.stock}" data-ef="stock"></div>
                 </div>
-                <div class="row-flex" style="margin-top:12px;justify-content:flex-end;flex-wrap:wrap;">
+                <div class="row-flex" style="margin-top:14px;justify-content:flex-end;flex-wrap:wrap;">
                     <button class="btn-danger" onclick="deleteProduct(${i})">🗑️ Delete</button>
                     <button class="link-btn" onclick="toggleEdit(${i})">❌ Cancel</button>
-                    <button class="btn btn-green" style="padding:9px 18px;font-size:12px;" onclick="saveProduct(${i})">💾 Save</button>
+                    <button class="btn btn-green" style="padding:9px 18px;font-size:12px;" onclick="saveProduct(${i})">💾 Save Item</button>
                 </div>
             </div>`;
         }
         return `
         <div class="product-card" data-idx="${i}">
             <div class="product-head">
-                <strong>${p.icon||"📦"} ${escapeHtml(p.name)||"(naya product)"}</strong>
-                <span class="row-flex" style="gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+                <strong>${p.icon||"📦"} ${escapeHtml(p.name)||"Unnamed"}</strong>
+                <span class="row-flex" style="gap:10px;flex-wrap:wrap;justify-content:flex-end;">
                     <span class="final-price">Rs. ${finalPrice(p).toLocaleString()}</span>
-                    ${(p.sold>0)?'<span class="badge" style="color:var(--gold);border-color:rgba(255,179,0,.4);">🔥 '+p.sold+' sold</span>':''}
-                    <button class="link-btn" onclick="sellOne(${i})" title="1 sale record karo">➖ Sell</button>
+                    ${(p.sold>0)?'<span class="badge">🔥 '+p.sold+' sold</span>':''}
+                    <button class="link-btn" onclick="sellOne(${i})">➖ Sell</button>
                     <button class="link-btn" onclick="toggleEdit(${i})">✏️ ${open ? "Close" : "Edit"}</button>
                 </span>
             </div>
@@ -456,7 +767,7 @@ function renderProducts(){
 }
 
 function saveProduct(i){
-    if(!editDraft.name || !editDraft.name.trim()){ alert("Product ka naam likho!"); return; }
+    if(!editDraft.name || !editDraft.name.trim()){ alert("Product name is required!"); return; }
     editDraft.basePrice = Math.max(0, parseInt(editDraft.basePrice)||0);
     editDraft.stock = Math.max(0, parseInt(editDraft.stock)||0);
     products[i] = Object.assign({}, editDraft);
@@ -465,22 +776,21 @@ function saveProduct(i){
         localStorage.setItem("sami_admin_draft", JSON.stringify({products:products, settings:settings, savedAt:new Date().toISOString()}));
     }catch(e){}
     renderProducts();
-    adminToast("✅ Product save ho gaya!");
+    adminToast("✅ Product saved successfully!");
 }
 
 function addProduct(){
     const maxId = products.reduce((m,p)=>Math.max(m,p.id||0),0);
-    products.push({id:maxId+1,name:"Naya Product",urdu:"",category:"ai",desc:"",basePrice:100,stock:10,icon:"✨",sold:0});
+    products.push({id:maxId+1,name:"New Product",urdu:"",category:"ai",desc:"",basePrice:100,stock:10,icon:"✨",sold:0});
     toggleEdit(products.length - 1);
 }
 function deleteProduct(i){
-    if(!confirm("Pakka delete karna hai?")) return;
+    if(!confirm("Are you sure you want to delete this product?")) return;
     products.splice(i,1);
     editingIdx = -1; editDraft = null;
     renderProducts();
 }
 
-// ===== SALES TRACKING =====
 function persistDraftQuiet(){
     try{ localStorage.setItem("sami_admin_draft", JSON.stringify({products:products, settings:settings, savedAt:new Date().toISOString()})); }catch(e){}
 }
@@ -490,12 +800,12 @@ function sellOne(i){
     p.stock = Math.max(0, (p.stock||0) - 1);
     persistDraftQuiet();
     renderProducts();
-    adminToast("✅ 1 sale record ho gayi! (" + (p.name||"product") + ")");
+    adminToast("✅ Recorded 1 sale for " + (p.name||"product"));
 }
 function renderSalesDash(){
     const box = document.getElementById("salesDash");
     if(!box) return;
-    if(!products.length){ box.innerHTML = '<p class="hint">⏳ Products load hone ka intezar...</p>'; return; }
+    if(!products.length){ box.innerHTML = '<p class="hint">⏳ Waiting for products...</p>'; return; }
     let totalSold = 0, revenue = 0;
     const low = [], out = [];
     products.forEach(p=>{
@@ -506,21 +816,20 @@ function renderSalesDash(){
         else if((p.stock||0) <= 5) low.push(p);
     });
     let h = '<div class="grid2">'
-        + '<div class="product-card" style="text-align:center;"><div style="font-size:22px;font-weight:900;color:var(--gold);">'+totalSold+'</div><div class="hint" style="margin:0;">Total Sold 📦</div></div>'
-        + '<div class="product-card" style="text-align:center;"><div style="font-size:22px;font-weight:900;color:#45e58a;">Rs. '+revenue.toLocaleString()+'</div><div class="hint" style="margin:0;">Total Revenue 💰</div></div>'
+        + '<div class="product-card" style="text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">'+totalSold+'</div><div class="hint" style="margin:0;">Total Units Sold</div></div>'
+        + '<div class="product-card" style="text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--green);">Rs. '+revenue.toLocaleString()+'</div><div class="hint" style="margin:0;">Total Revenue</div></div>'
         + '</div>';
-    if(out.length) h += '<p class="hint" style="color:#ff6874;">❌ <b>KHATAM (out of stock):</b> ' + out.map(p=>escapeHtml(p.name)).join(", ") + '</p>';
-    if(low.length) h += '<p class="hint" style="color:var(--gold);">⚠️ <b>LOW STOCK (5 ya kam):</b> ' + low.map(p=>escapeHtml(p.name)+" ("+p.stock+" bache)").join(", ") + '</p>';
-    if(!out.length && !low.length) h += '<p class="ok">✅ Sab products ka stock theek hai!</p>';
+    if(out.length) h += '<p class="hint" style="color:var(--danger);">❌ <b>Out of Stock:</b> ' + out.map(p=>escapeHtml(p.name)).join(", ") + '</p>';
+    if(low.length) h += '<p class="hint" style="color:var(--gold);">⚠️ <b>Low Stock (<=5):</b> ' + low.map(p=>escapeHtml(p.name)+" ("+p.stock+" left)").join(", ") + '</p>';
+    if(!out.length && !low.length) h += '<p class="ok">✅ All product stocks are healthy.</p>';
+    
     var ws = document.getElementById("welcomeStats");
     if(ws){
         ws.innerHTML = '<div class="grid2">'
-            + '<div class="product-card" style="text-align:center;"><div style="font-size:20px;font-weight:900;">'+products.length+'</div><div class="hint" style="margin:0;">Total Products 🛍️</div></div>'
-            + '<div class="product-card" style="text-align:center;"><div style="font-size:20px;font-weight:900;color:#45e58a;">Rs. '+revenue.toLocaleString()+'</div><div class="hint" style="margin:0;">Total Revenue 💰</div></div>'
-            + '</div>'
-            + '<p class="hint">✅ Total Sold: <b style="color:white;">'+totalSold+'</b> &nbsp;|&nbsp; Out of stock: <b style="color:white;">'+out.length+'</b> &nbsp;|&nbsp; Low stock: <b style="color:white;">'+low.length+'</b></p>';
+            + '<div class="product-card" style="text-align:center;"><div style="font-size:20px;font-weight:800;">'+products.length+'</div><div class="hint" style="margin:0;">Total Products</div></div>'
+            + '<div class="product-card" style="text-align:center;"><div style="font-size:20px;font-weight:800;color:var(--green);">Rs. '+revenue.toLocaleString()+'</div><div class="hint" style="margin:0;">Revenue</div></div>'
+            + '</div>';
     }
-    h += '<p class="hint">💡 Jab WhatsApp par order <b style="color:white;">confirm</b> ho jaye, us product par <b style="color:white;">➖ Sell</b> dabao — stock khud kam ho jayega! Phir 🚀 Publish karna na bhoolo taake website par bhi update ho!</p>';
     box.innerHTML = h;
 }
 
@@ -529,25 +838,19 @@ function adminToast(msg){
     t.textContent = msg;
     t.classList.add("show");
     clearTimeout(t._h);
-    t._h = setTimeout(()=>t.classList.remove("show"), 2200);
+    t._h = setTimeout(()=>t.classList.remove("show"), 2500);
 }
 
-// ===== DRAFT SAVE / RESTORE =====
 function saveDraft(){
-    if(!products.length){ alert("⚠️ Products ki list khaali hai — pehle 🔄 Reload dabao, phir draft save karo!"); return; }
     try{
-        localStorage.setItem("sami_admin_draft", JSON.stringify({
-            products: products,
-            settings: settings,
-            savedAt: new Date().toISOString()
-        }));
-        document.getElementById("draftMsg").textContent = "✅ Draft save ho gaya! (" + new Date().toLocaleString() + ")";
-    }catch(e){ alert("⚠️ Save nahi ho saka!"); }
+        localStorage.setItem("sami_admin_draft", JSON.stringify({products:products, settings:settings, savedAt:new Date().toISOString()}));
+        document.getElementById("draftMsg").textContent = "✅ Draft saved successfully!";
+    }catch(e){ alert("Failed to save draft"); }
 }
 async function reloadProducts(){
     try{ localStorage.removeItem("sami_admin_draft"); }catch(e){}
     editingIdx = -1; editDraft = null;
-    document.getElementById("draftMsg").textContent = "⏳ Website se dobara load ho raha hai...";
+    document.getElementById("draftMsg").textContent = "⏳ Reloading from website...";
     await loadSite();
 }
 function loadDraft(){
@@ -561,8 +864,7 @@ function loadDraft(){
             document.getElementById("setBinanceId").value = settings.binanceId || "";
             document.getElementById("setBinanceName").value = settings.binanceName || "";
             renderProducts();
-            const dt = d.savedAt ? new Date(d.savedAt).toLocaleString() : "";
-            document.getElementById("draftMsg").textContent = "📝 Purana draft restore ho gaya (" + dt + ")";
+            document.getElementById("draftMsg").textContent = "📝 Restored from draft";
             return true;
         }
     }catch(e){}
@@ -570,43 +872,29 @@ function loadDraft(){
 }
 function clearDraft(){
     try{ localStorage.removeItem("sami_admin_draft"); }catch(e){}
-    document.getElementById("draftMsg").textContent = "🗑️ Draft clear ho gaya!";
+    document.getElementById("draftMsg").textContent = "🗑️ Draft cleared";
 }
 
 function escapeHtml(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function escapeAttr(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
 
-// index.html mein products + settings + firebase config patch karo
 function patchHtml(html){
-    html = html.replace(/const rawProducts = \[[\s\S]*?\n\];/,
-        "const rawProducts = " + JSON.stringify(products,null,2) + ";");
-    if(settings.whatsapp){
-        html = html.replace(/const WHATSAPP_NUMBER = "[^"]*"/,
-            'const WHATSAPP_NUMBER = "'+settings.whatsapp+'"');
-    }
-    if(settings.jazz && oldVals.jazz && settings.jazz!==oldVals.jazz){
-        html = html.split(oldVals.jazz).join(settings.jazz);
-    }
-    if(settings.binanceId && oldVals.binanceId && settings.binanceId!==oldVals.binanceId){
-        html = html.split(oldVals.binanceId).join(settings.binanceId);
-    }
-    if(settings.binanceName && oldVals.binanceName && settings.binanceName!==oldVals.binanceName){
-        html = html.split(oldVals.binanceName).join(settings.binanceName);
-    }
-    // firebase config inject karo (agar maujood ho)
+    html = html.replace(/const rawProducts = \[[\s\S]*?\n\];/, "const rawProducts = " + JSON.stringify(products,null,2) + ";");
+    if(settings.whatsapp) html = html.replace(/const WHATSAPP_NUMBER = "[^"]*"/, 'const WHATSAPP_NUMBER = "'+settings.whatsapp+'"');
+    if(settings.jazz && oldVals.jazz && settings.jazz!==oldVals.jazz) html = html.split(oldVals.jazz).join(settings.jazz);
+    if(settings.binanceId && oldVals.binanceId && settings.binanceId!==oldVals.binanceId) html = html.split(oldVals.binanceId).join(settings.binanceId);
+    if(settings.binanceName && oldVals.binanceName && settings.binanceName!==oldVals.binanceName) html = html.split(oldVals.binanceName).join(settings.binanceName);
     try{
         const fbCfg = getFbConfig();
         if(fbCfg && fbCfg.apiKey && /const FIREBASE_CONFIG = \{[\s\S]*?\};/.test(html)){
-            html = html.replace(/const FIREBASE_CONFIG = \{[\s\S]*?\};/,
-                "const FIREBASE_CONFIG = " + JSON.stringify(fbCfg) + ";");
+            html = html.replace(/const FIREBASE_CONFIG = \{[\s\S]*?\};/, "const FIREBASE_CONFIG = " + JSON.stringify(fbCfg) + ";");
         }
     }catch(e){}
     return html;
 }
 
 function exportHtml(){
-    if(!siteHtml){alert("Pehle site load hone do!");return;}
-    if(!products.length){alert("⚠️ Products ki list khaali hai! Pehle 🔄 Reload dabao.");return;}
+    if(!siteHtml){alert("Please wait for site to load!");return;}
     const html = patchHtml(siteHtml);
     const blob = new Blob([html],{type:"text/html"});
     const a = document.createElement("a");
@@ -615,13 +903,10 @@ function exportHtml(){
     document.body.appendChild(a);
     a.click();
     a.remove();
-    document.getElementById("exportMsg").textContent = "✅ Download ho gayi! Ab GitHub mein replace kar do! 🚀";
+    document.getElementById("exportMsg").textContent = "✅ Downloaded successfully!";
 }
 
-// ===== DIRECT PUBLISH TO GITHUB =====
-function ghHeaders(pat){
-    return {"Accept":"application/vnd.github+json","Authorization":"Bearer "+pat,"Content-Type":"application/json"};
-}
+function ghHeaders(pat){ return {"Accept":"application/vnd.github+json","Authorization":"Bearer "+pat,"Content-Type":"application/json"}; }
 function b64encodeUnicode(s){ return btoa(unescape(encodeURIComponent(s))); }
 function b64decodeUnicode(b){ return decodeURIComponent(escape(atob(b.replace(/\n/g,"")))); }
 
@@ -630,25 +915,24 @@ async function publishToSite(){
     const owner = (document.getElementById("ghOwner").value||"").trim();
     const repo = (document.getElementById("ghRepo").value||"").trim();
     const msgEl = document.getElementById("pubMsg");
-    if(!pat || !owner || !repo){ msgEl.textContent = "⚠️ Pehle repo owner, repo name aur token poora karo!"; return; }
-    if(!products.length){ msgEl.textContent = "⚠️ Products ki list khaali hai! Pehle 🔄 Reload dabao, phir publish karo!"; return; }
-    try{ localStorage.setItem("sami_gh_pat", pat); }catch(e){}
+    if(!pat || !owner || !repo){ msgEl.textContent = "⚠️ Please fill in all GitHub fields!"; return; }
     try{
-        msgEl.textContent = "⏳ GitHub se file le raha hoon...";
+        localStorage.setItem("sami_gh_pat", pat);
+        msgEl.textContent = "⏳ Fetching file from GitHub...";
         const getRes = await fetch("https://api.github.com/repos/"+owner+"/"+repo+"/contents/index.html", {headers: ghHeaders(pat)});
-        if(!getRes.ok) throw new Error("GitHub error " + getRes.status + " — token ya repo name check karo!");
+        if(!getRes.ok) throw new Error("GitHub error " + getRes.status);
         const data = await getRes.json();
         let html = b64decodeUnicode(data.content);
         html = patchHtml(html);
-        msgEl.textContent = "⏳ Website par publish ho raha hai...";
+        msgEl.textContent = "⏳ Publishing to live site...";
         const putRes = await fetch("https://api.github.com/repos/"+owner+"/"+repo+"/contents/index.html", {
             method: "PUT",
             headers: ghHeaders(pat),
-            body: JSON.stringify({message: "Update products via admin panel", content: b64encodeUnicode(html), sha: data.sha})
+            body: JSON.stringify({message: "Update via enhanced admin panel", content: b64encodeUnicode(html), sha: data.sha})
         });
-        if(!putRes.ok) throw new Error("Publish fail (" + putRes.status + ") — dobara try karo!");
-        msgEl.textContent = "✅ Publish ho gaya! 1-3 minute mein samiaitools.com par live hoga! 🚀🎉";
-        adminToast("🚀 Website par publish ho gaya!");
+        if(!putRes.ok) throw new Error("Publish failed (" + putRes.status + ")");
+        msgEl.textContent = "✅ Published successfully! Live on samiaitools.com shortly 🚀";
+        adminToast("🚀 Published successfully!");
     }catch(e){
         msgEl.textContent = "❌ " + e.message;
     }
@@ -656,26 +940,24 @@ async function publishToSite(){
 
 function toggleSidebar(){
     var s = document.getElementById("side");
-    s.classList.toggle("collapsed");
-    if(window.innerWidth <= 700){
-        // phone par: band = 0px, khula = 260px (toggle button sidebar ke andar chhup jata hai, is liye topbar wala ☰ Menu button hi kaam aata hai)
-        if(s.classList.contains("collapsed")){ s.style.width = "0px"; } else { s.style.width = "100%"; }
+    if(window.innerWidth <= 768){
+        s.classList.toggle("open-mobile");
+    } else {
+        s.classList.toggle("collapsed");
     }
 }
+
 function showSection(id){
     document.querySelectorAll(".main .card[id^=\"sec-\"]").forEach(function(c){ c.classList.remove("active-sec"); });
     var target = document.getElementById(id);
     if(target) target.classList.add("active-sec");
     document.querySelectorAll(".side-nav a[data-target]").forEach(function(a){ a.classList.toggle("active", a.dataset.target === id); });
-    if(window.innerWidth <= 700){
+    if(window.innerWidth <= 768){
         var s = document.getElementById("side");
-        if(s){ s.classList.add("collapsed"); s.style.width = "0px"; }
+        if(s) s.classList.remove("open-mobile");
     }
     return false;
 }
-function setActiveNav(el){ return showSection(el && el.dataset ? el.dataset.target : "sec-welcome"); }
-// Phone par sidebar shuru me KHULA rahe (overlay), taake khulte hi sidebar + Welcome nazar aaye.
-// Band karne ke liye sidebar ke andar ‹ ya upar ☰ Menu dabao.
 </script>
 </body>
 </html>
