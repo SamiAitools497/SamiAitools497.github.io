@@ -1197,7 +1197,7 @@ try {
     try {
         FB.ref('reviews').limitToLast(50).on('value', snap => {
             const arr = [];
-            snap.forEach(c => { arr.unshift(c.val()); });
+            snap.forEach(c => { const v = c.val(); v.verified = false; arr.unshift(v); });
             if (arr.length) {
                 reviews = defaultReviews.concat(arr);
                 try { localStorage.setItem("sami_reviews", JSON.stringify(reviews)); } catch(e) {}
