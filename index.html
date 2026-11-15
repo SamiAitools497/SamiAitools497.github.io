@@ -6,7 +6,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 <!-- SEO Meta Tags -->
 <title>Sami AI Tools — Premium AI Subscriptions & Creative Software</title>
-<meta name="description" content="Unlock the power of artificial intelligence with Sami AI Tools. Get premium AI subscriptions like ChatGPT Plus, Canva Pro, Gemini Pro, and CapCut Pro at affordable prices.">
+<meta name="description" content="Get premium AI subscriptions like ChatGPT Plus, Canva Pro, Gemini Pro and CapCut Pro at affordable prices — Sami AI Tools.">
 <meta name="keywords" content="AI tools, ChatGPT Plus subscription, Canva Pro cheap, Gemini Pro, CapCut Pro, Sami AI Tools, AI subscriptions Pakistan India">
 <link rel="canonical" href="https://samiaitools.com/">
 <meta name="trustpilot-one-time-domain-verification-id" content="437592fb-c2e4-41c5-9f24-c85f95cf2f47"/>
@@ -27,6 +27,13 @@
 <meta name="twitter:image" content="https://samiaitools.com/preview-image.png">
 
 <meta name="theme-color" content="#080812">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sami AI Tools">
+<script>window.__deferredPrompt=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__deferredPrompt=e;});</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,7 +82,7 @@ gtag('config', 'G-DLMHG38G8P');
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{
     background:radial-gradient(circle at 15% 15%,rgba(102,126,234,.13),transparent 32%),
     radial-gradient(circle at 85% 75%,rgba(118,75,162,.13),transparent 32%),var(--bg);
@@ -542,7 +549,7 @@ footer{border-top:1px solid var(--border);background:linear-gradient(180deg,tran
         <div class="badge">⚡ PREMIUM AI SUBSCRIPTIONS</div>
         <h1>Buy <em>AI Subscriptions</em><br>in Pakistan 🇵🇰</h1>
         <p class="rot-line">Unlock <span id="rotWord">ChatGPT Plus</span> — no credit card needed</p>
-        <div class="cta-row"><a class="cta primary" href="#productsSection">🛍️ Shop Now →</a></div>
+        <div class="cta-row"><a class="cta primary" href="#productsSection">🛍️ Shop Now →</a><button class="cta ghost" id="installAppBtn" type="button" style="font-family:inherit;cursor:pointer">📲 App Install Karo</button></div>
         <div class="hero-pills"><span>⚡ 5–30 min delivery</span><span>🛡️ Warranty included</span><span>💳 JazzCash · EasyPaisa · Binance</span></div>
     </section>
 
@@ -844,7 +851,7 @@ const rawProducts = [
   },
   {
     "id": 5,
-    "name": "Canva Pro — 2 yrs FW",
+    "name": "Canva Pro — 2 Years FW",
     "urdu": "کینوا پرو — 2 سال فل وارنٹی",
     "category": "editing",
     "desc": "Full Warranty",
@@ -866,7 +873,7 @@ const rawProducts = [
   },
   {
     "id": 7,
-    "name": "iLovePdf Premium — 1 Year",
+    "name": "iLovePDF Premium — 1 Year",
     "urdu": "آئی لو پی ڈی ایف پریمیم — 1 سال",
     "category": "productivity",
     "desc": "25 in stock",
@@ -888,7 +895,7 @@ const rawProducts = [
   },
   {
     "id": 9,
-    "name": "Cloud Ai",
+    "name": "Claude Pro — 1 Month",
     "urdu": "Claude Pro — 1 Month",
     "category": "ai",
     "desc": "🛍 Claude Pro 1 Month official recharge (Sub-Warranty) 📦 Stock: 15 items  💦 Description: Tap to expand ↓ This is an official CDK for Claude pro subscription (1 month) on client's personal account.  It can be used for renewal or first-time activation.  No credit card required. ❗️❗️❗️ ⚠️  You MUST be on free tier and do not have any unpaid bills, if you have active subscription, please wait for it to end before recharge. 30 Days warranty for the subscription only, account bans are not under warranty. ⚠️ Important: Please Read Before Ordering · Must Read · Must Read  The following situations will result in failed payments. Please read carefully and verify before placing your order! If your subscription fails to process due to the following reasons, refunds will not be issued! ❌ Situation 1: [Subscription Not Expired] Cannot Recharge For example, if you previously recharged via iOS / Android / Credit Card, do not place a new order if your subscription is not yet expired. Please first confirm in your billing history: Only place an order if you do not have an active subscription! i.e if your Android subscription is not yet expired, you cannot recharge. ❌ Situation 2: [Outstanding Balance] or [Refunds] in your Billing History An outstanding balance or refunds in your account will cause the recharged funds to be used to offset the balance, resulting in the subscription not being processed and no refunds will be issued! ❌ Situation 3: [Organization ID Silently Banned] Cannot Recharge Some accounts may appear to be able to log in normally, but the organization ID has actually been banned. This is a case of silent banning, which means recharging will not be successful, and refunds will not be issued! In this case, recharging will not be successful, and refunds will not be issued! ❗️ If any of the above situations apply, and your payment fails after placing the order, refunds will not be issued. Please be sure to check carefully before making a payment! ❗️",
@@ -899,7 +906,7 @@ const rawProducts = [
   },
   {
     "id": 10,
-    "name": "Youtube 3 month",
+    "name": "YouTube Premium — 3 Months",
     "urdu": "یوٹیوب 3 ماہ ",
     "category": "ai",
     "desc": "⭕️ Youtube 3M Link  📦 Stock: 19 available  • Plan: 3-Month Premium Individual • Warranty: Full 3 Months • Link Hold Time: 48 Hours  ⚠️ Requirement: Account must be eligible for the YouTube free trial  Delivery instructions: Step 1: Use a fresh account this is elgible for free trail.  Step 2: Open the link and confirm the trial offer appears. (No refunds for ineligibility).  Step 3: Activate using Card, BIN, or UPI.  🌍 If offer does not show, use a VPN set to India, US, or UK.  ❗If your account is not eligible, It's buyer responsebility to try on another account.",
@@ -910,7 +917,7 @@ const rawProducts = [
   },
   {
     "id": 11,
-    "name": "Elevenlabs 1 month ",
+    "name": "ElevenLabs Creator — 1 Month",
     "urdu": "",
     "category": "ai",
     "desc": "🎙️ Elevenlabs Creator 1M Link   📦 Stock: 5 available  📄Description: 𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 – 𝟭 𝗠𝗢𝗡𝗧𝗛 𝗚𝗘𝗧 𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 𝗣𝗟𝗔𝗡 𝗩𝗜𝗔 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗜𝗢𝗡 𝗟𝗜𝗡𝗞. 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗘 𝗧𝗛𝗘 𝗣𝗟𝗔𝗡 𝗢𝗡 𝗬𝗢𝗨𝗥 𝗢𝗪𝗡 𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗔𝗖𝗖𝗢𝗨𝗡𝗧. 📝Note: ✅𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 𝗣𝗟𝗔𝗡 ✅ 𝟭 𝗠𝗢𝗡𝗧𝗛 𝗔𝗖𝗖𝗘𝗦𝗦 ✅ 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗜𝗢𝗡 𝗟𝗜𝗡𝗞 ✅ 𝗙𝗨𝗟𝗟 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 𝗙𝗘𝗔𝗧𝗨𝗥𝗘 ✅ 𝗙𝗔𝗦𝗧 𝗔𝗡𝗗 𝗘𝗔𝗦𝗬 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗜𝗢𝗡 ❌NON 𝗪𝗔𝗥𝗥𝗔𝗡𝗧𝗬",
@@ -921,7 +928,7 @@ const rawProducts = [
   },
   {
     "id": 12,
-    "name": "Elevenlabs 3 months ",
+    "name": "ElevenLabs Creator — 3 Months",
     "urdu": "",
     "category": "ai",
     "desc": "🎙️ Elevenlabs Creator 3M Link 📦 Stock: 5 available  📄Description: 𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 – 𝟭 𝗠𝗢𝗡𝗧𝗛 𝗚𝗘𝗧 𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 𝗣𝗟𝗔𝗡 𝗩𝗜𝗔 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗜𝗢𝗡 𝗟𝗜𝗡𝗞. 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗘 𝗧𝗛𝗘 𝗣𝗟𝗔𝗡 𝗢𝗡 𝗬𝗢𝗨𝗥 𝗢𝗪𝗡 𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗔𝗖𝗖𝗢𝗨𝗡𝗧. 📝Note: ✅𝗘𝗟𝗘𝗩𝗘𝗡𝗟𝗔𝗕𝗦 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 𝗣𝗟𝗔𝗡 ✅ 𝟭 𝗠𝗢𝗡𝗧𝗛 𝗔𝗖𝗖𝗘𝗦𝗦 ✅ 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗜𝗢𝗡 𝗟𝗜𝗡𝗞 ✅ 𝗙𝗨𝗟𝗟 𝗖𝗥𝗘𝗔𝗧𝗢𝗥 𝗙𝗘𝗔𝗧𝗨𝗥𝗘 ✅ 𝗙𝗔𝗦𝗧 𝗔𝗡𝗗 𝗘𝗔𝗦𝗬 𝗔𝗖𝗧𝗜𝗩𝗔𝗧𝗜𝗢𝗡 ❌NON 𝗪𝗔𝗥𝗥𝗔𝗡𝗧𝗬",
@@ -932,7 +939,7 @@ const rawProducts = [
   },
   {
     "id": 13,
-    "name": "Coursera Premium 12m",
+    "name": "Coursera Premium — 12 Months",
     "urdu": "",
     "category": "ai",
     "desc": "☺️ Coursera Premium 12m 📦 Stock: 74 available  ⚡ This Org+ Premium Access ⚡ All Courses & Certificates ⚡ Certificate in Your Own Name ⚡ Ready-Made Account with Mail Access ⚡ Duration: 12 Month ideally  ⚡24 Hour Warranty From Side  Delivery instructions: 1. Login using the provided email & password. 2. Update your name & password. 3. Add a recovery email. 4. If password is wrong you have to reset password yourself through mail access.  ⚡ Must Login From Here : https://shorturl.at/Yu2ZX  ⚠️ TERMS • 24H product due to extermly low price • Don't change the primary email. • Check account within 1 hour. Security is buyer problem secure it by adding 2fa to oulook and coursera both • No support/warranty after 24 hours.",
@@ -954,7 +961,7 @@ const rawProducts = [
   },
   {
     "id": 15,
-    "name": "Claude  Ai- 3 month ",
+    "name": "Claude Pro — 3 Months",
     "urdu": "",
     "category": "productivity",
     "desc": "With warranty  and 3 devices can use",
@@ -965,7 +972,7 @@ const rawProducts = [
   },
   {
     "id": 16,
-    "name": "PERPLEXITY PRO 30 DAYS (FW)",
+    "name": "Perplexity Pro — 30 Days (FW)",
     "urdu": "",
     "category": "ai",
     "desc": "❤️ PERPLEXITY PRO 30 DAYS (FW)  📦 Stock: 3 available  ❤️PERPLEXITY PRO 30 DAYS (FW)  📦 Stock: 45 available Enjoy a full month of Perplexity Pro with official renewal.  🥇 100% Official Payment 🥇 Instant Activation 🔝 Works on New & Existing Accounts 🛡Full Warranty  🌟 Official Perplexity Pro 30-Day Renewal for your own account.  ✔️ Works with both new and existing Perplexity accounts.  ✉️ DELIVERY  ⚡️ Fast Delivery ⚡️ Activation in About 10 Seconds ⚡️ Professional Customer Support",
@@ -976,7 +983,7 @@ const rawProducts = [
   },
   {
     "id": 17,
-    "name": "CDK - Perplexity PRO 12 Months",
+    "name": "CDK - Perplexity Pro — 12 Months",
     "urdu": "",
     "category": "ai",
     "desc": "❤️ CDK - Perplexity PRO 12 Months  📦 Stock: 7 available  This is a 12 Months Perplexity PRO CDK (Self activation Key).  You redeem on your own account.  Must be redeemed on accounts that never had PRO before, or new accounts.  We do not provide warranty for it. - No warranty on Hold, No warranty on activation, No warranty after sales. Its clear, once you take the code you are 100% responsible.  THIS DOES NOT GIVE THE 4,000 CREDITS  NEW METHOD FOLLOW INSTRUCTIONS!!",
@@ -987,7 +994,7 @@ const rawProducts = [
   },
   {
     "id": 18,
-    "name": "Surfshark vpn 18 month",
+    "name": "Surfshark VPN — 18 Months",
     "urdu": "",
     "category": "ai",
     "desc": "Surfshark vpn all proxy active ",
@@ -998,7 +1005,7 @@ const rawProducts = [
   },
   {
     "id": 19,
-    "name": "iLovePdf Premium 1 year",
+    "name": "iLovePDF Premium — 1 Year",
     "urdu": "iLovePdf Premium 1Yr  ",
     "category": "ai",
     "desc": "🛍️ iLovePdf Premium 1Yr  🔻 Full access to all iLovePDF tools 🔻 Unlimited document processing 🔻 Access across Web, Mobile, and Desktop 🔻 Digital Signatures 🔻 Ad-free experience 🔻 Regional file processing 🔻 2000 AI Credits ✅ You are give email:pass of ILovePdf Delivery instructions: ⚡️Login to ILovePdf wesbite with email:pass given and change passowrd of account.",
@@ -1009,7 +1016,7 @@ const rawProducts = [
   },
   {
     "id": 20,
-    "name": "Chatgpt plus 4 months ",
+    "name": "ChatGPT Plus — 4 Months",
     "urdu": "Limited time offer",
     "category": "ai",
     "desc": "Your own Gmail ChatGPT Plus 4 month subscription ",
@@ -1955,6 +1962,43 @@ function applyLang(lang) {
 
 })();
 
+</script>
+<script>
+/* PWA: Add to Home Screen button + service worker */
+(function(){
+  var btn=document.getElementById('installAppBtn');
+  function showHelp(){
+    var old=document.getElementById('installHelpPop');
+    if(old){old.style.display='flex';return;}
+    var d=document.createElement('div');
+    d.id='installHelpPop';
+    d.style.cssText='position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(8,8,18,.7);padding:20px;';
+    d.innerHTML='<div style="background:#fff;color:#16132e;border-radius:18px;max-width:360px;width:100%;padding:22px;font-family:system-ui,sans-serif;">'
+      +'<h3 style="margin:0 0 10px;font-size:18px">📲 App Install Karo</h3>'
+      +'<p style="margin:0 0 8px;font-size:14px;line-height:1.6"><b>Android (Chrome):</b> upar <b>⋮</b> menu → <b>"Add to Home screen"</b> ya <b>"Install app"</b> dabao</p>'
+      +'<p style="margin:0 0 14px;font-size:14px;line-height:1.6"><b>iPhone (Safari):</b> neeche <b>Share</b> button → <b>"Add to Home Screen"</b> dabao</p>'
+      +'<button id="installHelpClose" style="width:100%;padding:12px;border:0;border-radius:12px;background:#6C4BFF;color:#fff;font-weight:700;cursor:pointer">OK, samajh gaya</button></div>';
+    d.addEventListener('click',function(e){ if(e.target===d||e.target.id==='installHelpClose')d.style.display='none'; });
+    document.body.appendChild(d);
+  }
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();
+    window.__deferredPrompt=e;
+  });
+  window.addEventListener('appinstalled',function(){ if(btn)btn.style.display='none'; });
+  if(btn)btn.addEventListener('click',function(){
+    var p=window.__deferredPrompt||null;
+    if(p){
+      p.prompt();
+      p.userChoice.then(function(c){ if(c.outcome==='accepted'&&btn)btn.style.display='none'; window.__deferredPrompt=null; });
+    }else{ showHelp(); }
+  });
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    });
+  }
+})();
 </script>
 </body>
 </html>
